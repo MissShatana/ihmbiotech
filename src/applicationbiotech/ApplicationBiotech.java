@@ -19,7 +19,7 @@ public class ApplicationBiotech extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root1 = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root1 = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
         
         Scene scene1 = new Scene(root1);
         
