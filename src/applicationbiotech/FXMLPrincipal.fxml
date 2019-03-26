@@ -7,22 +7,22 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="applicationbiotech.FXMLPrincipaleController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationbiotech.FXMLPrincipaleController">
    <children>
       <Pane id="page_principale" layoutX="175.0" layoutY="93.0" prefHeight="500.0" prefWidth="525.0" style="-fx-background-color: F0F0F0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox prefHeight="500.0" prefWidth="144.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Nouvelle Commande" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Mes informations" />
+            <Button id="btn_new_commande" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Nouvelle Commande" />
+            <Button id="btn_info" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Mes informations" />
             <Accordion>
               <panes>
-                <TitledPane animated="false" prefHeight="123.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Equipe">
+                <TitledPane id="equipe" animated="false" prefHeight="123.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Equipe">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="69.0" prefWidth="142.0">
                            <children>
-                              <Button layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Membres" />
-                              <Button layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Facture" />
-                              <Button layoutX="-1.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Expériences" />
+                              <Button id="btn_membre" disable="true" layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Membres" />
+                              <Button id="btn_facture" disable="true" layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Facture" />
+                              <Button id="btn_exp" disable="true" layoutX="-1.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Expériences" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -31,10 +31,10 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="99.0" prefWidth="142.0">
                            <children>
-                              <Button layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="En Attente" />
-                              <Button layoutX="-1.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Validées" />
-                              <Button layoutX="-1.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="A renouveler" />
-                              <Button layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="En Cours" />
+                              <Button id="btn_attente" layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="En Attente" />
+                              <Button id="btn_valide" layoutX="-1.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Validées" />
+                              <Button id="btn_renouv" layoutX="-1.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="A renouveler" />
+                              <Button id="btn_cours" layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="En Cours" />
                            </children>
                         </AnchorPane>
                   </content>
