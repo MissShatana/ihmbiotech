@@ -61,6 +61,7 @@ public class FXMLPrincipaleController implements Initializable {
     
     
     //public ObservableList<Commande> data_table;
+    private final Commande co =new Commande("1","ab","t","s","df","n", new Button("je prends"));
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,11 +91,12 @@ public class FXMLPrincipaleController implements Initializable {
     
     private void loadData() {
         ObservableList<Commande> data_table = FXCollections.observableArrayList();
-        for( int i=0; 1<7;i++){
+        for( int i=0; i<7;i++){
             //data_table.add(new Commande(String.valueOf(i),"ab"+i,'type_exp'+i,"nb_slot"+i,"df"+i,"nb_sol"+i, new Button("je prends")));
-            data_table.add(new Commande("1"+i,"ab","t","s","df","n", new Button("je prends")));
+            data_table.add(co);
+            System.out.println(co);
         }
-        //tab_attente.setItems(data_table);
+        tab_attente.setItems(data_table);
     }
     
     
