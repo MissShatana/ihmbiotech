@@ -7,6 +7,7 @@ package applicationbiotech;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,9 +16,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -137,6 +141,15 @@ public class FXMLPrincipaleController implements Initializable {
      
      @FXML
      private TextField a3VertField;
+     
+     @FXML
+     private ToggleGroup myToggleGroup ;
+     
+     @FXML
+     private RadioButton radioOui;
+     
+     @FXML
+     private RadioButton radioNon;
 
 
 
@@ -163,6 +176,45 @@ public class FXMLPrincipaleController implements Initializable {
     paneSolutionsCommande.setVisible(false);
     PaneCommande.setVisible(true);
     }
+    
+        public void myGroupAction(ActionEvent action)
+    {
+       if(radioOui.isSelected()){
+           
+        frequenceLabel.setVisible(true);
+        frequenceField.setVisible(true);
+        a3VertField.setVisible(true);
+        a3VertLabel.setVisible(true);
+        a3BleuField.setVisible(true);
+        a3BleuLabel.setVisible(true);
+        a3RougeField.setVisible(true);
+        a3RougeLabel.setVisible(true);
+        a3TransparenceField.setVisible(true);
+        a3TransparenceLabel.setVisible(true);
+           
+            }
+       
+        if(radioNon.isSelected()){
+        
+        frequenceLabel.setVisible(false);
+        frequenceField.setVisible(false);
+        a3VertField.setVisible(false);
+        a3VertLabel.setVisible(false);
+        a3BleuField.setVisible(false);
+        a3BleuLabel.setVisible(false);
+        a3RougeField.setVisible(false);
+        a3RougeLabel.setVisible(false);
+        a3TransparenceField.setVisible(false);
+        a3TransparenceLabel.setVisible(false);
+            
+            
+           
+
+            }
+
+    }
+ 
+
     
     
     
