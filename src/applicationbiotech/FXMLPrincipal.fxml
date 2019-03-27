@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -43,16 +42,15 @@
             <Label layoutX="302.0" layoutY="234.0" prefHeight="17.0" prefWidth="134.0" text="Niveau d'acceptation" />
             <ComboBox layoutX="127.0" layoutY="97.0" prefHeight="25.0" prefWidth="114.0" />
             <ComboBox layoutX="429.0" layoutY="230.0" prefHeight="25.0" prefWidth="100.0" />
-            <ScrollPane layoutX="132.0" layoutY="294.0" prefHeight="200.0" prefWidth="200.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
-            </ScrollPane>
+            <Label layoutX="46.0" layoutY="300.0" prefHeight="17.0" prefWidth="149.0" text="Quantité agent biologique" />
+            <TextField layoutX="201.0" layoutY="296.0" prefHeight="25.0" prefWidth="38.0" />
+            <Label layoutX="268.0" layoutY="300.0" prefHeight="17.0" prefWidth="162.0" text="Quantité cellule cancéreuses" />
+            <TextField layoutX="434.0" layoutY="296.0" prefHeight="25.0" prefWidth="42.0" />
          </children></Pane>
-      <VBox prefHeight="500.0" prefWidth="144.0">
+      <VBox layoutX="-6.0" prefHeight="500.0" prefWidth="156.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Nouvelle Commande" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="Mes informations" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="160.0" text="Nouvelle Commande" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" text="Mes informations" />
             <Accordion>
               <panes>
                 <TitledPane animated="false" prefHeight="123.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Equipe">
