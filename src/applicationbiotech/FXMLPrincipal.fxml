@@ -5,13 +5,15 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationbiotech.FXMLPrincipaleController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationbiotech.FXMLPrincipaleController">
    <children>
       <Pane id="page_principale" layoutX="175.0" layoutY="93.0" prefHeight="500.0" prefWidth="525.0" style="-fx-background-color: F0F0F0;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -80,6 +82,20 @@
             </Accordion>
          </children>
       </VBox>
-      <Pane layoutX="150.0" prefHeight="500.0" prefWidth="550.0" />
+      <Pane layoutX="150.0" prefHeight="500.0" prefWidth="750.0">
+         <children>
+            <TableView layoutX="14.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="N°" />
+                <TableColumn prefWidth="108.0" text="Agent biologique" />
+                  <TableColumn prefWidth="113.0" text="Type d'expérience" />
+                  <TableColumn prefWidth="111.0" text="Nombre de slots" />
+                  <TableColumn prefWidth="112.0" text="Durée, fréquence" />
+                  <TableColumn prefWidth="131.0" text="Nombre de solution" />
+                  <TableColumn prefWidth="43.0" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
