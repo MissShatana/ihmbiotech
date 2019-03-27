@@ -18,9 +18,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.util.converter.DefaultStringConverter;
 
 /**
  *
@@ -47,6 +50,8 @@ public class FXMLPrincipaleController implements Initializable {
             "394",
             "96"
             );
+        
+        
 
     
     @FXML
@@ -94,9 +99,6 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     private Pane pane_attente;
     
-    @FXML
-    private ObservableList<Commande> data_table;
-    
     @FXML 
     private ComboBox comboAgent;
     
@@ -138,6 +140,7 @@ public class FXMLPrincipaleController implements Initializable {
 
 
 
+
     public void handleButtonCommande(ActionEvent event) {
         //System.out.println("You clicked me!");
         //label.setText("Hello World!");
@@ -163,10 +166,10 @@ public class FXMLPrincipaleController implements Initializable {
     
     
     
-       @FXML
+    @FXML
     private TableView<Commande> tab_attente;
        
-        @FXML
+    @FXML
     private TableColumn<Commande, String> col_att_num_commande;
 
     @FXML
@@ -187,6 +190,8 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     private TableColumn<Commande, Button> col_att_assignation;
     
+    private ObservableList<Commande> data_table;
+    
 
     @FXML
     public void handleMenuAttente(ActionEvent event) {
@@ -201,10 +206,13 @@ public class FXMLPrincipaleController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initTable();
         loadData();
+        initTableSol();
+        loadDataSol();
         PaneCommande.setVisible(false);
         comboAgent.setItems(AgentList);
         Comboexp.setItems(comboList);
         comboTypePlaque.setItems(plaqueList);
+        comboTypeCell.setItems(type_cell);
         paneTableAttente.setVisible(false);
         
         frequenceLabel.setVisible(false);
@@ -258,6 +266,82 @@ public class FXMLPrincipaleController implements Initializable {
         return tab_attente;
     }
     
+    @FXML
+    private TableView<Solutions> tab_Solutions;
+       
+    @FXML
+    private TableColumn<Solutions, String> col_sol_qt_ab;
+
+    @FXML
+    private TableColumn<Solutions, String> col_sol_qt_cell;
+
+    @FXML
+    private TableColumn<Solutions, String> col_sol_ty_cell;
     
+    private ObservableList<Solutions> data_table_sol;
+    
+    private ObservableList <String> type_cell = 
+            FXCollections.observableArrayList(
+            "Normales",
+            "CancÃ©reuse"
+            );
+
+    private void initTableSol(){
+        initColumnSol();
+    }
+    
+    private void initColumnSol(){
+        //num, ab, type_exp, nb_slot, d_f, nb_sol;
+        col_sol_qt_ab.setCellValueFactory(new PropertyValueFactory<>("qt_ab"));
+        col_sol_qt_cell.setCellValueFactory(new PropertyValueFactory<>("qt_cell"));
+        col_sol_ty_cell.setCellValueFactory(new PropertyValueFactory<>("ty_cell"));
+        editTableColumnSol();
+    }
+    
+    private void editTableColumnSol(){
+        col_sol_qt_ab.setCellFactory(TextFieldTableCell.forTableColumn());
+        col_sol_qt_cell.setCellFactory(TextFieldTableCell.forTableColumn());
+        col_sol_ty_cell.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), type_cell)); 
+        tab_Solutions.setEditable(true);
+    }
+    
+ 
+    @FXML private TextField ab_field;
+    @FXML private TextField cell_field;
+    @FXML private ComboBox<String> comboTypeCell;
+    
+    @FXML
+    protected void addSolutions(ActionEvent event) {
+        ObservableList<Solutions> data = tab_Solutions.getItems();
+        data.add(new Solutions(ab_field.getText(),
+            cell_field.getText(),
+            comboTypeCell.getValue(),
+            this
+        ));
+        comboTypeCell.getSelectionModel().clearSelection();
+        ab_field.setText("");
+        cell_field.setText("");
+    }
+    
+    private void loadDataSol() {
+        data_table_sol = FXCollections.observableArrayList();
+        tab_Solutions.setItems(data_table_sol);
+    }
+
+    public ObservableList<Solutions> getData_table_sol() {
+        return data_table_sol;
+    }
+
+    public TableView<Solutions> getTab_Solutions() {
+        return tab_Solutions;
+    }
+
+    public TableColumn<Solutions, String> getCol_sol_qt_cell() {
+        return col_sol_qt_cell;
+    }
+
+    public String getComboTypeCell() {
+        return comboTypeCell.getValue();
+    }
     
 }
