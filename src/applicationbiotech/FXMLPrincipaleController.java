@@ -17,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**
@@ -26,32 +27,49 @@ import javafx.scene.layout.Pane;
 public class FXMLPrincipaleController implements Initializable {
     
     @FXML
+    private AnchorPane AnchorPane;
+
+    @FXML
+    private Pane paneGestion;
+
+    @FXML
+    private Pane PaneCommande;
+
+    @FXML
+    private Pane paneLabel;
+
+    @FXML
+    private Button btn_to_sol;
+
+    @FXML
+    private Button commande;
+
+    @FXML
+    private Button btn_attente;
+
+    @FXML
+    private Pane paneTableAttente;
+
+    @FXML
+    private Pane paneLabel1;
+
+    @FXML
+    private Button btn_valider_commande;
+
+    @FXML
+    private Button btn_retour_inf_g;
+
+    @FXML
+    private Button btn_annuler_commande;
+
+    @FXML
     //private Label label;
     private Pane pane;
     private Pane pane_attente;
-    @FXML private Pane PaneCommande;
-    private Button commande;
-    @FXML private Pane paneLabel;
+    
     private ObservableList<Commande> data_table;
     @FXML
     private ComboBox<?> comboAgent;
-    
-
-    @FXML
-    public void handleButtonCommande(ActionEvent event) {
-        System.out.println("You clicked me!");
-        //label.setText("Hello World!");
-        //pane_attente.setVisible(false); 
-        paneLabel.setVisible(true);
-        PaneCommande.setVisible(true);
-        
-
-    }
-    //public void handletest(){
-    //    PaneCommande.setVisible(true);
-    //}
-    
-    
        @FXML
     private TableView<Commande> tab_attente;
        
@@ -76,14 +94,27 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     private TableColumn<Commande, Button> col_att_assignation;
     
-    
-    //public ObservableList<Commande> data_table;
+
+    @FXML
+    public void handleMenuAttente(ActionEvent event) {
+        paneTableAttente.setVisible(true);
+        PaneCommande.setVisible(false);
+        paneLabel.setVisible(false);
+    }
+
+    @FXML
+    public void handleButtonCommande(ActionEvent event) { 
+        paneLabel.setVisible(true);
+        paneTableAttente.setVisible(false);
+        PaneCommande.setVisible(true);
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initTable();
         loadData();
         PaneCommande.setVisible(false);
+        paneTableAttente.setVisible(false);
         
     }    
     
