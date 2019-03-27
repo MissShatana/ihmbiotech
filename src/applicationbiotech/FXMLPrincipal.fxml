@@ -42,7 +42,7 @@
             <Label layoutX="302.0" layoutY="184.0" prefHeight="17.0" prefWidth="91.0" text="Fréquence" />
             <TextField layoutX="429.0" layoutY="180.0" prefHeight="25.0" prefWidth="100.0" />
             <Label layoutX="302.0" layoutY="234.0" prefHeight="17.0" prefWidth="134.0" text="Niveau d'acceptation" />
-            <ComboBox layoutX="127.0" layoutY="97.0" prefHeight="25.0" prefWidth="114.0" />
+            <ComboBox fx:id="combobox" layoutX="127.0" layoutY="97.0" prefHeight="25.0" prefWidth="114.0" />
             <ComboBox layoutX="429.0" layoutY="230.0" prefHeight="25.0" prefWidth="100.0" />
             <Label layoutX="46.0" layoutY="300.0" prefHeight="17.0" prefWidth="149.0" text="Quantité agent biologique" />
             <TextField layoutX="201.0" layoutY="296.0" prefHeight="25.0" prefWidth="38.0" />
@@ -82,7 +82,7 @@
             </Accordion>
          </children>
       </VBox>
-      <Pane layoutX="150.0" layoutY="42.0" prefHeight="458.0" prefWidth="750.0" visible="false">
+      <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="42.0" prefHeight="458.0" prefWidth="750.0" visible="false">
          <children>
             <TableView fx:id="tab_attente" layoutX="14.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
               <columns>

@@ -13,10 +13,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**
@@ -32,10 +32,12 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML private Pane PaneCommande;
     private Button commande;
     @FXML private Pane paneLabel;
+    @FXML
+    private ComboBox<?> comboAgent;
     
 
     @FXML
-    private void handleButtonCommande(ActionEvent event) {
+    public void handleButtonCommande(ActionEvent event) {
         System.out.println("You clicked me!");
         //label.setText("Hello World!");
         //pane_attente.setVisible(false); 
