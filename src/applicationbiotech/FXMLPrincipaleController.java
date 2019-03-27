@@ -14,8 +14,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -73,9 +75,12 @@ public class FXMLPrincipaleController implements Initializable {
 
     @FXML
     private Pane paneLabel1;
+    
+    @FXML
+    private Pane paneSolutionsCommande ; 
 
     @FXML
-    private Button btn_valider_commande;
+    private Button btn_valider_commande; 
 
     @FXML
     private Button btn_retour_inf_g;
@@ -84,19 +89,57 @@ public class FXMLPrincipaleController implements Initializable {
     private Button btn_annuler_commande;
 
     @FXML
-    //private Label label;
     private Pane pane;
+    
+    @FXML
     private Pane pane_attente;
     
+    @FXML
     private ObservableList<Commande> data_table;
-    @FXML private ComboBox comboAgent;
-    @FXML private ComboBox Comboexp;
-    @FXML private ComboBox comboTypePlaque;
+    
+    @FXML 
+    private ComboBox comboAgent;
+    
+    @FXML 
+    private ComboBox Comboexp;
+    
+    @FXML 
+    private ComboBox comboTypePlaque;
+    
+    @FXML
+    private Label frequenceLabel;
+    
+     @FXML
+     private TextField frequenceField;
+     
+     @FXML
+     private Label a3TransparenceLabel;
+     
+     @FXML
+     private TextField a3TransparenceField;
+     
+     @FXML
+     private Label a3RougeLabel;
+     
+     @FXML
+     private TextField a3RougeField;
+     
+     @FXML
+     private Label a3BleuLabel;
+     
+     @FXML
+     private TextField a3BleuField;
+     
+     @FXML
+     private Label a3VertLabel;
+     
+     @FXML
+     private TextField a3VertField;
 
 
 
     public void handleButtonCommande(ActionEvent event) {
-        System.out.println("You clicked me!");
+        //System.out.println("You clicked me!");
         //label.setText("Hello World!");
         //pane_attente.setVisible(false); 
         paneLabel.setVisible(true);
@@ -104,9 +147,20 @@ public class FXMLPrincipaleController implements Initializable {
         
 
     }
-    //public void handletest(){
-    //    PaneCommande.setVisible(true);
-    //}
+    
+    public void handleButtonValider (ActionEvent e){
+       //System.out.println("You clicked me!");
+       paneSolutionsCommande.setVisible(true);
+       PaneCommande.setVisible(false);
+        
+    }
+    
+    public void handleButtonRetour (ActionEvent f){
+    //System.out.println("You clicked me!");
+    paneSolutionsCommande.setVisible(false);
+    PaneCommande.setVisible(true);
+    }
+    
     
     
        @FXML
@@ -139,6 +193,7 @@ public class FXMLPrincipaleController implements Initializable {
         paneTableAttente.setVisible(true);
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false);
+        
     }
 
     
@@ -151,6 +206,18 @@ public class FXMLPrincipaleController implements Initializable {
         Comboexp.setItems(comboList);
         comboTypePlaque.setItems(plaqueList);
         paneTableAttente.setVisible(false);
+        
+        frequenceLabel.setVisible(false);
+        frequenceField.setVisible(false);
+        a3VertField.setVisible(false);
+        a3VertLabel.setVisible(false);
+        a3BleuField.setVisible(false);
+        a3BleuLabel.setVisible(false);
+        a3RougeField.setVisible(false);
+        a3RougeLabel.setVisible(false);
+        a3TransparenceField.setVisible(false);
+        a3TransparenceLabel.setVisible(false);
+                
         
     }    
     
