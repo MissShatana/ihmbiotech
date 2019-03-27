@@ -283,7 +283,7 @@ public class FXMLPrincipaleController implements Initializable {
     private ObservableList <String> type_cell = 
             FXCollections.observableArrayList(
             "Normales",
-            "CancÃ©reuse"
+            "Cancéreuse"
             );
 
     private void initTableSol(){

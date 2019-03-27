@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -135,13 +136,19 @@
                   <Label layoutX="282.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Nouvelle commande : Solutions" />
                </children>
             </Pane>
-            <TableView layoutX="119.0" layoutY="55.0" prefHeight="318.0" prefWidth="497.0">
+            <TableView fx:id="tab_Solutions" layoutX="110.0" layoutY="50.0" prefHeight="250.0" prefWidth="530.0">
               <columns>
-                <TableColumn prefWidth="197.0" text="Quantité Agent biologique" />
-                <TableColumn prefWidth="146.0" text="Quantité Cellule" />
-                  <TableColumn prefWidth="153.0" text="Type Cellules" />
+                <TableColumn fx:id="col_sol_qt_ab" prefWidth="190.0" text="Quantité Agent biologique" />
+                <TableColumn fx:id="col_sol_qt_cell" prefWidth="180.0" text="Quantité Cellule" />
+                <TableColumn fx:id="col_sol_ty_cell" prefWidth="150.0" text="Type Cellules" />
               </columns>
             </TableView>
+            <HBox spacing="10" layoutX="110.0" layoutY="310.0">
+                <TextField fx:id="ab_field" promptText="Quantité d'Agent biologique" prefWidth="180"/>
+                <TextField fx:id="cell_field" promptText="Quantité de cellule" prefWidth="120"/>
+                <ComboBox fx:id="comboTypeCell" prefWidth="100" />
+                <Button text="Ajouter" onAction="#addSolutions" prefWidth="100"/>
+            </HBox>
             <Button fx:id="btn_valider_commande" layoutX="306.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #81B781;" text="Valider la commande"  />
             <Button fx:id="btn_retour_inf_g" layoutX="50.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="219.0" style="-fx-background-color: A3D0D6;" text="Retour vers informations générales" onAction="#handleButtonRetour" />
             <Button fx:id="btn_annuler_commande" layoutX="526.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #FF4A4A;" text="Annuler" />
