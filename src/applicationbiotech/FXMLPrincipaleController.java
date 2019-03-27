@@ -29,17 +29,24 @@ public class FXMLPrincipaleController implements Initializable {
     //private Label label;
     private Pane pane;
     private Pane pane_attente;
-    private Pane PaneCommande;
+    @FXML private Pane PaneCommande;
     private Button commande;
-    private AnchorPane AnchorPane;
+    @FXML private Pane paneLabel;
+    
 
     @FXML
     private void handleButtonCommande(ActionEvent event) {
-        //System.out.println("You clicked me!");
+        System.out.println("You clicked me!");
         //label.setText("Hello World!");
-        AnchorPane.setVisible(false);
-        PaneCommande.setVisible(true);       
+        //pane_attente.setVisible(false); 
+        paneLabel.setVisible(true);
+        PaneCommande.setVisible(true);
+        
+
     }
+    //public void handletest(){
+    //    PaneCommande.setVisible(true);
+    //}
     
     
        @FXML
@@ -74,6 +81,7 @@ public class FXMLPrincipaleController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initTable();
         loadData();
+        PaneCommande.setVisible(false);
     }    
     
     private void initTable(){
