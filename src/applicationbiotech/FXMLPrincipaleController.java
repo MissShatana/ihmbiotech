@@ -22,6 +22,7 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     //private Label label;
     private Pane pane;
+    private Pane pane_attente;
     
     @FXML
     private void handleButtonCommande(ActionEvent event) {
