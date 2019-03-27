@@ -18,10 +18,9 @@ import javafx.scene.control.TableView;
 public class Commande {
     String num, ab, type_exp, nb_slot, d_f, nb_sol;
     Button assignation;
-       @FXML
-    private TableView<Commande> tab_attente;
+    FXMLPrincipaleController con;
     
-    public Commande(String num, String ab, String type_exp, String nb_slot, String d_f, String nb_sol, Button assignation){
+    public Commande(String num, String ab, String type_exp, String nb_slot, String d_f, String nb_sol, Button assignation, FXMLPrincipaleController con){
         this.num = num;
         this.ab=ab;
         this.type_exp=type_exp;
@@ -29,12 +28,14 @@ public class Commande {
         this.d_f=d_f;
         this.nb_sol=nb_sol;
         this.assignation=assignation;
-        assignation.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                //Commande lign_commande = tab_attente.getTableView().getItems().get(getIndex());
-                //tab_attente.getItems().remove(lign_commande);
-                System.out.println("aa");
+        this.con=con;
+        assignation.setOnAction((ActionEvent e) -> {
+            for (Commande co: con.getData_table()){
+                if (co.getAssignation()==assignation){
+                    System.out.println(co.getNum());
+                    con.getData_table().remove(co);
+                    break;
+                }
             }
         });
         
