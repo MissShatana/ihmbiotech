@@ -25,7 +25,7 @@
                </font></Label>
          </children>
       </Pane>
-      <Pane id="page_principale" fx:id="PaneCommande" layoutX="158.0" layoutY="34.0" prefHeight="466.0" prefWidth="750.0" style="-fx-background-color: F0F0F0;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+      <Pane id="page_principale" fx:id="PaneCommande" layoutX="158.0" layoutY="34.0" prefHeight="466.0" prefWidth="750.0" style="-fx-background-color: F0F0F0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
          <children>
             <Pane fx:id="paneLabel" layoutX="-1.0" prefHeight="25.0" prefWidth="750.0" style="-fx-background-color: #C8DBDD;">
                <children>
@@ -37,8 +37,8 @@
             <TextField layoutX="527.0" layoutY="105.0" prefHeight="25.0" prefWidth="78.0" />
             <Label layoutX="413.0" layoutY="109.0" prefHeight="17.0" prefWidth="106.0" text="Nombre de slots" />
             <Label layoutX="61.0" layoutY="104.0" prefHeight="17.0" prefWidth="106.0" text="Type d'expérience" />
-            <ComboBox fx:id="comboplaque" layoutX="504.0" layoutY="47.0" prefHeight="25.0" prefWidth="100.0" />
-            <ComboBox fx:id="comboexp" layoutX="188.0" layoutY="100.0" prefHeight="25.0" prefWidth="100.0" />
+            <ComboBox fx:id="comboTypePlaque" layoutX="504.0" layoutY="47.0" prefHeight="25.0" prefWidth="100.0" />
+            <ComboBox fx:id="Comboexp" layoutX="188.0" layoutY="100.0" prefHeight="25.0" prefWidth="100.0" />
             <Label layoutX="48.0" layoutY="186.0" prefHeight="17.0" prefWidth="121.0" text="Suivi dans le temps ?" />
             <RadioButton layoutX="178.0" layoutY="186.0" mnemonicParsing="false" text="oui" />
             <RadioButton layoutX="243.0" layoutY="186.0" mnemonicParsing="false" text="non" />
@@ -47,7 +47,7 @@
             <Label layoutX="538.0" layoutY="186.0" prefHeight="17.0" prefWidth="91.0" text="Fréquence" />
             <TextField layoutX="610.0" layoutY="183.0" prefHeight="25.0" prefWidth="42.0" />
             <Label layoutX="26.0" layoutY="257.0" prefHeight="17.0" prefWidth="134.0" text="Niveau d'acceptation:" />
-            <ComboBox fx:id="combobox" layoutX="174.0" layoutY="48.0" prefHeight="25.0" prefWidth="114.0" />
+            <ComboBox fx:id="comboAgent" layoutX="174.0" layoutY="48.0" prefHeight="25.0" prefWidth="114.0" />
             <Label layoutX="86.0" layoutY="288.0" prefHeight="17.0" prefWidth="42.0" text="A1" />
             <TextField layoutX="107.0" layoutY="284.0" prefHeight="25.0" prefWidth="42.0" />
             <Label layoutX="27.0" layoutY="288.0" prefHeight="17.0" prefWidth="42.0" text="Rouge:" />
@@ -128,7 +128,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane layoutX="158.0" layoutY="34.0" prefHeight="466.0" prefWidth="750.0">
+      <Pane fx:id="paneSolutionsCommande" layoutX="158.0" layoutY="34.0" prefHeight="466.0" prefWidth="750.0" visible="false">
          <children>
             <Pane fx:id="paneLabel1" prefHeight="25.0" prefWidth="750.0" style="-fx-background-color: #C8DBDD;">
                <children>

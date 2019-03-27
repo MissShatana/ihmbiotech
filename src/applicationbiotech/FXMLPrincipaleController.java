@@ -26,6 +26,27 @@ import javafx.scene.layout.Pane;
  */
 public class FXMLPrincipaleController implements Initializable {
     
+        ObservableList <String> AgentList = 
+            FXCollections.observableArrayList(
+            "fraise",
+            "citron",
+            "orange"
+            );
+        
+    
+        ObservableList <String> comboList = 
+            FXCollections.observableArrayList(
+            "colorimétrique",
+            "opacimétrique"
+            );
+        
+        ObservableList <String> plaqueList = 
+            FXCollections.observableArrayList(
+            "394",
+            "96"
+            );
+
+    
     @FXML
     private AnchorPane AnchorPane;
 
@@ -68,8 +89,26 @@ public class FXMLPrincipaleController implements Initializable {
     private Pane pane_attente;
     
     private ObservableList<Commande> data_table;
-    @FXML
-    private ComboBox<?> comboAgent;
+    @FXML private ComboBox comboAgent;
+    @FXML private ComboBox Comboexp;
+    @FXML private ComboBox comboTypePlaque;
+
+
+
+    public void handleButtonCommande(ActionEvent event) {
+        System.out.println("You clicked me!");
+        //label.setText("Hello World!");
+        //pane_attente.setVisible(false); 
+        paneLabel.setVisible(true);
+        PaneCommande.setVisible(true);
+        
+
+    }
+    //public void handletest(){
+    //    PaneCommande.setVisible(true);
+    //}
+    
+    
        @FXML
     private TableView<Commande> tab_attente;
        
@@ -102,18 +141,15 @@ public class FXMLPrincipaleController implements Initializable {
         paneLabel.setVisible(false);
     }
 
-    @FXML
-    public void handleButtonCommande(ActionEvent event) { 
-        paneLabel.setVisible(true);
-        paneTableAttente.setVisible(false);
-        PaneCommande.setVisible(true);
-    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initTable();
         loadData();
         PaneCommande.setVisible(false);
+        comboAgent.setItems(AgentList);
+        Comboexp.setItems(comboList);
+        comboTypePlaque.setItems(plaqueList);
         paneTableAttente.setVisible(false);
         
     }    
