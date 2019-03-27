@@ -25,6 +25,27 @@ import javafx.scene.layout.Pane;
  */
 public class FXMLPrincipaleController implements Initializable {
     
+        ObservableList <String> AgentList = 
+            FXCollections.observableArrayList(
+            "fraise",
+            "citron",
+            "orange"
+            );
+        
+    
+        ObservableList <String> comboList = 
+            FXCollections.observableArrayList(
+            "colorimétrique",
+            "opacimétrique"
+            );
+        
+        ObservableList <String> plaqueList = 
+            FXCollections.observableArrayList(
+            "394",
+            "96"
+            );
+
+    
     @FXML
     //private Label label;
     private Pane pane;
@@ -33,11 +54,12 @@ public class FXMLPrincipaleController implements Initializable {
     private Button commande;
     @FXML private Pane paneLabel;
     private ObservableList<Commande> data_table;
-    @FXML
-    private ComboBox<?> comboAgent;
-    
+    @FXML private ComboBox comboAgent;
+    @FXML private ComboBox Comboexp;
+    @FXML private ComboBox comboTypePlaque;
 
-    @FXML
+
+
     public void handleButtonCommande(ActionEvent event) {
         System.out.println("You clicked me!");
         //label.setText("Hello World!");
@@ -84,6 +106,9 @@ public class FXMLPrincipaleController implements Initializable {
         initTable();
         loadData();
         PaneCommande.setVisible(false);
+        comboAgent.setItems(AgentList);
+        Comboexp.setItems(comboList);
+        comboTypePlaque.setItems(plaqueList);
         
     }    
     
