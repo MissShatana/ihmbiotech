@@ -32,6 +32,7 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML private Pane PaneCommande;
     private Button commande;
     @FXML private Pane paneLabel;
+    private ObservableList<Commande> data_table;
     @FXML
     private ComboBox<?> comboAgent;
     
@@ -77,13 +78,13 @@ public class FXMLPrincipaleController implements Initializable {
     
     
     //public ObservableList<Commande> data_table;
-    private final Commande co =new Commande("1","ab","t","s","df","n", new Button("je prends"));
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initTable();
         loadData();
         PaneCommande.setVisible(false);
+        
     }    
     
     private void initTable(){
@@ -107,14 +108,22 @@ public class FXMLPrincipaleController implements Initializable {
     }
     
     private void loadData() {
-        ObservableList<Commande> data_table = FXCollections.observableArrayList();
+        data_table = FXCollections.observableArrayList();
         for( int i=0; i<7;i++){
             //data_table.add(new Commande(String.valueOf(i),"ab"+i,'type_exp'+i,"nb_slot"+i,"df"+i,"nb_sol"+i, new Button("je prends")));
-            data_table.add(co);
-            System.out.println(co);
+            data_table.add(new Commande(String.valueOf(i),"ab","t","s","df","n", new Button("je prends"),this));
         }
         tab_attente.setItems(data_table);
     }
+
+    public ObservableList<Commande> getData_table() {
+        return data_table;
+    }
+
+    public TableView<Commande> getTab_attente() {
+        return tab_attente;
+    }
+    
     
     
 }
