@@ -8,6 +8,7 @@ package applicationbiotech;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -19,6 +20,11 @@ public class FXMLCommandeController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    
+    private Button commande;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

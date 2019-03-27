@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**
@@ -28,14 +29,27 @@ public class FXMLPrincipaleController implements Initializable {
     //private Label label;
     private Pane pane;
     private Pane pane_attente;
+    @FXML private Pane PaneCommande;
+    private Button commande;
+    @FXML private Pane paneLabel;
     private ObservableList<Commande> data_table;
     
+
     @FXML
     private void handleButtonCommande(ActionEvent event) {
         System.out.println("You clicked me!");
         //label.setText("Hello World!");
+        //pane_attente.setVisible(false); 
+        paneLabel.setVisible(true);
+        PaneCommande.setVisible(true);
         
+
     }
+    //public void handletest(){
+    //    PaneCommande.setVisible(true);
+    //}
+    
+    
        @FXML
     private TableView<Commande> tab_attente;
        
@@ -67,6 +81,8 @@ public class FXMLPrincipaleController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initTable();
         loadData();
+        PaneCommande.setVisible(false);
+        
     }    
     
     private void initTable(){

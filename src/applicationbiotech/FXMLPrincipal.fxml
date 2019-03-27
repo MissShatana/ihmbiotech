@@ -13,16 +13,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationbiotech.FXMLPrincipaleController">
+<AnchorPane id="AnchorPane" fx:id="AnchorPane" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationbiotech.FXMLPrincipaleController">
    <children>
-      <Pane layoutX="150.0" prefHeight="42.0" prefWidth="750.0" style="-fx-background-color: #b4b4b4;">
+      <Pane fx:id="paneGestion" layoutX="150.0" prefHeight="42.0" prefWidth="750.0" style="-fx-background-color: #b4b4b4;">
          <children>
             <Label layoutX="226.0" layoutY="13.0" prefHeight="17.0" prefWidth="225.0" text="Gestionnaire de données de laboratoire" />
          </children>
       </Pane>
-      <Pane id="page_principale" layoutX="175.0" layoutY="93.0" prefHeight="500.0" prefWidth="525.0" style="-fx-background-color: F0F0F0;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane id="page_principale" fx:id="PaneCommande" layoutX="151.0" layoutY="42.0" prefHeight="458.0" prefWidth="750.0" style="-fx-background-color: F0F0F0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="42.0">
          <children>
-            <Pane layoutY="35.0" prefHeight="25.0" prefWidth="750.0" style="-fx-background-color: #b4b4b4;">
+            <Pane fx:id="paneLabel" prefHeight="25.0" prefWidth="750.0" style="-fx-background-color: #b4b4b4;">
                <children>
                   <Label layoutX="280.0" layoutY="4.0" prefHeight="17.0" prefWidth="114.0" text="Nouvelle commande" />
                </children>
@@ -51,7 +51,7 @@
          </children></Pane>
       <VBox layoutX="-6.0" prefHeight="500.0" prefWidth="156.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="160.0" text="Nouvelle Commande" />
+            <Button fx:id="commande" mnemonicParsing="false" onAction="#handleButtonCommande" prefHeight="25.0" prefWidth="160.0" text="Nouvelle Commande" />
             <Button disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" text="Mes informations" />
             <Accordion>
               <panes>
@@ -82,7 +82,7 @@
             </Accordion>
          </children>
       </VBox>
-      <Pane layoutX="150.0" layoutY="42.0" prefHeight="458.0" prefWidth="750.0">
+      <Pane layoutX="150.0" layoutY="42.0" prefHeight="458.0" prefWidth="750.0" visible="false">
          <children>
             <TableView fx:id="tab_attente" layoutX="14.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
               <columns>
