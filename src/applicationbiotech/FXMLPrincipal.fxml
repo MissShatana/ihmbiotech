@@ -15,16 +15,16 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationbiotech.FXMLPrincipaleController">
    <children>
-      <Pane id="page_principale" layoutX="175.0" layoutY="93.0" prefHeight="500.0" prefWidth="525.0" style="-fx-background-color: F0F0F0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="150.0" prefHeight="42.0" prefWidth="750.0" style="-fx-background-color: #b4b4b4;">
          <children>
-            <Pane layoutY="-7.0" prefHeight="42.0" prefWidth="750.0" style="-fx-background-color: #b4b4b4;">
-               <children>
-                  <Label layoutX="166.0" layoutY="13.0" prefHeight="17.0" prefWidth="225.0" text="Gestionnaire de données de laboratoire" />
-               </children>
-            </Pane>
+            <Label layoutX="226.0" layoutY="13.0" prefHeight="17.0" prefWidth="225.0" text="Gestionnaire de données de laboratoire" />
+         </children>
+      </Pane>
+      <Pane id="page_principale" layoutX="175.0" layoutY="93.0" prefHeight="500.0" prefWidth="525.0" style="-fx-background-color: F0F0F0;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
             <Pane layoutY="35.0" prefHeight="25.0" prefWidth="750.0" style="-fx-background-color: #b4b4b4;">
                <children>
-                  <Label layoutX="246.0" layoutY="4.0" prefHeight="17.0" prefWidth="114.0" text="Nouvelle commande" />
+                  <Label layoutX="280.0" layoutY="4.0" prefHeight="17.0" prefWidth="114.0" text="Nouvelle commande" />
                </children>
             </Pane>
             <Label layoutX="20.0" layoutY="101.0" prefHeight="17.0" prefWidth="91.0" text="Agent bioloique" />
@@ -82,17 +82,17 @@
             </Accordion>
          </children>
       </VBox>
-      <Pane layoutX="150.0" prefHeight="500.0" prefWidth="750.0" visible="false">
+      <Pane layoutX="150.0" layoutY="42.0" prefHeight="458.0" prefWidth="750.0">
          <children>
-            <TableView layoutX="14.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
+            <TableView fx:id="tab_attente" layoutX="14.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="N°" />
-                <TableColumn prefWidth="108.0" text="Agent biologique" />
-                  <TableColumn prefWidth="113.0" text="Type d'expérience" />
-                  <TableColumn prefWidth="111.0" text="Nombre de slots" />
-                  <TableColumn prefWidth="112.0" text="Durée, fréquence" />
-                  <TableColumn prefWidth="131.0" text="Nombre de solution" />
-                  <TableColumn prefWidth="43.0" />
+                <TableColumn fx:id="col_att_num_commande" prefWidth="39.0" text="N°" />
+                <TableColumn fx:id="col_att_ab_commande" prefWidth="109.0" text="Agent biologique" />
+                  <TableColumn fx:id="col_att_type_exp_commande" prefWidth="121.0" text="Type d'expérience" />
+                  <TableColumn fx:id="col_att_nb_slot_commande" prefWidth="109.0" text="Nombre de slots" />
+                  <TableColumn fx:id="col_att_d_f" prefWidth="107.0" text="Durée, fréquence" />
+                  <TableColumn fx:id="col_att_nb_sol" prefWidth="124.0" text="Nombre de solution" />
+                  <TableColumn fx:id="col_att_assignation" prefWidth="84.0" text="Assignation" />
               </columns>
             </TableView>
          </children>
