@@ -155,6 +155,7 @@ public class FXMLPrincipaleController implements Initializable {
 
 
 
+
     public void handleButtonCommande(ActionEvent event) {
         //System.out.println("You clicked me!");
         //label.setText("Hello World!");
@@ -216,8 +217,6 @@ public class FXMLPrincipaleController implements Initializable {
     }
  
 
-    
-    
     
     @FXML
     private TableView<Commande> tab_attente;
