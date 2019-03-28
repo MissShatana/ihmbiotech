@@ -225,6 +225,9 @@ public class FXMLPrincipaleController implements Initializable {
      @FXML
      private Label suiviLabel;
      
+     @FXML
+     private Label Label_error;
+     
      
      
 
@@ -245,12 +248,12 @@ public class FXMLPrincipaleController implements Initializable {
     }
     
     public void handleButtonValider (ActionEvent e){
-        if ((comboAgent.getValue() != null) && (slotField.getText().isEmpty()!=true)&&(Comboexp.getValue() != null) && (comboTypePlaque.getValue() !=null) && (a1RougeField.getText().isEmpty() !=true) && (a2RougeField.getText().isEmpty() !=true) && (a1BleuField.getText().isEmpty() !=true) && (a2BleuField.getText().isEmpty() !=true) && (a1VertField.getText().isEmpty() !=true) && (a2VertField.getText().isEmpty() !=true) && (a1TransparenceField.getText().isEmpty() !=true) && (a2TransparenceField.getText().isEmpty() !=true) && (dureeField.getText().isEmpty() !=true) && (slotField.getText().isEmpty() !=true) &&((radioOui.isSelected() != true && a3RougeField.getText().isEmpty() !=true && a3VertField.getText().isEmpty() !=true && a3BleuField.getText().isEmpty() !=true && a3TransparenceField.getText().isEmpty() !=true && frequenceField.getText().isEmpty() !=true)|(radioNon.isSelected() != true)) ) {
+        if ((comboAgent.getValue() != null) && (slotField.getText().isEmpty()!=true)&&(Comboexp.getValue() != null) && (comboTypePlaque.getValue() !=null) && (a1RougeField.getText().isEmpty() !=true) && (a2RougeField.getText().isEmpty() !=true) && (a1BleuField.getText().isEmpty() !=true) && (a2BleuField.getText().isEmpty() !=true) && (a1VertField.getText().isEmpty() !=true) && (a2VertField.getText().isEmpty() !=true) && (a1TransparenceField.getText().isEmpty() !=true) && (a2TransparenceField.getText().isEmpty() !=true) && (dureeField.getText().isEmpty() !=true) && (slotField.getText().isEmpty() !=true) &&((radioOui.isSelected() == true && a3RougeField.getText().isEmpty() !=true && a3VertField.getText().isEmpty() !=true && a3BleuField.getText().isEmpty() !=true && a3TransparenceField.getText().isEmpty() !=true && frequenceField.getText().isEmpty() !=true)|(radioNon.isSelected() == true)) ) {
             paneSolutionsCommande.setVisible(true);
             PaneCommande.setVisible(false);
         }
         else{
-            //Label_error.setVisible(true);
+            Label_error.setVisible(true);
              if ( comboAgent.getValue() == null  ){
                     agentLabel.setTextFill(Color.web("red"));
              }
@@ -330,24 +333,24 @@ public class FXMLPrincipaleController implements Initializable {
        frequenceField.setText("");
        radioOui.setSelected(false);
        radioNon.setSelected(false);
-//       dureeField.setText("");
-//       a1RougeField.setText("");
-//       a2RougeField.setText("");
+       dureeField.setText("");
+       a1RougeField.setText("");
+       a2RougeField.setText("");
        a3RougeField.setText("");
-//       a1VertField.setText("");
-//       a2VertField.setText("");
+       a1VertField.setText("");
+       a2VertField.setText("");
        a3VertField.setText("");
-//       a1BleuField.setText("");
-//       a2BleuField.setText("");
+       a1BleuField.setText("");
+       a2BleuField.setText("");
        a3BleuField.setText("");
-//       a1TransparenceField.setText("");
-//       a2TransparenceField.setText("");
+       a1TransparenceField.setText("");
+       a2TransparenceField.setText("");
        a3TransparenceField.setText("");
        commande.setDisable(false);
        btn_attente.setDisable(false);
        data_table_sol.removeAll(tab_Solutions.getItems());
        Label_error_sol.setVisible(false);
-        //Label_error.setVisible(false);
+        Label_error.setVisible(false);
        
        frequenceLabel.setVisible(false);
         frequenceField.setVisible(false);
@@ -359,6 +362,8 @@ public class FXMLPrincipaleController implements Initializable {
         a3RougeLabel.setVisible(false);
         a3TransparenceField.setVisible(false);
         a3TransparenceLabel.setVisible(false);
+        
+        slotField.setText("");
        
     }
     
@@ -371,23 +376,24 @@ public class FXMLPrincipaleController implements Initializable {
         }
         else{
             paneSolutionsCommande.setVisible(false);
-       
+       radioOui.setSelected(false);
+       radioNon.setSelected(false);
             comboAgent.getSelectionModel().clearSelection();
             Comboexp.getSelectionModel().clearSelection();
             comboTypePlaque.getSelectionModel().clearSelection();
             frequenceField.setText("");
-//          dureeField.setText("");
-//          a1RougeField.setText("");
-//          a2RougeField.setText("");
+          dureeField.setText("");
+          a1RougeField.setText("");
+          a2RougeField.setText("");
             a3RougeField.setText("");
-//          a1VertField.setText("");
-//          a2VertField.setText("");
+          a1VertField.setText("");
+          a2VertField.setText("");
             a3VertField.setText("");
-//          a1BleuField.setText("");
-//          a2BleuField.setText("");
+          a1BleuField.setText("");
+          a2BleuField.setText("");
             a3BleuField.setText("");
-//          a1TransparenceField.setText("");
-//          a2TransparenceField.setText("");
+          a1TransparenceField.setText("");
+          a2TransparenceField.setText("");
             a3TransparenceField.setText("");
             data_table_sol.removeAll(tab_Solutions.getItems());
             commande.setDisable(false);
@@ -403,7 +409,8 @@ public class FXMLPrincipaleController implements Initializable {
             a3TransparenceField.setVisible(false);
             a3TransparenceLabel.setVisible(false);
             Label_error_sol.setVisible(false);
-        //Label_error.setVisible(false);
+        Label_error.setVisible(false);
+        slotField.setText("");
         }
     }
     
@@ -488,9 +495,9 @@ public class FXMLPrincipaleController implements Initializable {
         initTableSol();
         loadDataSol();
         Label_error_sol.setTextFill(Color.web("red"));
-        //Label_error.setTextFill(Color.web("red"));
+        Label_error.setTextFill(Color.web("red"));
         Label_error_sol.setVisible(false);
-        //Label_error.setVisible(false);
+        Label_error.setVisible(false);
         commande.setDisable(false);
         btn_attente.setDisable(false);
         PaneCommande.setVisible(false);
