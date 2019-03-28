@@ -6,20 +6,27 @@
 package applicationbiotech;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 
 /**
- *
- * @author gphy
+ *Classe qui stockent les différents paramétres (informations générales) de la commande
  */
 public class Commande {
     String num, ab, type_exp, nb_slot, d_f, nb_sol;
     Button assignation;
     FXMLPrincipaleController con;
     
+    /**
+     * Constructeur avec
+     * @param num le numéro de la commande
+     * @param ab l'agent biologique utilisé
+     * @param type_exp le type d'expérience faite
+     * @param nb_slot le nombre de slot
+     * @param d_f la durée et la fréquence
+     * @param nb_sol le nombre de solutions dans la commande
+     * @param assignation boutton pour prendre la commande
+     * @param con main
+     */
     public Commande(String num, String ab, String type_exp, String nb_slot, String d_f, String nb_sol, Button assignation, FXMLPrincipaleController con){
         this.num = num;
         this.ab=ab;

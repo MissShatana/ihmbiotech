@@ -10,13 +10,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 /**
- *
- * @author Natashaa
+ *Classe qui crée les différentes solutions que veut le chercheur
  */
 public class Solutions {
     private String qt_ab, qt_cell, ty_cell;
     FXMLPrincipaleController con;
     
+    /**
+     * Constructeur de la solution avec
+     * @param qt_ab quantité d'agent biologique
+     * @param qt_cell quantité de cellules
+     * @param ty_cell type de cellules
+     * @param con main
+     */
     public Solutions(String qt_ab, String qt_cell, String ty_cell, FXMLPrincipaleController con){
         this.qt_ab=qt_ab;
         this.qt_cell=qt_cell;
@@ -24,6 +30,10 @@ public class Solutions {
         this.con=con;
     }
 
+    /**
+     * getter pour la quantité d'agent biologique
+     * @return quantité biologique
+     */
     public String getQt_ab() {
         return qt_ab;
     }
