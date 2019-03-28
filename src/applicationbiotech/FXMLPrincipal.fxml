@@ -33,13 +33,14 @@
                   <Label layoutX="252.0" layoutY="4.0" prefHeight="17.0" prefWidth="243.0" text="Nouvelle commande: Informations générales" />
                </children>
             </Pane>
-            <Label layoutX="64.0" layoutY="52.0" prefHeight="17.0" prefWidth="91.0" text="Agent bioloique" fx:id="agentLabel" />
-            <Label layoutX="409.0" layoutY="51.0" prefHeight="17.0" prefWidth="91.0" text="Type de plaque" fx:id="typePlaqueLabel"/>
-            <TextField layoutX="527.0" layoutY="105.0" prefHeight="25.0" prefWidth="78.0" fx:id="slotField"/>
-            <Label layoutX="413.0" layoutY="109.0" prefHeight="17.0" prefWidth="106.0" text="Nombre de slots" fx:id="slotLabel"/>
-            <Label layoutX="61.0" layoutY="104.0" prefHeight="17.0" prefWidth="106.0" text="Type d'expérience" fx:id="typeExpLabel"/>
-            <ComboBox fx:id="comboTypePlaque" layoutX="504.0" layoutY="47.0" prefHeight="25.0" prefWidth="100.0" />
-            <ComboBox fx:id="Comboexp" layoutX="188.0" layoutY="100.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="60.0" layoutY="52.0" prefHeight="17.0" prefWidth="110.0" text="Agent bioloique" fx:id="agentLabel" />
+            <ComboBox fx:id="comboAgent" layoutX="180.0" layoutY="52.0" prefHeight="25.0" prefWidth="120.0" />
+            <Label layoutX="410.0" layoutY="52.0" prefHeight="17.0" prefWidth="110.0" text="Type de plaque" fx:id="typePlaqueLabel"/>
+            <ComboBox fx:id="comboTypePlaque" layoutX="530.0" layoutY="52.0" prefHeight="25.0" prefWidth="120.0" />
+            <Label layoutX="60.0" layoutY="105.0" prefHeight="17.0" prefWidth="110.0" text="Type d'expérience" fx:id="typeExpLabel"/>
+            <ComboBox fx:id="Comboexp" layoutX="180.0" layoutY="105.0" prefHeight="25.0" prefWidth="120.0" />
+            <Label layoutX="413.0" layoutY="105.0" prefHeight="17.0" prefWidth="120.0" text="Nombre de slots" fx:id="slotLabel"/>
+            <TextField layoutX="530.0" layoutY="105.0" prefHeight="25.0" prefWidth="110.0" fx:id="slotField"/>
             
             <Label layoutX="48.0" layoutY="186.0" prefHeight="17.0" prefWidth="121.0" text="Suivi dans le temps ?" fx:id="suiviLabel" />
             <fx:define>
@@ -52,7 +53,6 @@
             <Label layoutX="538.0" layoutY="186.0" prefHeight="17.0" prefWidth="91.0" text="Fréquence" fx:id="frequenceLabel"/>
             <TextField layoutX="610.0" layoutY="183.0" prefHeight="25.0" prefWidth="42.0" fx:id="frequenceField" />
             <Label layoutX="26.0" layoutY="257.0" prefHeight="17.0" prefWidth="134.0" text="Niveau d'acceptation:" />
-            <ComboBox fx:id="comboAgent" layoutX="174.0" layoutY="48.0" prefHeight="25.0" prefWidth="114.0" />
             <Label layoutX="86.0" layoutY="288.0" prefHeight="17.0" prefWidth="42.0" text="A1" fx:id="a1RougeLabel"  />
             <TextField layoutX="107.0" layoutY="284.0" prefHeight="25.0" prefWidth="42.0" fx:id="a1RougeField"/>
             <Label layoutX="27.0" layoutY="288.0" prefHeight="17.0" prefWidth="42.0" text="Rouge:" />
@@ -122,7 +122,7 @@
       </VBox>
       <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="42.0" prefHeight="458.0" prefWidth="750.0" visible="false">
          <children>
-            <TableView fx:id="tab_attente" layoutX="14.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
+            <TableView fx:id="tab_attente" layoutX="40.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
               <columns>
                 <TableColumn fx:id="col_att_num_commande" prefWidth="39.0" text="N°" />
                 <TableColumn fx:id="col_att_ab_commande" prefWidth="109.0" text="Agent biologique" />
@@ -150,12 +150,12 @@
               </columns>
             </TableView>
             <HBox spacing="10" layoutX="110.0" layoutY="310.0">
-                <TextField fx:id="ab_field" promptText="Quantité d'Agent biologique" prefWidth="180"/>
-                <TextField fx:id="cell_field" promptText="Quantité de cellule" prefWidth="120"/>
-                <ComboBox fx:id="comboTypeCell" prefWidth="100" />
-                <Button text="Ajouter" onAction="#addSolutions" prefWidth="100"/>
+                <TextField fx:id="ab_field" promptText="Quantité d'Agent biologique" prefWidth="200"/>
+                <TextField fx:id="cell_field" promptText="Quantité de cellule" prefWidth="200"/>
+                <Button text="Ajouter" onAction="#addSolutions" prefWidth="110"/>
             </HBox>
             <Label fx:id="Label_error_sol" layoutX="110" layoutY="350" prefHeight="42" text="Aucune solution n'a été remplie"/>  
+            <Label fx:id="Label_error_vide" layoutX="110" layoutY="350" prefHeight="42" text="Vos champs sont vides"/>  
             <Button fx:id="btn_valider_commande" layoutX="306.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #81B781;" text="Valider la commande" onAction="#handleButtonValiderComSol"  />
             <Button fx:id="btn_retour_inf_g" layoutX="50.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="219.0" style="-fx-background-color: A3D0D6;" text="Retour vers informations générales" onAction="#handleButtonRetour" />
             <Button fx:id="btn_annuler_commande" layoutX="526.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #FF4A4A;" text="Annuler" onAction="#handleButtonAnnuler"/>

@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Application to manage lab Data.
  */
 package applicationbiotech;
 
@@ -29,34 +27,13 @@ import javafx.scene.paint.Color;
 import javafx.util.converter.DefaultStringConverter;
 
 /**
- *
- * @author gphy
+ * FXMLPrincipaleController is the class with the different listener
+ * 
  */
 public class FXMLPrincipaleController implements Initializable {
     
-        ObservableList <String> AgentList = 
-            FXCollections.observableArrayList(
-            "fraise",
-            "citron",
-            "orange"
-            );
-        
-    
-        ObservableList <String> comboList = 
-            FXCollections.observableArrayList(
-            "colorimétrique",
-            "opacimétrique"
-            );
-        
-        ObservableList <String> plaqueList = 
-            FXCollections.observableArrayList(
-            "394",
-            "96"
-            );
-        
-        
-
-    
+    //Attribut
+    //Pane
     @FXML
     private AnchorPane AnchorPane;
 
@@ -68,7 +45,24 @@ public class FXMLPrincipaleController implements Initializable {
 
     @FXML
     private Pane paneLabel;
+    
+    @FXML
+    private Pane paneTableAttente;
 
+    @FXML
+    private Pane paneLabel1;
+    
+    @FXML
+    private Pane paneSolutionsCommande ; 
+    
+    @FXML
+    private Pane pane;
+    
+    @FXML
+    private Pane pane_attente;
+    
+    
+    //Button
     @FXML
     private Button btn_to_sol;
 
@@ -80,16 +74,7 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private Button btn_annul;
-
-    @FXML
-    private Pane paneTableAttente;
-
-    @FXML
-    private Pane paneLabel1;
     
-    @FXML
-    private Pane paneSolutionsCommande ; 
-
     @FXML
     private Button btn_valider_commande; 
 
@@ -98,18 +83,20 @@ public class FXMLPrincipaleController implements Initializable {
 
     @FXML
     private Button btn_annuler_commande;
-
-    @FXML
-    private Pane pane;
     
     @FXML
-    private Pane pane_attente;
+    private ToggleGroup myToggleGroup ;
+     
+    @FXML
+    private RadioButton radioOui;
+     
+    @FXML
+    private RadioButton radioNon;
     
+    
+    //ComboBox
     @FXML 
     private ComboBox comboAgent;
-    
-    @FXML
-    private Label agentLabel;
     
     @FXML 
     private ComboBox Comboexp;
@@ -117,142 +104,263 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML 
     private ComboBox comboTypePlaque;
     
+    private ObservableList <String> AgentList = 
+            FXCollections.observableArrayList(
+            "fraise",
+            "citron",
+            "orange"
+            );
+        
+    
+     private ObservableList <String> comboList = 
+            FXCollections.observableArrayList(
+            "colorimétrique",
+            "opacimétrique"
+            );
+        
+     private ObservableList <String> plaqueList = 
+            FXCollections.observableArrayList(
+            "394",
+            "96"
+            );
+
+    //Label
+    @FXML
+    private Label agentLabel;
+
     @FXML
     private Label frequenceLabel;
     
-     @FXML
-     private TextField frequenceField;
+    @FXML
+    private Label a3TransparenceLabel;
+    
+    @FXML
+    private Label a3VertLabel;
      
-     @FXML
-     private Label a3TransparenceLabel;
+    @FXML
+    private Label a3RougeLabel;
      
-     @FXML
-     private TextField a3TransparenceField;
+    @FXML
+    private Label a3BleuLabel;
+    
+    @FXML
+    private Label typePlaqueLabel;
      
-     @FXML
-     private Label a3RougeLabel;
+    @FXML
+    private Label typeExpLabel;
      
-     @FXML
-     private TextField a3RougeField;
+    @FXML
+    private Label suiviLabel;
      
-     @FXML
-     private Label a3BleuLabel;
+    @FXML
+    private Label Label_error;
+    
+    @FXML
+    private Label a1RougeLabel;
      
-     @FXML
-     private TextField a3BleuField;
+    @FXML
+    private Label a2RougeLabel;
      
-     @FXML
-     private Label a3VertLabel;
+    @FXML
+    private Label a1VertLabel;
      
-     @FXML
-     private TextField a3VertField;
+    @FXML
+    private Label a2VertLabel;
      
-     @FXML
-     private ToggleGroup myToggleGroup ;
+    @FXML
+    private Label a1BleuLabel;
      
-     @FXML
-     private RadioButton radioOui;
+    @FXML
+    private Label a2BleuLabel;
      
-     @FXML
-     private RadioButton radioNon;
+    @FXML
+    private Label a1TransparenceLabel;
      
-     @FXML
-     private TextField dureeField;
+    @FXML
+    private Label a2TransparenceLabel;
      
-     @FXML
-     private TextField a1RougeField;
+    @FXML
+    private Label dureeLabel;
      
-     @FXML
-     private TextField a2RougeField;
+    @FXML
+    private Label slotLabel;
+    
+    @FXML
+    private Label Label_error_sol;
+    
+    @FXML 
+    private Label Label_error_vide;
      
-     @FXML
-     private TextField a1BleuField;
+
+    //Field
+    
+    @FXML
+    private TextField dureeField;
      
-     @FXML
-     private TextField a2BleuField;
+    @FXML
+    private TextField a1RougeField;
      
-     @FXML
-     private TextField a1VertField;
+    @FXML
+    private TextField a2RougeField;
+     
+    @FXML
+    private TextField a1BleuField;
+     
+    @FXML
+    private TextField a2BleuField;
+     
+    @FXML
+    private TextField a1VertField;
       
-     @FXML
-     private TextField a2VertField;
+    @FXML
+    private TextField a2VertField;
       
-     @FXML
-     private TextField a1TransparenceField;
+    @FXML
+    private TextField a1TransparenceField;
      
-     @FXML
-     private TextField a2TransparenceField;
+    @FXML
+    private TextField a2TransparenceField;
+    
+    @FXML
+    private TextField frequenceField;
      
-     @FXML
-     private Label a1RougeLabel;
+    @FXML
+    private TextField a3TransparenceField;
      
-     @FXML
-     private Label a2RougeLabel;
+    @FXML
+    private TextField a3RougeField;
      
-     @FXML
-     private Label a1VertLabel;
+    @FXML
+    private TextField a3BleuField;
      
-     @FXML
-     private Label a2VertLabel;
-     
-     @FXML
-     private Label a1BleuLabel;
-     
-     @FXML
-     private Label a2BleuLabel;
-     
-     @FXML
-     private Label a1TransparenceLabel;
-     
-     @FXML
-     private Label a2TransparenceLabel;
-     
-     @FXML
-     private Label dureeLabel;
-     
-     @FXML
-     private Label slotLabel;
-     
-     @FXML
-     private TextField slotField;
-     
-     @FXML
-     private Label typePlaqueLabel;
-     
-     @FXML
-     private Label typeExpLabel;
-     
-     @FXML
-     private Label suiviLabel;
-     
-     @FXML
-     private Label Label_error;
-     
-     
-     
+    @FXML
+    private TextField a3VertField;
 
-      
+    @FXML
+    private TextField slotField;
+    
+    @FXML 
+    private TextField ab_field;
+    
+    
+    @FXML 
+    private TextField cell_field;
+    
      
-
-
-
-
-
+//Pour la commande
+    /**
+     * Cette class annule la commande et écoute les deux bouttons annuler
+     * les valeurs sont réinitialisées
+     * @param e 
+     */
+    public void handleButtonAnnuler (ActionEvent e){
+       paneSolutionsCommande.setVisible(false);
+       PaneCommande.setVisible(false);
+       comboAgent.getSelectionModel().clearSelection();
+       Comboexp.getSelectionModel().clearSelection();
+       comboTypePlaque.getSelectionModel().clearSelection();
+       frequenceField.setText("");
+       radioOui.setSelected(false);
+       radioNon.setSelected(false);
+       dureeField.setText("");
+       a1RougeField.setText("");
+       a2RougeField.setText("");
+       a3RougeField.setText("");
+       a1VertField.setText("");
+       a2VertField.setText("");
+       a3VertField.setText("");
+       a1BleuField.setText("");
+       a2BleuField.setText("");
+       a3BleuField.setText("");
+       a1TransparenceField.setText("");
+       a2TransparenceField.setText("");
+       a3TransparenceField.setText("");
+       commande.setDisable(false);
+       btn_attente.setDisable(false);
+       data_table_sol.removeAll(tab_Solutions.getItems());
+       Label_error_sol.setVisible(false);
+       Label_error.setVisible(false);
+       frequenceLabel.setVisible(false);
+       frequenceField.setVisible(false);
+       a3VertField.setVisible(false);
+       a3VertLabel.setVisible(false);
+       a3BleuField.setVisible(false);
+       a3BleuLabel.setVisible(false);
+       a3RougeField.setVisible(false);
+       a3RougeLabel.setVisible(false);
+       a3TransparenceField.setVisible(false);
+       a3TransparenceLabel.setVisible(false);
+       slotField.setText("");
+       
+    }
+    
+    //Pour le menu
     public void handleButtonCommande(ActionEvent event) {
         paneLabel.setVisible(true);
         PaneCommande.setVisible(true);
         commande.setDisable(true);
         btn_attente.setDisable(true);
-        
-
+        paneTableAttente.setVisible(false);
     }
     
+    public void handleMenuAttente(ActionEvent event) {
+        paneTableAttente.setVisible(true);
+        PaneCommande.setVisible(false);
+        paneLabel.setVisible(false);   
+    }
+    
+    //La commande :Les informations générales
+    
+    /**
+     * Cette classe écoute les bouttons valider de commande informations générales
+     * si des champs sont vides un message d'erreur s'affiche et le champs vide est écrit en rouge
+     * sinon on passe à solutions et la couleur des champs est réinitialisé à noir
+     * @param e 
+     */
     public void handleButtonValider (ActionEvent e){
         if ((comboAgent.getValue() != null) && (slotField.getText().isEmpty()!=true)&&(Comboexp.getValue() != null) && (comboTypePlaque.getValue() !=null) && (a1RougeField.getText().isEmpty() !=true) && (a2RougeField.getText().isEmpty() !=true) && (a1BleuField.getText().isEmpty() !=true) && (a2BleuField.getText().isEmpty() !=true) && (a1VertField.getText().isEmpty() !=true) && (a2VertField.getText().isEmpty() !=true) && (a1TransparenceField.getText().isEmpty() !=true) && (a2TransparenceField.getText().isEmpty() !=true) && (dureeField.getText().isEmpty() !=true) && (slotField.getText().isEmpty() !=true) &&((radioOui.isSelected() == true && a3RougeField.getText().isEmpty() !=true && a3VertField.getText().isEmpty() !=true && a3BleuField.getText().isEmpty() !=true && a3TransparenceField.getText().isEmpty() !=true && frequenceField.getText().isEmpty() !=true)|(radioNon.isSelected() == true)) ) {
             paneSolutionsCommande.setVisible(true);
             PaneCommande.setVisible(false);
+            agentLabel.setTextFill(Color.web("black"));
+            typeExpLabel.setTextFill(Color.web("black"));
+            slotLabel.setTextFill(Color.web("black"));
+            typePlaqueLabel.setTextFill(Color.web("black"));
+            suiviLabel.setTextFill(Color.web("black"));
+            a3RougeLabel.setTextFill(Color.web("black"));
+            a2RougeLabel.setTextFill(Color.web("black"));
+            a1RougeLabel.setTextFill(Color.web("black"));
+            a3VertLabel.setTextFill(Color.web("black"));
+            a2VertLabel.setTextFill(Color.web("black"));
+            a1VertLabel.setTextFill(Color.web("black"));
+            a1TransparenceLabel.setTextFill(Color.web("black"));
+            a2TransparenceLabel.setTextFill(Color.web("black"));
+            a3TransparenceLabel.setTextFill(Color.web("black"));
+            a3BleuLabel.setTextFill(Color.web("black"));
+            a2BleuLabel.setTextFill(Color.web("black"));
+            a1BleuLabel.setTextFill(Color.web("black"));
+            dureeLabel.setTextFill(Color.web("black"));
+            Label_error.setVisible(false);
         }
         else{
+            agentLabel.setTextFill(Color.web("black"));
+            typeExpLabel.setTextFill(Color.web("black"));
+            slotLabel.setTextFill(Color.web("black"));
+            typePlaqueLabel.setTextFill(Color.web("black"));
+            suiviLabel.setTextFill(Color.web("black"));
+            a3RougeLabel.setTextFill(Color.web("black"));
+            a2RougeLabel.setTextFill(Color.web("black"));
+            a1RougeLabel.setTextFill(Color.web("black"));
+            a3VertLabel.setTextFill(Color.web("black"));
+            a2VertLabel.setTextFill(Color.web("black"));
+            a1VertLabel.setTextFill(Color.web("black"));
+            a1TransparenceLabel.setTextFill(Color.web("black"));
+            a2TransparenceLabel.setTextFill(Color.web("black"));
+            a3TransparenceLabel.setTextFill(Color.web("black"));
+            a3BleuLabel.setTextFill(Color.web("black"));
+            a2BleuLabel.setTextFill(Color.web("black"));
+            a1BleuLabel.setTextFill(Color.web("black"));
+            dureeLabel.setTextFill(Color.web("black"));
+            
             Label_error.setVisible(true);
              if ( comboAgent.getValue() == null  ){
                     agentLabel.setTextFill(Color.web("red"));
@@ -317,83 +425,48 @@ public class FXMLPrincipaleController implements Initializable {
         }
     }
              
-                                          
+    //La commande : Pour la solution 
+    /**
+     * Cette classe écoute le boutton retour pour retourné 
+     * sur la page informations générales de commande depuis solutions
+     * @param f 
+     */
     public void handleButtonRetour (ActionEvent f){
-    //System.out.println("You clicked me!");
     paneSolutionsCommande.setVisible(false);
     PaneCommande.setVisible(true);
-    }
+    }  
     
-    public void handleButtonAnnuler (ActionEvent e){
-       paneSolutionsCommande.setVisible(false);
-       PaneCommande.setVisible(false);
-       comboAgent.getSelectionModel().clearSelection();
-       Comboexp.getSelectionModel().clearSelection();
-       comboTypePlaque.getSelectionModel().clearSelection();
-       frequenceField.setText("");
-       radioOui.setSelected(false);
-       radioNon.setSelected(false);
-       dureeField.setText("");
-       a1RougeField.setText("");
-       a2RougeField.setText("");
-       a3RougeField.setText("");
-       a1VertField.setText("");
-       a2VertField.setText("");
-       a3VertField.setText("");
-       a1BleuField.setText("");
-       a2BleuField.setText("");
-       a3BleuField.setText("");
-       a1TransparenceField.setText("");
-       a2TransparenceField.setText("");
-       a3TransparenceField.setText("");
-       commande.setDisable(false);
-       btn_attente.setDisable(false);
-       data_table_sol.removeAll(tab_Solutions.getItems());
-       Label_error_sol.setVisible(false);
-        Label_error.setVisible(false);
-       
-       frequenceLabel.setVisible(false);
-        frequenceField.setVisible(false);
-        a3VertField.setVisible(false);
-        a3VertLabel.setVisible(false);
-        a3BleuField.setVisible(false);
-        a3BleuLabel.setVisible(false);
-        a3RougeField.setVisible(false);
-        a3RougeLabel.setVisible(false);
-        a3TransparenceField.setVisible(false);
-        a3TransparenceLabel.setVisible(false);
-        
-        slotField.setText("");
-       
-    }
-    
-    @FXML
-    private Label Label_error_sol;
+    /**
+     * Cette classe écoute Valider sur la page solution
+     * s'il n'y pas de données, un message d'erreur s'affiche
+     * sinon les différents champs de commande informations générales et solutions sont réinitialiser
+     * @param e 
+     */
     public void handleButtonValiderComSol (ActionEvent e){
         if (data_table_sol.isEmpty()){
-            
             Label_error_sol.setVisible(true);
+            Label_error_vide.setVisible(false);
         }
         else{
             paneSolutionsCommande.setVisible(false);
-       radioOui.setSelected(false);
-       radioNon.setSelected(false);
+            radioOui.setSelected(false);
+            radioNon.setSelected(false);
             comboAgent.getSelectionModel().clearSelection();
             Comboexp.getSelectionModel().clearSelection();
             comboTypePlaque.getSelectionModel().clearSelection();
             frequenceField.setText("");
-          dureeField.setText("");
-          a1RougeField.setText("");
-          a2RougeField.setText("");
+            dureeField.setText("");
+            a1RougeField.setText("");
+            a2RougeField.setText("");
             a3RougeField.setText("");
-          a1VertField.setText("");
-          a2VertField.setText("");
+            a1VertField.setText("");
+            a2VertField.setText("");
             a3VertField.setText("");
-          a1BleuField.setText("");
-          a2BleuField.setText("");
+            a1BleuField.setText("");
+            a2BleuField.setText("");
             a3BleuField.setText("");
-          a1TransparenceField.setText("");
-          a2TransparenceField.setText("");
+            a1TransparenceField.setText("");
+            a2TransparenceField.setText("");
             a3TransparenceField.setText("");
             data_table_sol.removeAll(tab_Solutions.getItems());
             commande.setDisable(false);
@@ -409,49 +482,48 @@ public class FXMLPrincipaleController implements Initializable {
             a3TransparenceField.setVisible(false);
             a3TransparenceLabel.setVisible(false);
             Label_error_sol.setVisible(false);
-        Label_error.setVisible(false);
-        slotField.setText("");
+            Label_error.setVisible(false);
+            slotField.setText("");
         }
     }
     
-        public void myGroupAction(ActionEvent action)
+    /**
+     * Cette classe permet de faire apparaître les champs a3 et fréquence 
+     * quand l'expérience est suivi dans le temps
+     * et les faire disparaître quand elle ne l'est pas
+     * @param action 
+     */
+    public void myGroupAction(ActionEvent action)
     {
        if(radioOui.isSelected()){
-           
-        frequenceLabel.setVisible(true);
-        frequenceField.setVisible(true);
-        a3VertField.setVisible(true);
-        a3VertLabel.setVisible(true);
-        a3BleuField.setVisible(true);
-        a3BleuLabel.setVisible(true);
-        a3RougeField.setVisible(true);
-        a3RougeLabel.setVisible(true);
-        a3TransparenceField.setVisible(true);
-        a3TransparenceLabel.setVisible(true);
+            frequenceLabel.setVisible(true);
+            frequenceField.setVisible(true);
+            a3VertField.setVisible(true);
+            a3VertLabel.setVisible(true);
+            a3BleuField.setVisible(true);
+            a3BleuLabel.setVisible(true);
+            a3RougeField.setVisible(true);
+            a3RougeLabel.setVisible(true);
+            a3TransparenceField.setVisible(true);
+            a3TransparenceLabel.setVisible(true);
        }
        
         if(radioNon.isSelected()){
-        
-        frequenceLabel.setVisible(false);
-        frequenceField.setVisible(false);
-        a3VertField.setVisible(false);
-        a3VertLabel.setVisible(false);
-        a3BleuField.setVisible(false);
-        a3BleuLabel.setVisible(false);
-        a3RougeField.setVisible(false);
-        a3RougeLabel.setVisible(false);
-        a3TransparenceField.setVisible(false);
-        a3TransparenceLabel.setVisible(false);
-            
-            
-           
-
-            }
-
+            frequenceLabel.setVisible(false);
+            frequenceField.setVisible(false);
+            a3VertField.setVisible(false);
+            a3VertLabel.setVisible(false);
+            a3BleuField.setVisible(false);
+            a3BleuLabel.setVisible(false);
+            a3RougeField.setVisible(false);
+            a3RougeLabel.setVisible(false);
+            a3TransparenceField.setVisible(false);
+            a3TransparenceLabel.setVisible(false);
+        }
     }
  
 
-    
+    //Attributs: Tableau pour les commandes en attente
     @FXML
     private TableView<Commande> tab_attente;
        
@@ -478,55 +550,16 @@ public class FXMLPrincipaleController implements Initializable {
     
     private ObservableList<Commande> data_table;
     
-
-    @FXML
-    public void handleMenuAttente(ActionEvent event) {
-        paneTableAttente.setVisible(true);
-        PaneCommande.setVisible(false);
-        paneLabel.setVisible(false);
-        
-    }
-
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        initTable();
-        loadData();
-        initTableSol();
-        loadDataSol();
-        Label_error_sol.setTextFill(Color.web("red"));
-        Label_error.setTextFill(Color.web("red"));
-        Label_error_sol.setVisible(false);
-        Label_error.setVisible(false);
-        commande.setDisable(false);
-        btn_attente.setDisable(false);
-        PaneCommande.setVisible(false);
-        comboAgent.setItems(AgentList);
-        Comboexp.setItems(comboList);
-        comboTypePlaque.setItems(plaqueList);
-        comboTypeCell.setItems(type_cell);
-        paneTableAttente.setVisible(false);
-        
-        frequenceLabel.setVisible(false);
-        frequenceField.setVisible(false);
-        a3VertField.setVisible(false);
-        a3VertLabel.setVisible(false);
-        a3BleuField.setVisible(false);
-        a3BleuLabel.setVisible(false);
-        a3RougeField.setVisible(false);
-        a3RougeLabel.setVisible(false);
-        a3TransparenceField.setVisible(false);
-        a3TransparenceLabel.setVisible(false);
-                
-        
-    }    
-    
+    //Tableau pour les commandes en attente
+    /**
+     * Construction du tableau d'attente
+     */
     private void initTable(){
         initColumn();
     }
     
     private void initColumn(){
-        //num, ab, type_exp, nb_slot, d_f, nb_sol;
         col_att_num_commande.setCellValueFactory(new PropertyValueFactory<>("num"));
         col_att_ab_commande.setCellValueFactory(new PropertyValueFactory<>("ab"));
         col_att_type_exp_commande.setCellValueFactory(new PropertyValueFactory<>("type_exp"));
@@ -534,18 +567,15 @@ public class FXMLPrincipaleController implements Initializable {
         col_att_d_f.setCellValueFactory(new PropertyValueFactory<>("d_f"));
         col_att_nb_sol.setCellValueFactory(new PropertyValueFactory<>("nb_sol"));
         col_att_assignation.setCellValueFactory(new PropertyValueFactory<>("assignation"));
-        editTableColumn();
     }
     
-    private void editTableColumn(){
-        
-    }
-    
+    /**
+     * loadData permet mettre les données dans le tableview
+     */
     private void loadData() {
         data_table = FXCollections.observableArrayList();
         for( int i=0; i<7;i++){
-            //data_table.add(new Commande(String.valueOf(i),"ab"+i,'type_exp'+i,"nb_slot"+i,"df"+i,"nb_sol"+i, new Button("je prends")));
-            data_table.add(new Commande(String.valueOf(i),"ab","t","s","df","n", new Button("je prends"),this));
+            data_table.add(new Commande(String.valueOf(i),"agent"+i,"opacimétrique","3","1,none","1"+i, new Button("je prends"),this));
         }
         tab_attente.setItems(data_table);
     }
@@ -558,6 +588,8 @@ public class FXMLPrincipaleController implements Initializable {
         return tab_attente;
     }
     
+    
+    //Attributs: Tableau pour les commandes en attente
     @FXML
     private TableView<Solutions> tab_Solutions;
        
@@ -578,43 +610,69 @@ public class FXMLPrincipaleController implements Initializable {
             "Cancéreuse"
             );
 
+    //Tableau pour les commandes en attente
+    /**
+     * Construction du tableau d'attente
+     */
     private void initTableSol(){
         initColumnSol();
     }
     
     private void initColumnSol(){
-        //num, ab, type_exp, nb_slot, d_f, nb_sol;
         col_sol_qt_ab.setCellValueFactory(new PropertyValueFactory<>("qt_ab"));
         col_sol_qt_cell.setCellValueFactory(new PropertyValueFactory<>("qt_cell"));
         col_sol_ty_cell.setCellValueFactory(new PropertyValueFactory<>("ty_cell"));
         editTableColumnSol();
     }
     
+    /**
+     * la classe editTableColumnSol permet de rendre les cellules éditable et d'enregistrer les nouvelles valeurs
+     */
     private void editTableColumnSol(){
         col_sol_qt_ab.setCellFactory(TextFieldTableCell.forTableColumn());
+        col_sol_qt_ab.setOnEditCommit(e->{
+            e.getTableView().getItems().get(e.getTablePosition().getRow()).setQt_ab(e.getNewValue());
+        });
         col_sol_qt_cell.setCellFactory(TextFieldTableCell.forTableColumn());
-        col_sol_ty_cell.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), type_cell)); 
+        col_sol_qt_cell.setOnEditCommit(e->{
+            e.getTableView().getItems().get(e.getTablePosition().getRow()).setQt_ab(e.getNewValue());
+        });
+        col_sol_ty_cell.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), type_cell));
+        col_sol_ty_cell.setOnEditCommit(e->{
+            e.getTableView().getItems().get(e.getTablePosition().getRow()).setQt_ab(e.getNewValue());
+        });
+        
         tab_Solutions.setEditable(true);
     }
-    
- 
-    @FXML private TextField ab_field;
-    @FXML private TextField cell_field;
-    @FXML private ComboBox<String> comboTypeCell;
     
     @FXML
     protected void addSolutions(ActionEvent event) {
         dataSol = tab_Solutions.getItems();
-        dataSol.add(new Solutions(ab_field.getText(),
-            cell_field.getText(),
-            comboTypeCell.getValue(),
-            this
-        ));
-        comboTypeCell.getSelectionModel().clearSelection();
+        if (ab_field.getText().isEmpty() | cell_field.getText().isEmpty()){
+            Label_error_vide.setVisible(true);
+        }
+        else{
+            Label_error_vide.setVisible(false);
+            dataSol.add(new Solutions(ab_field.getText(),
+                cell_field.getText(),
+                "Normales",
+                this
+            ));
+            dataSol.add(new Solutions(ab_field.getText(),
+                cell_field.getText(),
+                "Cancéreuse",
+                this
+            ));
+        }
+        
         ab_field.setText("");
         cell_field.setText("");
+        Label_error_sol.setVisible(false);
     }
     
+    /**
+     * loadDataSol permet mettre les données dans le tableview
+     */
     private void loadDataSol() {
         data_table_sol = FXCollections.observableArrayList();
         tab_Solutions.setItems(data_table_sol);
@@ -632,8 +690,40 @@ public class FXMLPrincipaleController implements Initializable {
         return col_sol_qt_cell;
     }
 
-    public String getComboTypeCell() {
-        return comboTypeCell.getValue();
-    }
     
+    /**
+     * initialize: tous les attributs sont initialisés
+     * @param url
+     * @param rb 
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initTable();
+        loadData();
+        initTableSol();
+        loadDataSol();
+        Label_error_vide.setVisible(false);
+        Label_error_vide.setTextFill(Color.web("red"));
+        Label_error_sol.setTextFill(Color.web("red"));
+        Label_error.setTextFill(Color.web("red"));
+        Label_error_sol.setVisible(false);
+        Label_error.setVisible(false);
+        commande.setDisable(false);
+        btn_attente.setDisable(false);
+        PaneCommande.setVisible(false);
+        comboAgent.setItems(AgentList);
+        Comboexp.setItems(comboList);
+        comboTypePlaque.setItems(plaqueList);
+        paneTableAttente.setVisible(false);
+        frequenceLabel.setVisible(false);
+        frequenceField.setVisible(false);
+        a3VertField.setVisible(false);
+        a3VertLabel.setVisible(false);
+        a3BleuField.setVisible(false);
+        a3BleuLabel.setVisible(false);
+        a3RougeField.setVisible(false);
+        a3RougeLabel.setVisible(false);
+        a3TransparenceField.setVisible(false);
+        a3TransparenceLabel.setVisible(false);
+    }
 }
