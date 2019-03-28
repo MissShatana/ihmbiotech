@@ -28,6 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.util.converter.DefaultStringConverter;
 
 /**
@@ -79,6 +80,9 @@ public class FXMLPrincipaleController implements Initializable {
 
     @FXML
     private Button btn_attente;
+    
+    @FXML
+    private Button btn_annul;
 
     @FXML
     private Pane paneTableAttente;
@@ -157,11 +161,10 @@ public class FXMLPrincipaleController implements Initializable {
 
 
     public void handleButtonCommande(ActionEvent event) {
-        //System.out.println("You clicked me!");
-        //label.setText("Hello World!");
-        //pane_attente.setVisible(false); 
         paneLabel.setVisible(true);
         PaneCommande.setVisible(true);
+        commande.setDisable(true);
+        btn_attente.setDisable(true);
         
 
     }
@@ -177,6 +180,92 @@ public class FXMLPrincipaleController implements Initializable {
     //System.out.println("You clicked me!");
     paneSolutionsCommande.setVisible(false);
     PaneCommande.setVisible(true);
+    }
+    
+    public void handleButtonAnnuler (ActionEvent e){
+       paneSolutionsCommande.setVisible(false);
+       PaneCommande.setVisible(false);
+       comboAgent.getSelectionModel().clearSelection();
+       Comboexp.getSelectionModel().clearSelection();
+       comboTypePlaque.getSelectionModel().clearSelection();
+       frequenceField.setText("");
+       radioOui.setSelected(false);
+       radioNon.setSelected(false);
+//       dureeField.setText("");
+//       a1RougeField.setText("");
+//       a2RougeField.setText("");
+       a3RougeField.setText("");
+//       a1VertField.setText("");
+//       a2VertField.setText("");
+       a3VertField.setText("");
+//       a1BleuField.setText("");
+//       a2BleuField.setText("");
+       a3BleuField.setText("");
+//       a1TransparenceField.setText("");
+//       a2TransparenceField.setText("");
+       a3TransparenceField.setText("");
+       commande.setDisable(false);
+       btn_attente.setDisable(false);
+       data_table_sol.removeAll(tab_Solutions.getItems());
+       Label_error_sol.setVisible(false);
+        //Label_error.setVisible(false);
+       
+       frequenceLabel.setVisible(false);
+        frequenceField.setVisible(false);
+        a3VertField.setVisible(false);
+        a3VertLabel.setVisible(false);
+        a3BleuField.setVisible(false);
+        a3BleuLabel.setVisible(false);
+        a3RougeField.setVisible(false);
+        a3RougeLabel.setVisible(false);
+        a3TransparenceField.setVisible(false);
+        a3TransparenceLabel.setVisible(false);
+       
+    }
+    
+    @FXML
+    private Label Label_error_sol;
+    public void handleButtonValiderComSol (ActionEvent e){
+        if (data_table_sol.isEmpty()){
+            
+            Label_error_sol.setVisible(true);
+        }
+        else{
+            paneSolutionsCommande.setVisible(false);
+       
+            comboAgent.getSelectionModel().clearSelection();
+            Comboexp.getSelectionModel().clearSelection();
+            comboTypePlaque.getSelectionModel().clearSelection();
+            frequenceField.setText("");
+//          dureeField.setText("");
+//          a1RougeField.setText("");
+//          a2RougeField.setText("");
+            a3RougeField.setText("");
+//          a1VertField.setText("");
+//          a2VertField.setText("");
+            a3VertField.setText("");
+//          a1BleuField.setText("");
+//          a2BleuField.setText("");
+            a3BleuField.setText("");
+//          a1TransparenceField.setText("");
+//          a2TransparenceField.setText("");
+            a3TransparenceField.setText("");
+            data_table_sol.removeAll(tab_Solutions.getItems());
+            commande.setDisable(false);
+            btn_attente.setDisable(false);
+            frequenceLabel.setVisible(false);
+            frequenceField.setVisible(false);
+            a3VertField.setVisible(false);
+            a3VertLabel.setVisible(false);
+            a3BleuField.setVisible(false);
+            a3BleuLabel.setVisible(false);
+            a3RougeField.setVisible(false);
+            a3RougeLabel.setVisible(false);
+            a3TransparenceField.setVisible(false);
+            a3TransparenceLabel.setVisible(false);
+            Label_error_sol.setVisible(false);
+        //Label_error.setVisible(false);
+        }
     }
     
         public void myGroupAction(ActionEvent action)
@@ -260,6 +349,12 @@ public class FXMLPrincipaleController implements Initializable {
         loadData();
         initTableSol();
         loadDataSol();
+        Label_error_sol.setTextFill(Color.web("red"));
+        //Label_error.setTextFill(Color.web("red"));
+        Label_error_sol.setVisible(false);
+        //Label_error.setVisible(false);
+        commande.setDisable(false);
+        btn_attente.setDisable(false);
         PaneCommande.setVisible(false);
         comboAgent.setItems(AgentList);
         Comboexp.setItems(comboList);
@@ -330,7 +425,7 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     private TableColumn<Solutions, String> col_sol_ty_cell;
     
-    private ObservableList<Solutions> data_table_sol;
+    private ObservableList<Solutions> data_table_sol, dataSol;
     
     private ObservableList <String> type_cell = 
             FXCollections.observableArrayList(
@@ -364,8 +459,8 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     protected void addSolutions(ActionEvent event) {
-        ObservableList<Solutions> data = tab_Solutions.getItems();
-        data.add(new Solutions(ab_field.getText(),
+        dataSol = tab_Solutions.getItems();
+        dataSol.add(new Solutions(ab_field.getText(),
             cell_field.getText(),
             comboTypeCell.getValue(),
             this

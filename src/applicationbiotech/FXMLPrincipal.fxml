@@ -83,7 +83,9 @@
             <TextField layoutX="646.0" layoutY="339.0" prefHeight="25.0" prefWidth="42.0" fx:id="a3TransparenceField" />
             <Line endX="275.0" layoutX="315.0" layoutY="152.0" opacity="0.72" startX="-238.0" strokeWidth="0.5" />
             <Line endX="275.0" layoutX="315.0" layoutY="238.0" opacity="0.72" startX="-238.0" strokeWidth="0.5" />
-            <Button id="btn_val_sol" fx:id="btn_to_sol" layoutX="461.0" layoutY="389.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="233.0" style="-fx-background-color: #81B781;" text="Valider et ajouter des solutions" onAction="#handleButtonValider" />
+            <Label fx:id="Label_error" layoutX="27" layoutY="389" prefHeight="42" text="Des champs sont mal ou pas remplis. Merci de les remplir"/>  
+            <Button fx:id="btn_to_sol" layoutX="400.0" layoutY="389.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: #81B781;" text="Ajouter des solutions" onAction="#handleButtonValider" />
+            <Button fx:id="btn_annul" layoutX="610.0" layoutY="389.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" style="-fx-background-color: #FF4A4A;" text="Annuler" onAction="#handleButtonAnnuler" />
          </children></Pane>
       <VBox layoutY="34.0" prefHeight="466.0" prefWidth="160.0" style="-fx-background-color: #1DA5B6;">
          <children>
@@ -153,9 +155,10 @@
                 <ComboBox fx:id="comboTypeCell" prefWidth="100" />
                 <Button text="Ajouter" onAction="#addSolutions" prefWidth="100"/>
             </HBox>
-            <Button fx:id="btn_valider_commande" layoutX="306.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #81B781;" text="Valider la commande"  />
+            <Label fx:id="Label_error_sol" layoutX="110" layoutY="350" prefHeight="42" text="Aucune solution n'a été remplie"/>  
+            <Button fx:id="btn_valider_commande" layoutX="306.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #81B781;" text="Valider la commande" onAction="#handleButtonValiderComSol"  />
             <Button fx:id="btn_retour_inf_g" layoutX="50.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="219.0" style="-fx-background-color: A3D0D6;" text="Retour vers informations générales" onAction="#handleButtonRetour" />
-            <Button fx:id="btn_annuler_commande" layoutX="526.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #FF4A4A;" text="Annuler" />
+            <Button fx:id="btn_annuler_commande" layoutX="526.0" layoutY="401.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #FF4A4A;" text="Annuler" onAction="#handleButtonAnnuler"/>
          </children>
       </Pane>
    </children>
