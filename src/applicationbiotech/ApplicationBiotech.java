@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * classe ApplicationBiotech : lance l'application 
  */
 package applicationbiotech;
 
@@ -14,12 +12,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- *
- * @author gphy
+ * @author Grell Leyla Germain Natasha
+ * @version 28/03/2019
  */
-public class ApplicationBiotech extends Application {
-
-    
+public class ApplicationBiotech extends Application {    
     @Override
     public void start(Stage stage) throws Exception {
         
@@ -29,16 +25,10 @@ public class ApplicationBiotech extends Application {
         Scene scene1 = new Scene(root1);
         
         stage.setScene(scene1);
-        
-        
-        
-        
+               
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }

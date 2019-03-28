@@ -1,5 +1,5 @@
 /*
- * Application to manage lab Data.
+ * Application pour gérer les données de laboratoire
  */
 package applicationbiotech;
 
@@ -27,7 +27,9 @@ import javafx.scene.paint.Color;
 import javafx.util.converter.DefaultStringConverter;
 
 /**
- * FXMLPrincipaleController is the class with the different listener
+ * FXMLPrincipaleController  est la classe avec les différents écouteurs 
+ * @author Germain Natasha Grell Leyla
+ * @version 28/03/2019
  * 
  */
 public class FXMLPrincipaleController implements Initializable {
