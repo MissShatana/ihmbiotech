@@ -7,7 +7,6 @@ package applicationbiotech;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,14 +19,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.ComboBoxTableCell;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.util.converter.DefaultStringConverter;
 
 /**
@@ -107,6 +105,9 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML 
     private ComboBox comboAgent;
     
+    @FXML
+    private Label agentLabel;
+    
     @FXML 
     private ComboBox Comboexp;
     
@@ -151,6 +152,81 @@ public class FXMLPrincipaleController implements Initializable {
      
      @FXML
      private RadioButton radioNon;
+     
+     @FXML
+     private TextField dureeField;
+     
+     @FXML
+     private TextField a1RougeField;
+     
+     @FXML
+     private TextField a2RougeField;
+     
+     @FXML
+     private TextField a1BleuField;
+     
+     @FXML
+     private TextField a2BleuField;
+     
+     @FXML
+     private TextField a1VertField;
+      
+     @FXML
+     private TextField a2VertField;
+      
+     @FXML
+     private TextField a1TransparenceField;
+     
+     @FXML
+     private TextField a2TransparenceField;
+     
+     @FXML
+     private Label a1RougeLabel;
+     
+     @FXML
+     private Label a2RougeLabel;
+     
+     @FXML
+     private Label a1VertLabel;
+     
+     @FXML
+     private Label a2VertLabel;
+     
+     @FXML
+     private Label a1BleuLabel;
+     
+     @FXML
+     private Label a2BleuLabel;
+     
+     @FXML
+     private Label a1TransparenceLabel;
+     
+     @FXML
+     private Label a2TransparenceLabel;
+     
+     @FXML
+     private Label dureeLabel;
+     
+     @FXML
+     private Label slotLabel;
+     
+     @FXML
+     private TextField slotField;
+     
+     @FXML
+     private Label typePlaqueLabel;
+     
+     @FXML
+     private Label typeExpLabel;
+     
+     @FXML
+     private Label suiviLabel;
+     
+     
+     
+
+      
+     
 
 
 
@@ -167,12 +243,76 @@ public class FXMLPrincipaleController implements Initializable {
     }
     
     public void handleButtonValider (ActionEvent e){
-       //System.out.println("You clicked me!");
-       paneSolutionsCommande.setVisible(true);
-       PaneCommande.setVisible(false);
-        
+        if ((comboAgent.getValue() != null) && (slotField.getText().isEmpty()!=true)&&(Comboexp.getValue() != null) && (comboTypePlaque.getValue() !=null) && (a1RougeField.getText().isEmpty() !=true) && (a2RougeField.getText().isEmpty() !=true) && (a1BleuField.getText().isEmpty() !=true) && (a2BleuField.getText().isEmpty() !=true) && (a1VertField.getText().isEmpty() !=true) && (a2VertField.getText().isEmpty() !=true) && (a1TransparenceField.getText().isEmpty() !=true) && (a2TransparenceField.getText().isEmpty() !=true) && (dureeField.getText().isEmpty() !=true) && (slotField.getText().isEmpty() !=true) &&((radioOui.isSelected() != true && a3RougeField.getText().isEmpty() !=true && a3VertField.getText().isEmpty() !=true && a3BleuField.getText().isEmpty() !=true && a3TransparenceField.getText().isEmpty() !=true && frequenceField.getText().isEmpty() !=true)|(radioNon.isSelected() != true)) ) {
+            paneSolutionsCommande.setVisible(true);
+            PaneCommande.setVisible(false);
+        }
+        else{
+            //Label_error.setVisible(true);
+             if ( comboAgent.getValue() == null  ){
+                    agentLabel.setTextFill(Color.web("red"));
+             }
+             if (Comboexp.getValue() == null ){
+                    typeExpLabel.setTextFill(Color.web("red")); 
+             }
+             if (slotField.getText().isEmpty()){
+                    slotLabel.setTextFill(Color.web("red")); 
+             }
+             if (comboTypePlaque.getValue() == null ){
+                    typePlaqueLabel.setTextFill(Color.web("red"));
+             }
+             if (radioOui.isSelected() == false && radioNon.isSelected() == false ){
+                    suiviLabel.setTextFill(Color.web("red"));
+             }
+             if (radioOui.isSelected() == true){
+                 suiviLabel.setTextFill(Color.web("black"));
+                 if (a3RougeField.getText().isEmpty() ==true){
+                     a3RougeLabel.setTextFill(Color.web("red"));
+                 }
+                 if (a3VertField.getText().isEmpty() ==true){
+                     a3VertLabel.setTextFill(Color.web("red"));
+                 }
+                 if (a3BleuField.getText().isEmpty() ==true){
+                     a3BleuLabel.setTextFill(Color.web("red"));
+                 }
+                 if (a3TransparenceField.getText().isEmpty() ==true){
+                     a3TransparenceLabel.setTextFill(Color.web("red"));
+                 }
+                 if (frequenceField.getText().isEmpty() ==true){
+                     frequenceLabel.setTextFill(Color.web("red"));
+                 }
+             }
+             if (a1RougeField.getText().isEmpty() ==true ){
+                 a1RougeLabel.setTextFill(Color.web("red"));
+             }
+             if (a2RougeField.getText() .isEmpty() ==true ){
+                 a2RougeLabel.setTextFill(Color.web("red"));
+             }
+             if ( a1BleuField.getText().isEmpty() ==true ){
+                 a1BleuLabel.setTextFill(Color.web("red"));
+             }
+             if (a2BleuField.getText().isEmpty() ==true  ){
+                 a2BleuLabel.setTextFill(Color.web("red"));
+             }
+             if (a1VertField.getText().isEmpty() ==true  ){
+                 a1VertLabel.setTextFill(Color.web("red"));
+             }
+             if (  a2VertField.getText().isEmpty() ==true  ){
+                 a2VertLabel.setTextFill(Color.web("red"));
+             }
+             if (  a1TransparenceField.getText().isEmpty() ==true  ){
+                 a1TransparenceLabel.setTextFill(Color.web("red"));
+             }
+             if (  a2TransparenceField.getText().isEmpty() ==true  ){
+                 a2TransparenceLabel.setTextFill(Color.web("red"));
+             }
+             if (  dureeField.getText().isEmpty() ==true  ){
+                 dureeLabel.setTextFill(Color.web("red"));
+             }
+        }
     }
-    
+             
+                                          
     public void handleButtonRetour (ActionEvent f){
     //System.out.println("You clicked me!");
     paneSolutionsCommande.setVisible(false);
@@ -193,8 +333,7 @@ public class FXMLPrincipaleController implements Initializable {
         a3RougeLabel.setVisible(true);
         a3TransparenceField.setVisible(true);
         a3TransparenceLabel.setVisible(true);
-           
-            }
+       }
        
         if(radioNon.isSelected()){
         
