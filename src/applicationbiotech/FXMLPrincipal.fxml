@@ -114,8 +114,8 @@
                            <children>
                               <Button fx:id="btn_attente" layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleMenuAttente" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="En Attente" />
                               <Button layoutX="1.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="Validées" />
-                              <Button layoutX="1.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="A renouveler" />
-                              <Button layoutX="1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="En Cours" />
+                              <Button fx:id="btn_en_cours" layoutX="1.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlebuttoneExp_en_cours" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="En Cours" />
+                              <Button fx:id="btn_a_renouv" layoutX="1.0" layoutY="52.0" mnemonicParsing="false" onAction="#handlebutton_a_renouv" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="A renouveler" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -170,7 +170,7 @@
             <Button fx:id="btn_annuler_commande" layoutX="526.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleButtonAnnuler" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #FF4A4A;" text="Annuler" />
          </children>
       </Pane>
-      <Pane fx:id="paneTableEnCours" layoutX="160.0" layoutY="52.0" prefHeight="458.0" prefWidth="750.0" visible="false">
+      <Pane fx:id="paneTableEnCours" layoutX="160.0" layoutY="52.0" prefHeight="458.0" prefWidth="750.0">
          <children>
             <TableView fx:id="tab_attente1" layoutX="40.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
                <columns>
@@ -180,7 +180,7 @@
                   <TableColumn fx:id="col_att_nb_slot_commande1" prefWidth="109.0" text="Nombre de slots" />
                   <TableColumn fx:id="col_att_d_f1" prefWidth="107.0" text="Durée, fréquence" />
                   <TableColumn fx:id="col_att_nb_sol1" prefWidth="124.0" text="Nombre de solution" />
-                  <TableColumn fx:id="col_att_assignation1" prefWidth="84.0" />
+                  <TableColumn fx:id="col_att_assignation1" prefWidth="84.0" text="resultat" />
                </columns>
             </TableView>
             <Pane layoutY="-19.0" prefHeight="25.0" prefWidth="750.0" style="-fx-background-color: #C8DBDD;">
@@ -194,13 +194,13 @@
          <children>
             <TableView fx:id="tab_attente11" layoutX="40.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
                <columns>
-                  <TableColumn fx:id="col_att_num_commande11" prefWidth="39.0" text="N°" />
-                  <TableColumn fx:id="col_att_ab_commande11" prefWidth="109.0" text="Agent biologique" />
-                  <TableColumn fx:id="col_att_type_exp_commande11" prefWidth="121.0" text="Type d'expérience" />
-                  <TableColumn fx:id="col_att_nb_slot_commande11" prefWidth="109.0" text="Nombre de slots" />
-                  <TableColumn fx:id="col_att_d_f11" prefWidth="107.0" text="Durée, fréquence" />
-                  <TableColumn fx:id="col_att_nb_sol11" prefWidth="124.0" text="Nombre de solution" />
-                  <TableColumn fx:id="col_att_assignation11" prefWidth="84.0" text="Assignation" />
+                  <TableColumn fx:id="col_att_num_commande_renouv" prefWidth="39.0" text="N°" />
+                  <TableColumn fx:id="col_att_ab_commande_renouv" prefWidth="109.0" text="Agent biologique" />
+                  <TableColumn fx:id="col_att_type_exp_commande_renouv" prefWidth="121.0" text="Type d'expérience" />
+                  <TableColumn fx:id="col_att_nb_slot_commande_renouv" prefWidth="109.0" text="Nombre de slots" />
+                  <TableColumn fx:id="col_att_d_f_renouv" prefWidth="107.0" text="Durée, fréquence" />
+                  <TableColumn fx:id="col_att_nb_sol_renouv" prefWidth="124.0" text="Nombre de solution" />
+                  <TableColumn fx:id="col_att_assignation_renouv" prefWidth="84.0" text="Assignation" />
                </columns>
             </TableView>
             <Pane layoutY="-19.0" prefHeight="25.0" prefWidth="762.0" style="-fx-background-color: #C8DBDD;">

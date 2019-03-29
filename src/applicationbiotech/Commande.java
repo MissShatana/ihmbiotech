@@ -17,6 +17,7 @@ import javafx.scene.control.TableView;
 public class Commande {
     String num, ab, type_exp, nb_slot, d_f, nb_sol, ty_pla;
     Button boutton;
+    Button btn_en_cours ; 
     ObservableList<Solutions> ligne_commande= FXCollections.observableArrayList();
     FXMLPrincipaleController con;
     
@@ -43,14 +44,19 @@ public class Commande {
         this.ligne_commande = ligne_commande;
         this.ty_pla=type_plaque;
         this.con=con;
+        
         boutton.setOnAction((ActionEvent e) -> {
             Button btn_clicked = (Button)e.getSource();
             String buttonText = btn_clicked.getText();
-            if (buttonText == "je prends") { // je prends assignation
+            if (buttonText == "je prends") { // je prends assignation              
                 for (Commande co: con.getData_commande_att()){
                     if (co.getBoutton()==btn_clicked){
                         System.out.println(co.getNum());
+                        co.setBoutton(new Button ("scan plaque"));
                         con.getData_commande_att().remove(co);
+                       con.addData_commande_en_cours(co);
+                       
+                        
                         break;
                     }
                 }

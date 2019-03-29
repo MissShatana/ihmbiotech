@@ -63,6 +63,15 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     private Pane pane_attente;
     
+    @FXML 
+    private Pane paneTableEnCours;
+    
+    @FXML
+    private Pane paneTableARenouv;
+    
+    @FXML
+    private Pane paneTableValide;
+    
     
     //Button
     @FXML
@@ -87,6 +96,9 @@ public class FXMLPrincipaleController implements Initializable {
     private Button btn_annuler_commande;
     
     @FXML
+    private Button btn_en_cours;
+    
+    @FXML
     private ToggleGroup myToggleGroup ;
      
     @FXML
@@ -94,6 +106,8 @@ public class FXMLPrincipaleController implements Initializable {
      
     @FXML
     private RadioButton radioNon;
+    
+
     
     
     //ComboBox
@@ -308,7 +322,28 @@ public class FXMLPrincipaleController implements Initializable {
     public void handleMenuAttente(ActionEvent event) {
         paneTableAttente.setVisible(true);
         PaneCommande.setVisible(false);
-        paneLabel.setVisible(false);   
+        paneLabel.setVisible(false);
+        paneTableEnCours.setVisible(false);
+    }
+    
+       public void handlebuttoneExp_en_cours (ActionEvent event){
+        
+        paneTableEnCours.setVisible(true);
+        paneTableAttente.setVisible(false);
+        PaneCommande.setVisible(false);
+        paneLabel.setVisible(false); 
+       
+        
+    }
+       public void handlebutton_a_renouv (ActionEvent event){
+        
+        paneTableARenouv.setVisible(true);
+        paneTableAttente.setVisible(false);
+        PaneCommande.setVisible(false);
+        paneLabel.setVisible(false);
+        commande.setDisable(false);
+       
+        
     }
     
     //La commande :Les informations générales
@@ -526,6 +561,11 @@ public class FXMLPrincipaleController implements Initializable {
             a3TransparenceLabel.setVisible(false);
         }
     }
+    
+    
+ 
+    
+   
  
 
     //Attributs: Tableau pour les commandes en attente
@@ -588,6 +628,7 @@ public class FXMLPrincipaleController implements Initializable {
     public TableView<Commande> getTab_attente() {
         return tab_attente;
     }
+    
     
     
     //Attributs: Tableau pour les commandes en attente
@@ -690,8 +731,71 @@ public class FXMLPrincipaleController implements Initializable {
     public TableColumn<Solutions, String> getCol_sol_qt_cell() {
         return col_sol_qt_cell;
     }
-
+    /**tableau en cours*/
     
+    @FXML
+    private TableView<Commande> tab_attente1;
+
+    @FXML
+    private TableColumn<Commande, String> col_att_num_commande1;
+
+    @FXML
+    private TableColumn<Commande, String> col_att_ab_commande1;
+
+    @FXML
+    private TableColumn<Commande, String> col_att_type_exp_commande1;
+
+    @FXML
+    private TableColumn<Commande, String> col_att_nb_slot_commande1;
+
+    @FXML
+    private TableColumn<Commande, String> col_att_d_f1;
+
+    @FXML
+    private TableColumn<Commande, String> col_att_nb_sol1;
+
+    @FXML
+    private TableColumn<Commande, String> col_att_assignation1;
+    
+    private ObservableList<Commande> data_commande_en_cours= FXCollections.observableArrayList();
+    
+    //Tableau pour les commandes en attente
+    /**
+     * Construction du tableau d'attente
+     */
+    private void initTable_commande_en_cours(){
+        initColumn_commande_en_cours();
+    }
+    
+    private void initColumn_commande_en_cours(){
+        col_att_num_commande1.setCellValueFactory(new PropertyValueFactory<>("num"));
+        col_att_ab_commande1.setCellValueFactory(new PropertyValueFactory<>("ab"));
+        col_att_type_exp_commande1.setCellValueFactory(new PropertyValueFactory<>("type_exp"));
+        col_att_nb_slot_commande1.setCellValueFactory(new PropertyValueFactory<>("nb_slot"));
+        col_att_d_f1.setCellValueFactory(new PropertyValueFactory<>("d_f"));
+        col_att_nb_sol1.setCellValueFactory(new PropertyValueFactory<>("nb_sol"));
+        col_att_assignation1.setCellValueFactory(new PropertyValueFactory<>("boutton"));
+    }
+    
+
+     /**
+     * loadData permet mettre les données dans le tableview
+     */
+    
+    
+    private void loadData_commande_en_cours(ObservableList<Commande> data_commande_en_cours) {
+        tab_attente1.setItems(data_commande_en_cours);
+    }
+    
+       public ObservableList<Commande> getData_commande_en_cours() {
+        return data_commande_en_cours;
+    }
+       
+    public void addData_commande_en_cours(Commande com) {
+        data_commande_en_cours.add(com);
+    }
+       
+   
     /**
      * initialize: tous les attributs sont initialisés
      * @param url
@@ -703,6 +807,8 @@ public class FXMLPrincipaleController implements Initializable {
         loadData(data_commande_att);
         initTableSol();
         loadDataSol();
+        initTable_commande_en_cours();
+        loadData_commande_en_cours(data_commande_en_cours);
         Label_error_vide.setVisible(false);
         Label_error_vide.setTextFill(Color.web("red"));
         Label_error_sol.setTextFill(Color.web("red"));
@@ -711,7 +817,9 @@ public class FXMLPrincipaleController implements Initializable {
         Label_error.setVisible(false);
         commande.setDisable(false);
         btn_attente.setDisable(false);
+        btn_en_cours.setDisable(false);
         PaneCommande.setVisible(false);
+        paneTableEnCours.setVisible(false);
         comboAgent.setItems(AgentList);
         Comboexp.setItems(comboList);
         comboTypePlaque.setItems(plaqueList);
