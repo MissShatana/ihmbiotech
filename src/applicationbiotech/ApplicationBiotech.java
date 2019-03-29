@@ -41,31 +41,31 @@ public class ApplicationBiotech extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         connexion =connect_to_BDD();
-//        if (connexion ==null) {
-//            System.out.println("nope");
-//        }
-//        else{
-//       try {
-//           System.out.println("co ok");
-//           String requete = "Select * from personnel_labo";
-//           Statement stmt = connexion.createStatement();
-//
-//            ResultSet res = stmt.executeQuery(requete);
-//            ResultSetMetaData rsmd = res.getMetaData();
-//            int nbCols = rsmd.getColumnCount();
-//            while (res.next()) {
-//                for (int i = 1; i <= nbCols; i++){
-//                    System.out.print(res.getString(i) + " ");
-//                }
-//                System.out.println();
-//                }
-//                res.close();
-//
-//            } catch (SQLException e) {
-//
-//            //traitement de l'exception
-//  }
-//        }
+        if (connexion ==null) {
+            System.out.println("nope");
+        }
+        else{
+       try {
+           System.out.println("co ok");
+           String requete = "Select * from personnel_labo";
+           Statement stmt = connexion.createStatement();
+
+            ResultSet res = stmt.executeQuery(requete);
+            ResultSetMetaData rsmd = res.getMetaData();
+            int nbCols = rsmd.getColumnCount();
+            while (res.next()) {
+                for (int i = 1; i <= nbCols; i++){
+                    System.out.print(res.getString(i) + " ");
+                }
+                System.out.println();
+                }
+                res.close();
+
+            } catch (SQLException e) {
+
+            //traitement de l'exception
+  }
+        }
         Parent root1 = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
         
         Scene scene1 = new Scene(root1);
