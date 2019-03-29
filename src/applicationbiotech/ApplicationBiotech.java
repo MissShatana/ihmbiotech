@@ -64,7 +64,7 @@ public class ApplicationBiotech extends Application {
 //            } catch (SQLException e) {
 //
 //            //traitement de l'exception
-//
+//  }
 //        }
         Parent root1 = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
         
@@ -74,7 +74,7 @@ public class ApplicationBiotech extends Application {
                
         stage.show();
     }
-   }
+   
 
     public static void main(String[] args) {
         launch(args);
