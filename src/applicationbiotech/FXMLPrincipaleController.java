@@ -442,7 +442,7 @@ public class FXMLPrincipaleController implements Initializable {
      * Cette classe écoute Valider sur la page solution
      * s'il n'y pas de données, un message d'erreur s'affiche
      * sinon les différents champs de commande informations générales et solutions sont réinitialiser
-     * @param e 
+     * @param e  
      */
     public void handleButtonValiderComSol (ActionEvent e){
         if (data_table_sol.isEmpty()){
@@ -450,6 +450,9 @@ public class FXMLPrincipaleController implements Initializable {
             Label_error_vide.setVisible(false);
         }
         else{
+            System.out.println(new Button("Scanner plaque"));
+            System.out.println(new Button("Scanner plaque"));
+            data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(Comboexp.getValue()), slotField.getText(),dureeField.getText()+", "+frequenceField.getText(),new Button("je prends"), data_table_sol, String.valueOf(comboTypePlaque.getValue()), this ));
             paneSolutionsCommande.setVisible(false);
             radioOui.setSelected(false);
             radioNon.setSelected(false);
@@ -550,7 +553,7 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     private TableColumn<Commande, Button> col_att_assignation;
     
-    private ObservableList<Commande> data_table;
+    private ObservableList<Commande> data_commande_att= FXCollections.observableArrayList();
     
     
     //Tableau pour les commandes en attente
@@ -568,22 +571,18 @@ public class FXMLPrincipaleController implements Initializable {
         col_att_nb_slot_commande.setCellValueFactory(new PropertyValueFactory<>("nb_slot"));
         col_att_d_f.setCellValueFactory(new PropertyValueFactory<>("d_f"));
         col_att_nb_sol.setCellValueFactory(new PropertyValueFactory<>("nb_sol"));
-        col_att_assignation.setCellValueFactory(new PropertyValueFactory<>("assignation"));
+        col_att_assignation.setCellValueFactory(new PropertyValueFactory<>("boutton"));
     }
     
     /**
      * loadData permet mettre les données dans le tableview
      */
-    private void loadData() {
-        data_table = FXCollections.observableArrayList();
-        for( int i=0; i<7;i++){
-            data_table.add(new Commande(String.valueOf(i),"agent"+i,"opacimétrique","3","1,none","1"+i, new Button("je prends"),this));
-        }
-        tab_attente.setItems(data_table);
+    private void loadData(ObservableList<Commande> data_commande_att) {
+        tab_attente.setItems(data_commande_att);
     }
 
-    public ObservableList<Commande> getData_table() {
-        return data_table;
+    public ObservableList<Commande> getData_commande_att() {
+        return data_commande_att;
     }
 
     public TableView<Commande> getTab_attente() {
@@ -701,7 +700,7 @@ public class FXMLPrincipaleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initTable();
-        loadData();
+        loadData(data_commande_att);
         initTableSol();
         loadDataSol();
         Label_error_vide.setVisible(false);
