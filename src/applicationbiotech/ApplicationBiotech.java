@@ -47,6 +47,7 @@ public class ApplicationBiotech extends Application {
         else{
        try {
            System.out.println("co ok");
+           System.out.println(connexion);
            String requete = "Select * from personnel_labo";
            Statement stmt = connexion.createStatement();
 
@@ -66,10 +67,11 @@ public class ApplicationBiotech extends Application {
             //traitement de l'exception
   }
         }
-        Parent root1 = FXMLLoader.load(getClass().getResource("FXMLPrincipal.fxml"));
-        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLPrincipal.fxml"));
+        Parent root1 = (Parent) loader.load();
+        FXMLPrincipaleController controller= loader.getController();
+        controller.setMain(this);
         Scene scene1 = new Scene(root1);
-        
         stage.setScene(scene1);
                
         stage.show();
@@ -80,4 +82,7 @@ public class ApplicationBiotech extends Application {
         launch(args);
     }
     
+    public Connection getCon(){
+        return connexion;
+    }  
 }
