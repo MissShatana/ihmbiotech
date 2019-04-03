@@ -4,6 +4,9 @@
 package applicationbiotech;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,7 +38,7 @@ import javafx.util.converter.DefaultStringConverter;
  * 
  */
 public class FXMLPrincipaleController implements Initializable {
-    
+    ApplicationBiotech main=null;
     //Attribut
     //Pane
     @FXML
@@ -309,17 +312,31 @@ public class FXMLPrincipaleController implements Initializable {
        spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
        spinnerTa3.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1,0,0.1));
        spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            
+           
     }
     
     //Pour le menu
-    public void handleButtonCommande(ActionEvent event) {
+    public void handleButtonCommande(ActionEvent event) throws SQLException {
+        
         paneLabel.setVisible(true);
         PaneCommande.setVisible(true);
         commande.setDisable(true);
         btn_attente.setDisable(true);
         paneTableAttente.setVisible(false);
-    }
+        String requete = "select id_agent, nom_agent from agent_bio";
+        ObservableList <String> list_ab = FXCollections.observableArrayList();
+        System.out.println(main);
+        System.out.println(main.getCon());
+        System.out.println("print");
+        Statement st = main.getCon().createStatement();
+        ResultSet rs = st.executeQuery(requete);
+        while (rs.next()){
+            list_ab.add(rs.getString("id_agent")+rs.getString("nom_agent"));
+        }
+
+        comboAgent.setItems(list_ab);
+
+        }
     
     public void handleMenuAttente(ActionEvent event) {
         paneTableAttente.setVisible(true);
@@ -358,7 +375,7 @@ public class FXMLPrincipaleController implements Initializable {
      * @param e 
      */
     public void handleButtonValider (ActionEvent e){
-        if ((comboAgent.getValue() != null) && (spinnerSlot.getEditor() != null )&&(Comboexp.getValue() != null) | (radio384.isSelected() == true ) | (radio96.isSelected() == true ) && (spinnerRa1.getEditor() != null) && (spinnerRa1.getEditor() != null) && (spinnerBa1.getEditor() != null) && (spinnerBa2.getEditor()!=null) && (spinnerVa1.getEditor() != null) && (spinnerVa2.getEditor() != null) && (spinnerTa1.getEditor() != null) && (spinnerTa2.getEditor() != null) && (spinnerDuree.getEditor() != null) && (spinnerSlot.getEditor() != null) &&((radioOui.isSelected() == true && spinnerRa3.getEditor() != null && spinnerVa3.getEditor() != null && spinnerBa3.getEditor() != null && spinnerTa3.getEditor() != null && spinnerFreq.getEditor() != null)|(radioNon.isSelected() == true)) ) {
+        if ((comboAgent.getValue() != null) && (spinnerSlot.getEditor().getText() != "0" )&&(Comboexp.getValue() != null) | (radio384.isSelected() == true ) | (radio96.isSelected() == true ) && (spinnerRa1.getEditor().getText() != "0") && (spinnerRa1.getEditor().getText() != "0") && (spinnerBa1.getEditor().getText() != "0") && (spinnerBa2.getEditor().getText() != "0") && (spinnerVa1.getEditor().getText() != "0") && (spinnerVa2.getEditor().getText() != "0") && (spinnerTa1.getEditor().getText() != "0") && (spinnerTa2.getEditor().getText() != "0") && (spinnerDuree.getEditor().getText() != "0") && (spinnerSlot.getEditor().getText() != "0") &&((radioOui.isSelected() == true && spinnerRa3.getEditor().getText() != "0" && spinnerVa3.getEditor().getText() != "0" && spinnerBa3.getEditor().getText() != "0" && spinnerTa3.getEditor().getText() != "0" && spinnerFreq.getEditor().getText() != "0")|(radioNon.isSelected() == true)) ) {
             paneSolutionsCommande.setVisible(true);
             PaneCommande.setVisible(false);
             agentLabel.setTextFill(Color.web("black"));
@@ -408,7 +425,7 @@ public class FXMLPrincipaleController implements Initializable {
              if (Comboexp.getValue() == null ){
                     typeExpLabel.setTextFill(Color.web("red")); 
              }
-             if (spinnerSlot.getEditor() == null ){
+             if (spinnerSlot.getEditor().getText() == "0"){
                     slotLabel.setTextFill(Color.web("red")); 
              }
              if (radio384.isSelected() == false  ){
@@ -424,47 +441,47 @@ public class FXMLPrincipaleController implements Initializable {
              }
              if (radioOui.isSelected() == true){
                  suiviLabel.setTextFill(Color.web("black"));
-                 if (spinnerRa3.getEditor() == null){
+                 if (spinnerRa3.getEditor().getText() == "0"){
                      a3RougeLabel.setTextFill(Color.web("red"));
                  }
-                 if (spinnerVa3.getEditor() == null){
+                 if (spinnerVa3.getEditor().getText() == "0"){
                      a3VertLabel.setTextFill(Color.web("red"));
                  }
-                 if (spinnerBa3.getEditor() == null){
+                 if (spinnerBa3.getEditor().getText() == "0"){
                      a3BleuLabel.setTextFill(Color.web("red"));
                  }
-                 if (spinnerTa3.getEditor() == null){
+                 if (spinnerTa3.getEditor().getText() == "0"){
                      a3TransparenceLabel.setTextFill(Color.web("red"));
                  }
-                 if (spinnerFreq.getEditor() == null){
+                 if (spinnerFreq.getEditor().getText() == "0"){
                      frequenceLabel.setTextFill(Color.web("red"));
                  }
              }
-             if (spinnerRa1.getEditor() == null ){
+             if (spinnerRa1.getEditor().getText() == "0"){
                  a1RougeLabel.setTextFill(Color.web("red"));
              }
-             if (spinnerRa2.getEditor() == null ){
+             if (spinnerRa2.getEditor().getText() == "0"){
                  a2RougeLabel.setTextFill(Color.web("red"));
              }
-             if ( spinnerBa1.getEditor() == null ){
+             if ( spinnerBa1.getEditor().getText() == "0"){
                  a1BleuLabel.setTextFill(Color.web("red"));
              }
-             if (spinnerBa2.getEditor() == null  ){
+             if (spinnerBa2.getEditor().getText() == "0"){
                  a2BleuLabel.setTextFill(Color.web("red"));
              }
-             if (spinnerVa1.getEditor() == null  ){
+             if (spinnerVa1.getEditor().getText() == "0"){
                  a1VertLabel.setTextFill(Color.web("red"));
              }
-             if (  spinnerVa2.getEditor() == null ){
+             if (  spinnerVa2.getEditor().getText() == "0"){
                  a2VertLabel.setTextFill(Color.web("red"));
              }
-             if (  spinnerTa1.getEditor() == null  ){
+             if (  spinnerTa1.getEditor().getText() == "0"){
                  a1TransparenceLabel.setTextFill(Color.web("red"));
              }
-             if (  spinnerTa2.getEditor() == null ){
+             if (  spinnerTa2.getEditor().getText() == "0"){
                  a2TransparenceLabel.setTextFill(Color.web("red"));
              }
-             if (  spinnerDuree.getEditor() == null){
+             if (  spinnerDuree.getEditor().getText() == "0"){
                  dureeLabel.setTextFill(Color.web("red"));
              }
         }
@@ -536,7 +553,9 @@ public class FXMLPrincipaleController implements Initializable {
             Label_error.setVisible(false);
             spinnerSlot.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         }
+
     }
+
     
     
     /**
@@ -545,8 +564,11 @@ public class FXMLPrincipaleController implements Initializable {
      * et les faire disparaître quand elle ne l'est pas
      * @param action 
      */
+
+
     public void myGroupAction(ActionEvent action)
     {
+
        if(radioOui.isSelected()){
             frequenceLabel.setVisible(true);
             spinnerFreq.setVisible(true);
@@ -573,7 +595,7 @@ public class FXMLPrincipaleController implements Initializable {
             a3TransparenceLabel.setVisible(false);
         }
     }
-    
+//    
     
  
     
@@ -834,8 +856,10 @@ public class FXMLPrincipaleController implements Initializable {
         paneTableEnCours.setVisible(false);
         comboAgent.setItems(AgentList);
         Comboexp.setItems(comboList);
+
         paneTableAttente.setVisible(false);
         frequenceLabel.setVisible(false);
+
         spinnerFreq.setVisible(false);
         spinnerVa3.setVisible(false);
         a3VertLabel.setVisible(false);
@@ -893,5 +917,8 @@ public class FXMLPrincipaleController implements Initializable {
          spinnerTa3.setValueFactory(valueTa3 );
                  
          
+    }
+    public void setMain(ApplicationBiotech main){
+     this.main=main;
     }
 }
