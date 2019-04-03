@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -208,52 +209,54 @@ public class FXMLPrincipaleController implements Initializable {
     private Label Label_error_vide;
      
 
-    //Field
+    //Spinner
     
     @FXML
-    private TextField dureeField;
+    private Spinner<Integer> spinnerDuree;
      
     @FXML
-    private TextField a1RougeField;
+    private  Spinner<Integer> spinnerRa1;
      
     @FXML
-    private TextField a2RougeField;
+    private Spinner<Integer> spinnerRa2;
      
     @FXML
-    private TextField a1BleuField;
+    private Spinner<Integer> spinnerRa3;
      
     @FXML
-    private TextField a2BleuField;
+    private Spinner<Integer> spinnerVa1;
      
     @FXML
-    private TextField a1VertField;
+    private Spinner<Integer> spinnerVa2;
       
     @FXML
-    private TextField a2VertField;
+    private Spinner<Integer> spinnerVa3;
       
     @FXML
-    private TextField a1TransparenceField;
+    private Spinner<Integer> spinnerBa1;
      
     @FXML
-    private TextField a2TransparenceField;
+    private Spinner<Integer> spinnerBa2;
     
     @FXML
-    private TextField frequenceField;
+    private Spinner<Integer> spinnerBa3;
+    
+    @FXML
+    private Spinner<Integer> spinnerFreq;
      
     @FXML
-    private TextField a3TransparenceField;
+    private Spinner<Integer> spinnerTa1;
      
     @FXML
-    private TextField a3RougeField;
+    private Spinner<Integer> spinnerTa2;
      
     @FXML
-    private TextField a3BleuField;
-     
-    @FXML
-    private TextField a3VertField;
+    private Spinner<Integer> spinnerTa3;
 
     @FXML
-    private TextField slotField;
+    private Spinner<Integer> spinnerSlot;
+    
+    //Field
     
     @FXML 
     private TextField ab_field;
@@ -275,38 +278,38 @@ public class FXMLPrincipaleController implements Initializable {
        comboAgent.getSelectionModel().clearSelection();
        Comboexp.getSelectionModel().clearSelection();
        comboTypePlaque.getSelectionModel().clearSelection();
-       frequenceField.setText("");
+       spinnerFreq.setText("");
        radioOui.setSelected(false);
        radioNon.setSelected(false);
-       dureeField.setText("");
-       a1RougeField.setText("");
-       a2RougeField.setText("");
-       a3RougeField.setText("");
-       a1VertField.setText("");
-       a2VertField.setText("");
-       a3VertField.setText("");
-       a1BleuField.setText("");
-       a2BleuField.setText("");
-       a3BleuField.setText("");
-       a1TransparenceField.setText("");
-       a2TransparenceField.setText("");
-       a3TransparenceField.setText("");
+       spinnerDuree.setText("");
+       spinnerRa1.setText("");
+       spinnerRa2.setText("");
+       spinnerRa3.setText("");
+       spinnerVa1.setText("");
+       spinnerVa2.setText("");
+       spinnerVa3.setText("");
+       spinnerBa1.setText("");
+       spinnerBa2.setText("");
+       spinnerBa3.setText("");
+       spinnerTa1.setText("");
+       spinnerTa2.setText("");
+       spinnerTa3.setText("");
        commande.setDisable(false);
        btn_attente.setDisable(false);
        data_table_sol.removeAll(tab_Solutions.getItems());
        Label_error_sol.setVisible(false);
        Label_error.setVisible(false);
        frequenceLabel.setVisible(false);
-       frequenceField.setVisible(false);
-       a3VertField.setVisible(false);
+       spinnerFreq.setVisible(false);
+       spinnerVa3.setVisible(false);
        a3VertLabel.setVisible(false);
-       a3BleuField.setVisible(false);
+       spinnerBa3.setVisible(false);
        a3BleuLabel.setVisible(false);
-       a3RougeField.setVisible(false);
+       spinnerRa3.setVisible(false);
        a3RougeLabel.setVisible(false);
-       a3TransparenceField.setVisible(false);
+       spinnerTa3.setVisible(false);
        a3TransparenceLabel.setVisible(false);
-       slotField.setText("");
+       spinnerSlot.setText("");
        
     }
     
@@ -332,6 +335,7 @@ public class FXMLPrincipaleController implements Initializable {
         paneTableAttente.setVisible(false);
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false); 
+        paneTableARenouv.setVisible(false);
        
         
     }
@@ -341,7 +345,7 @@ public class FXMLPrincipaleController implements Initializable {
         paneTableAttente.setVisible(false);
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false);
-        commande.setDisable(false);
+        paneTableEnCours.setVisible(false);
        
         
     }
@@ -456,7 +460,7 @@ public class FXMLPrincipaleController implements Initializable {
              if (  a2TransparenceField.getText().isEmpty() ==true  ){
                  a2TransparenceLabel.setTextFill(Color.web("red"));
              }
-             if (  dureeField.getText().isEmpty() ==true  ){
+             if (  spinnerDuree.getText().isEmpty() ==true  ){
                  dureeLabel.setTextFill(Color.web("red"));
              }
         }
