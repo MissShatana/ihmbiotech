@@ -254,6 +254,9 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     private Spinner spinnerSlot;
     
+    @FXML
+    private ToggleGroup radio2;
+    
     //Field
     
     @FXML 
@@ -496,7 +499,7 @@ public class FXMLPrincipaleController implements Initializable {
         else{
             System.out.println(new Button("Scanner plaque"));
             System.out.println(new Button("Scanner plaque"));
-            /**data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),spinnerDuree.getValue()+", "+spinnerFreq.getValue(),new Button("je prends"), data_table_sol, String.valueOf(comboTypePlaque.getValue()), this ));*/
+            /*data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),spinnerDuree.getValue()+", "+spinnerFreq.getValue(),new Button("je prends"), data_table_sol, String.valueOf(radio2.getToggleGroup()), this ));*/
             paneSolutionsCommande.setVisible(false);
             radioOui.setSelected(false);
             radioNon.setSelected(false);

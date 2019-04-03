@@ -20,7 +20,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="AnchorPane" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationbiotech.FXMLPrincipaleController">
    <children>
-      <Pane fx:id="paneGestion" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #1DA5B6;" AnchorPane.bottomAnchor="505.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="paneGestion" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #1DA5B6;" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="382.0" layoutY="8.0" prefHeight="17.0" prefWidth="269.0" text="Gestionnaire de données de laboratoire">
                <font>
@@ -30,7 +30,7 @@
       </Pane>
       <Pane id="page_principale" fx:id="PaneCommande" layoutX="158.0" layoutY="34.0" prefHeight="466.0" prefWidth="900.0" style="-fx-background-color: F0F0F0;" AnchorPane.bottomAnchor="505.0" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
          <children>
-            <Pane fx:id="paneLabel" layoutX="-1.0" prefHeight="25.0" prefWidth="762.0" style="-fx-background-color: #C8DBDD;">
+            <Pane fx:id="paneLabel" layoutX="-1.0" prefHeight="25.0" prefWidth="764.0" style="-fx-background-color: #C8DBDD;">
                <children>
                   <Label layoutX="252.0" layoutY="4.0" prefHeight="17.0" prefWidth="243.0" text="Nouvelle commande: Informations générales" />
                </children>
@@ -132,7 +132,7 @@
             </Accordion>
          </children>
       </VBox>
-      <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="42.0" prefHeight="458.0" prefWidth="750.0" visible="false">
+      <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="42.0" prefHeight="458.0" prefWidth="750.0" visible="false" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="42.0">
          <children>
             <TableView fx:id="tab_attente" layoutX="40.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
               <columns>
