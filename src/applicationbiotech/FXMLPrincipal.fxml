@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -30,19 +29,19 @@
       </Pane>
       <Pane fx:id="paneLabel" prefHeight="21.0" prefWidth="760.0" style="-fx-background-color: #C8DBDD;" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
-            <Label accessibleRole="PARENT" layoutX="252.0" layoutY="4.0" prefHeight="17.0" prefWidth="750.0" text="Nouvelle commande: Informations générales" />
+            <Label fx:id="spinnerAB" accessibleRole="PARENT" layoutX="252.0" layoutY="4.0" prefHeight="17.0" prefWidth="750.0" text="Nouvelle commande: Informations générales" />
          </children>
       </Pane>
-      <Pane id="page_principale" fx:id="PaneCommande" layoutX="140.0" layoutY="56.0" prefHeight="504.0" prefWidth="760.0" style="-fx-background-color: F0F0F0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+      <Pane id="page_principale" fx:id="PaneCommande" layoutX="140.0" layoutY="56.0" prefHeight="504.0" prefWidth="760.0" style="-fx-background-color: F0F0F0;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
          <children>
-            <Label fx:id="agentLabel" layoutX="60.0" layoutY="52.0" prefHeight="17.0" prefWidth="110.0" text="Agent bioloique" />
+            <Label fx:id="agentLabel" layoutX="60.0" layoutY="52.0" prefHeight="17.0" prefWidth="110.0" text="Agent bioloique*" />
             <ComboBox fx:id="comboAgent" layoutX="180.0" layoutY="52.0" prefHeight="25.0" prefWidth="120.0" />
-            <Label fx:id="typePlaqueLabel" layoutX="410.0" layoutY="52.0" prefHeight="17.0" prefWidth="110.0" text="Type de plaque" />
-            <Label fx:id="typeExpLabel" layoutX="60.0" layoutY="105.0" prefHeight="17.0" prefWidth="110.0" text="Type d'expérience" />
+            <Label fx:id="typePlaqueLabel" layoutX="410.0" layoutY="52.0" prefHeight="17.0" prefWidth="110.0" text="Type de plaque*" />
+            <Label fx:id="typeExpLabel" layoutX="60.0" layoutY="105.0" prefHeight="17.0" prefWidth="110.0" text="Type d'expérience*" />
             <ComboBox fx:id="Comboexp" layoutX="180.0" layoutY="105.0" prefHeight="25.0" prefWidth="120.0" />
-            <Label fx:id="slotLabel" layoutX="410.0" layoutY="105.0" prefHeight="17.0" prefWidth="110.0" text="Nombre de slots" />
+            <Label fx:id="slotLabel" layoutX="410.0" layoutY="105.0" prefHeight="17.0" prefWidth="110.0" text="Nombre de slots*" />
             
-                        <Label fx:id="suiviLabel" layoutX="48.0" layoutY="186.0" prefHeight="17.0" prefWidth="121.0" text="Suivi dans le temps ?" />
+                        <Label fx:id="suiviLabel" layoutX="48.0" layoutY="186.0" prefHeight="17.0" prefWidth="121.0" text="Suivi dans le temps ?*" />
             <fx:define>
                 <ToggleGroup fx:id="radio" />
             </fx:define>
@@ -52,28 +51,25 @@
                </toggleGroup>
             </RadioButton>
             <RadioButton fx:id="radioNon" layoutX="243.0" layoutY="186.0" mnemonicParsing="false" onAction="#myGroupAction" text="non" toggleGroup="$radio" />
-            <Label fx:id="dureeLabel" layoutX="331.0" layoutY="187.0" prefHeight="17.0" prefWidth="100.0" text="Durée (minutes)" />
-            <Label fx:id="frequenceLabel" layoutX="538.0" layoutY="186.0" prefHeight="17.0" prefWidth="91.0" text="Fréquence" />
+            <Label fx:id="dureeLabel" layoutX="331.0" layoutY="187.0" prefHeight="17.0" prefWidth="100.0" text="Durée (minutes)*" />
+            <Label fx:id="frequenceLabel" layoutX="538.0" layoutY="186.0" prefHeight="17.0" prefWidth="91.0" text="Fréquence*" />
             <Label layoutX="19.0" layoutY="253.0" prefHeight="17.0" prefWidth="134.0" text="Niveau d'acceptation:" />
-            <Label fx:id="a1RougeLabel" layoutX="86.0" layoutY="288.0" prefHeight="17.0" prefWidth="42.0" text="A1" />
+            <Label fx:id="a1RougeLabel" layoutX="86.0" layoutY="288.0" prefHeight="17.0" prefWidth="42.0" text="A1*" />
             <Label layoutX="27.0" layoutY="288.0" prefHeight="17.0" prefWidth="42.0" text="Rouge:" />
-            <Label fx:id="a2RougeLabel" layoutX="86.0" layoutY="333.0" prefHeight="17.0" prefWidth="42.0" text="A2" />
-            <Label fx:id="a3RougeLabel" layoutX="86.0" layoutY="370.0" prefHeight="17.0" prefWidth="42.0" text="A3" />
-            <Label fx:id="a1VertLabel" layoutX="248.0" layoutY="286.0" prefHeight="17.0" prefWidth="42.0" text="A1" />
+            <Label fx:id="a2RougeLabel" layoutX="86.0" layoutY="333.0" prefHeight="17.0" prefWidth="42.0" text="A2*" />
+            <Label fx:id="a3RougeLabel" layoutX="14.0" layoutY="391.0" prefHeight="17.0" prefWidth="110.0" text="Fréquence:    A3*" />
+            <Label fx:id="a1VertLabel" layoutX="248.0" layoutY="286.0" prefHeight="17.0" prefWidth="42.0" text="A1*" />
             <Label layoutX="189.0" layoutY="286.0" prefHeight="17.0" prefWidth="42.0" text="Vert:" />
-            <Label fx:id="a2VertLabel" layoutX="248.0" layoutY="333.0" prefHeight="17.0" prefWidth="42.0" text="A2" />
-            <Label fx:id="a3VertLabel" layoutX="248.0" layoutY="370.0" prefHeight="17.0" prefWidth="42.0" text="A3" />
-            <Label fx:id="a1BleuLabel" layoutX="427.0" layoutY="287.0" prefHeight="17.0" prefWidth="42.0" text="A1" />
+            <Label fx:id="a2VertLabel" layoutX="248.0" layoutY="333.0" prefHeight="17.0" prefWidth="42.0" text="A2*" />
+            <Label fx:id="a1BleuLabel" layoutX="427.0" layoutY="287.0" prefHeight="17.0" prefWidth="42.0" text="A1*" />
             <Label layoutX="368.0" layoutY="287.0" prefHeight="17.0" prefWidth="42.0" text="Bleu:" />
-            <Label fx:id="a2BleuLabel" layoutX="427.0" layoutY="332.0" prefHeight="17.0" prefWidth="42.0" text="A2" />
-            <Label fx:id="a3BleuLabel" layoutX="427.0" layoutY="370.0" prefHeight="17.0" prefWidth="42.0" text="A3" />
-            <Label fx:id="a1TransparenceLabel" layoutX="625.0" layoutY="286.0" prefHeight="17.0" prefWidth="42.0" text="A1" />
+            <Label fx:id="a2BleuLabel" layoutX="427.0" layoutY="332.0" prefHeight="17.0" prefWidth="42.0" text="A2*" />
+            <Label fx:id="a1TransparenceLabel" layoutX="625.0" layoutY="286.0" prefHeight="17.0" prefWidth="42.0" text="A1*" />
             <Label layoutX="530.0" layoutY="286.0" prefHeight="17.0" prefWidth="78.0" text="Transparence:" />
-            <Label fx:id="a2TransparenceLabel" layoutX="625.0" layoutY="332.0" prefHeight="17.0" prefWidth="42.0" text="A2" />
-            <Label fx:id="a3TransparenceLabel" layoutX="625.0" layoutY="370.0" prefHeight="17.0" prefWidth="42.0" text="A3" />
+            <Label fx:id="a2TransparenceLabel" layoutX="625.0" layoutY="332.0" prefHeight="17.0" prefWidth="42.0" text="A2*" />
             <Line endX="275.0" layoutX="315.0" layoutY="152.0" opacity="0.72" startX="-238.0" strokeWidth="0.5" />
             <Line endX="275.0" layoutX="315.0" layoutY="238.0" opacity="0.72" startX="-238.0" strokeWidth="0.5" />
-            <Label fx:id="Label_error" layoutX="17.0" layoutY="442.0" prefHeight="42" text="Des champs sont mal ou pas remplis. Merci de les remplir" />  
+            <Label fx:id="Label_error" layoutX="17.0" layoutY="442.0" prefHeight="42" prefWidth="134.0" text="*Champs obligatoires" />  
             <Button fx:id="btn_to_sol" layoutX="396.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleButtonValider" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: #81B781;" text="Ajouter des solutions" />
             <Button fx:id="btn_annul" layoutX="611.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleButtonAnnuler" prefHeight="42.0" prefWidth="100.0" style="-fx-background-color: #FF4A4A;" text="Annuler" />
             <fx:define>
@@ -90,16 +86,13 @@
             <Spinner fx:id="spinnerFreq" layoutX="600.0" layoutY="183.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerRa1" layoutX="115.0" layoutY="282.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerRa2" layoutX="115.0" layoutY="329.0" prefHeight="25.0" prefWidth="61.0" />
-            <Spinner fx:id="spinnerRa3" layoutX="115.0" layoutY="366.0" prefHeight="25.0" prefWidth="61.0" />
+            <Spinner fx:id="spinnerRa3" layoutX="115.0" layoutY="387.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerVa1" layoutX="275.0" layoutY="282.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerVa2" layoutX="273.0" layoutY="328.0" prefHeight="25.0" prefWidth="61.0" />
-            <Spinner fx:id="spinnerVa3" layoutX="273.0" layoutY="366.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerBa1" layoutX="454.0" layoutY="282.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerBa2" layoutX="454.0" layoutY="329.0" prefHeight="25.0" prefWidth="61.0" />
-            <Spinner fx:id="spinnerBa3" layoutX="454.0" layoutY="366.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerTa1" layoutX="646.0" layoutY="282.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerTa2" layoutX="646.0" layoutY="328.0" prefHeight="25.0" prefWidth="61.0" />
-            <Spinner fx:id="spinnerTa3" layoutX="646.0" layoutY="366.0" prefHeight="25.0" prefWidth="61.0" />
          </children>
       </Pane>
       <VBox layoutY="34.0" prefHeight="506.0" prefWidth="140.0" style="-fx-background-color: #1DA5B6;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="35.0">
@@ -124,7 +117,7 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="99.0" prefWidth="142.0">
                            <children>
                               <Button fx:id="btn_attente" layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleMenuAttente" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="En Attente" />
-                              <Button layoutX="1.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="Validées" />
+                              <Button fx:id="btn_valide" layoutX="1.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="Validées" />
                               <Button fx:id="btn_en_cours" layoutX="1.0" layoutY="27.0" mnemonicParsing="false" onAction="#handlebuttoneExp_en_cours" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="En Cours" />
                               <Button fx:id="btn_a_renouv" layoutX="1.0" layoutY="52.0" mnemonicParsing="false" onAction="#handlebutton_a_renouv" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: AFACAC;" text="A renouveler" />
                            </children>
@@ -155,7 +148,7 @@
             </Pane>
          </children>
       </Pane>
-      <Pane fx:id="paneSolutionsCommande" layoutX="158.0" layoutY="34.0" prefHeight="466.0" prefWidth="750.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <Pane fx:id="paneSolutionsCommande" layoutX="158.0" layoutY="34.0" prefHeight="466.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Pane prefHeight="25.0" prefWidth="750.0" style="-fx-background-color: #C8DBDD;">
                <children>
@@ -169,16 +162,15 @@
                 <TableColumn fx:id="col_sol_ty_cell" prefWidth="150.0" text="Type Cellules" />
               </columns>
             </TableView>
-            <HBox layoutX="110.0" layoutY="310.0" spacing="10">
-                <TextField fx:id="ab_field" prefWidth="200" promptText="Quantité d'Agent biologique" />
-                <TextField fx:id="cell_field" prefWidth="200" promptText="Quantité de cellule" />
-                <Button onAction="#addSolutions" prefWidth="110" text="Ajouter" />
-            </HBox>
+            <HBox layoutX="110.0" layoutY="310.0" spacing="10" />
             <Label fx:id="Label_error_sol" layoutX="110" layoutY="350" prefHeight="42" text="Aucune solution n'a été remplie" />  
             <Label fx:id="Label_error_vide" layoutX="110" layoutY="350" prefHeight="42" text="Vos champs sont vides" />  
             <Button fx:id="btn_valider_commande" layoutX="306.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleButtonValiderComSol" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #81B781;" text="Valider la commande" />
             <Button fx:id="btn_retour_inf_g" layoutX="50.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleButtonRetour" prefHeight="42.0" prefWidth="219.0" style="-fx-background-color: A3D0D6;" text="Retour vers informations générales" />
             <Button fx:id="btn_annuler_commande" layoutX="526.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleButtonAnnuler" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #FF4A4A;" text="Annuler" />
+             <Button layoutX="530.0" layoutY="311.0" onAction="#addSolutions" prefWidth="110" text="Ajouter" />
+            <Spinner fx:id="spinnerQsol" layoutX="322.0" layoutY="311.0" prefHeight="25.0" prefWidth="186.0" />
+            <Spinner layoutX="110.0" layoutY="311.0" prefHeight="25.0" prefWidth="194.0" />
          </children>
       </Pane>
       <Pane fx:id="paneTableEnCours" layoutX="160.0" layoutY="52.0" prefHeight="458.0" prefWidth="750.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
@@ -217,25 +209,6 @@
             <Pane layoutY="-19.0" prefHeight="25.0" prefWidth="762.0" style="-fx-background-color: #C8DBDD;">
                <children>
                   <Label layoutX="282.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Expériences : à renouveler" />
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-      <Pane fx:id="paneTableValide" layoutX="158.0" layoutY="34.0" prefHeight="496.0" prefWidth="762.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
-         <children>
-            <TableView fx:id="tab_attente111" layoutX="89.0" layoutY="131.0" prefHeight="200.0" prefWidth="609.0">
-               <columns>
-                  <TableColumn fx:id="col_att_num_commande111" prefWidth="39.0" text="N°" />
-                  <TableColumn fx:id="col_att_ab_commande111" prefWidth="109.0" text="Agent biologique" />
-                  <TableColumn fx:id="col_att_type_exp_commande111" prefWidth="121.0" text="Type d'expérience" />
-                  <TableColumn fx:id="col_att_nb_slot_commande111" prefWidth="109.0" text="Nombre de slots" />
-                  <TableColumn fx:id="col_att_d_f111" prefWidth="107.0" text="Durée, fréquence" />
-                  <TableColumn fx:id="col_att_nb_sol111" prefWidth="124.0" text="Nombre de solution" />
-               </columns>
-            </TableView>
-            <Pane layoutY="2.0" prefHeight="25.0" prefWidth="762.0" style="-fx-background-color: #C8DBDD;">
-               <children>
-                  <Label layoutX="282.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Expériences : validées" />
                </children>
             </Pane>
          </children>
