@@ -22,7 +22,6 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -73,6 +72,9 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private Pane paneTableARenouv;
+    
+    @FXML
+    private Pane paneConnexion;
 
     
     //Button
@@ -99,6 +101,12 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private Button btn_en_cours;
+    
+    @FXML
+    private Button btn_a_renouv;
+    
+    @FXML
+    private Button btn_valide;
      
     @FXML
     private RadioButton radioOui;
@@ -111,6 +119,7 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private RadioButton radio96;
+    
     
 
     
@@ -194,6 +203,9 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML 
     private Label Label_error_vide;
+    
+    @FXML
+    private Label labelErrorConnexion;
      
     //Spinner
     
@@ -241,6 +253,13 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML 
     private TextField cell_field;
+    
+    @FXML
+    private TextField identifiantText;
+    
+    @FXML
+    private TextField mdpText;
+    
     
     
 //Pour la commande
@@ -292,6 +311,7 @@ public class FXMLPrincipaleController implements Initializable {
         paneTableAttente.setVisible(false);
         paneTableEnCours.setVisible(false);
         paneTableARenouv.setVisible(false);
+        paneConnexion.setVisible(false);
         String requete = "select id_agent, nom_agent from agent_bio";
         ObservableList <String> list_ab = FXCollections.observableArrayList();
         System.out.println(main);
@@ -313,6 +333,7 @@ public class FXMLPrincipaleController implements Initializable {
         paneLabel.setVisible(false);
         paneTableEnCours.setVisible(false);
         commande.setDisable(false);
+        paneConnexion.setVisible(false);
     }
     
        public void handlebuttoneExp_en_cours (ActionEvent event){
@@ -323,7 +344,7 @@ public class FXMLPrincipaleController implements Initializable {
         paneLabel.setVisible(false); 
         paneTableARenouv.setVisible(false);
         commande.setDisable(false);
-       
+        paneConnexion.setVisible(false);
         
     }
        public void handlebutton_a_renouv (ActionEvent event){
@@ -334,9 +355,50 @@ public class FXMLPrincipaleController implements Initializable {
         paneLabel.setVisible(false);
         paneTableEnCours.setVisible(false);
         commande.setDisable(false);
-       
+        paneConnexion.setVisible(false);
         
     }
+       
+       public void handleButtonConnexion (ActionEvent event ) throws SQLException{
+        
+         String requete = "Select id_personnel  from connexion where identifiant_co =" + identifiantText.getText()+ " and mdp_co = " + mdpText.getText() ;            
+         System.out.println(main);
+         System.out.println(main.getCon());
+         System.out.println("print");
+         Statement st1 = main.getCon().createStatement();
+         ResultSet rs1 = st1.executeQuery(requete);
+         if (!rs1.next()){
+             infoBox("Please enter correct Email and Password", null, "Failed");
+         }else{
+             infoBox("Login Successfull",null,"Success" );
+             String requete2 = "select actif personnel_labo where id_personnel="+rs1.next();
+             System.out.println(main);
+             System.out.println(main.getCon());
+             System.out.println("print");
+             Statement st2 = main.getCon().createStatement();
+             ResultSet rs2 = st2.executeQuery(requete);
+                int id = rs2.getInt(1);
+                    if (id == 0){
+                        infoBox("votre compte n'est plus actif",null,"Success" );                    
+             }
+                    if (id == 1 ){
+                        String requete3 = "SELECT poste from echnom";
+                    }
+                    
+                    
+             
+            
+         
+         }      
+           
+         paneConnexion.setVisible(false);
+         commande.setDisable(false);
+         btn_attente.setDisable(false);
+         btn_en_cours.setDisable(false);
+         btn_a_renouv.setDisable(false);
+         btn_valide.setDisable(false);
+           
+       }
     
     //La commande :Les informations générales
     
@@ -825,14 +887,17 @@ public class FXMLPrincipaleController implements Initializable {
         Label_error.setTextFill(Color.web("red"));
         Label_error_sol.setVisible(false);
         Label_error.setVisible(false);
-        commande.setDisable(false);
-        btn_attente.setDisable(false);
-        btn_en_cours.setDisable(false);
+        commande.setDisable(true);
+        btn_attente.setDisable(true);
+        btn_en_cours.setDisable(true);
+        btn_a_renouv.setDisable(true);
+        btn_valide.setDisable(true);
         PaneCommande.setVisible(false);
         paneTableEnCours.setVisible(false);
         comboAgent.setItems(AgentList);
         Comboexp.setItems(comboList);
-
+        paneConnexion.setVisible(true);
+        
         paneTableAttente.setVisible(false);
         frequenceLabel.setVisible(false);
 
@@ -883,5 +948,9 @@ public class FXMLPrincipaleController implements Initializable {
     }
     public void setMain(ApplicationBiotech main){
      this.main=main;
+    }
+
+    private void infoBox(String please_enter_correct_Email_and_Password, Object object, String failed) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -3,11 +3,13 @@
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,13 +29,13 @@
                </font></Label>
          </children>
       </Pane>
-      <Pane fx:id="paneLabel" prefHeight="21.0" prefWidth="760.0" style="-fx-background-color: #C8DBDD;" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
-         <children>
-            <Label fx:id="spinnerAB" accessibleRole="PARENT" layoutX="252.0" layoutY="4.0" prefHeight="17.0" prefWidth="750.0" text="Nouvelle commande: Informations générales" />
-         </children>
-      </Pane>
       <Pane id="page_principale" fx:id="PaneCommande" layoutX="140.0" layoutY="56.0" prefHeight="504.0" prefWidth="760.0" style="-fx-background-color: F0F0F0;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
          <children>
+            <Pane fx:id="paneLabel" prefHeight="21.0" prefWidth="760.0" style="-fx-background-color: #C8DBDD;" visible="false">
+               <children>
+                  <Label fx:id="spinnerAB" accessibleRole="PARENT" layoutX="252.0" layoutY="4.0" prefHeight="17.0" prefWidth="750.0" text="Nouvelle commande: Informations générales" />
+               </children>
+            </Pane>
             <Label fx:id="agentLabel" layoutX="60.0" layoutY="52.0" prefHeight="17.0" prefWidth="110.0" text="Agent bioloique*" />
             <ComboBox fx:id="comboAgent" layoutX="180.0" layoutY="52.0" prefHeight="25.0" prefWidth="120.0" />
             <Label fx:id="typePlaqueLabel" layoutX="410.0" layoutY="52.0" prefHeight="17.0" prefWidth="110.0" text="Type de plaque*" />
@@ -101,7 +103,7 @@
             <Button disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Mes informations" />
             <Accordion>
               <panes>
-                <TitledPane animated="false" prefHeight="123.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Equipe">
+                <TitledPane fx:id="buttonEquipe" animated="false" disable="true" prefHeight="123.0" prefWidth="144.0" style="-fx-background-color: AFACAC;" text="Equipe">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="69.0" prefWidth="142.0">
                            <children>
@@ -112,7 +114,7 @@
                         </AnchorPane>
                   </content>
                 </TitledPane>
-                <TitledPane animated="false" prefHeight="134.0" prefWidth="156.0" style="-fx-background-color: D9D9D9;" text="Mes expériences">
+                <TitledPane fx:id="buttonExp" animated="false" prefHeight="134.0" prefWidth="156.0" style="-fx-background-color: D9D9D9;" text="Mes expériences">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="99.0" prefWidth="142.0">
                            <children>
@@ -148,7 +150,7 @@
             </Pane>
          </children>
       </Pane>
-      <Pane fx:id="paneSolutionsCommande" layoutX="158.0" layoutY="34.0" prefHeight="466.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <Pane fx:id="paneSolutionsCommande" layoutX="158.0" layoutY="34.0" prefHeight="466.0" prefWidth="750.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Pane prefHeight="25.0" prefWidth="750.0" style="-fx-background-color: #C8DBDD;">
                <children>
@@ -206,9 +208,37 @@
                   <TableColumn fx:id="col_att_assignation_renouv" prefWidth="84.0" text="Assignation" />
                </columns>
             </TableView>
-            <Pane layoutY="-19.0" prefHeight="25.0" prefWidth="762.0" style="-fx-background-color: #C8DBDD;">
+            <Pane layoutY="-19.0" prefHeight="25.0" prefWidth="762.0" style="-fx-background-color: #C8DBDD;" visible="false">
                <children>
                   <Label layoutX="282.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Expériences : à renouveler" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="paneConnexion" layoutX="140.0" layoutY="35.0" prefHeight="525.0" prefWidth="772.0">
+         <children>
+            <Pane layoutX="118.0" layoutY="28.0" prefHeight="470.0" prefWidth="503.0" style="-fx-background-color: #81DAF5;">
+               <children>
+                  <TextField fx:id="identifiantText" layoutX="90.0" layoutY="186.0" prefHeight="35.0" prefWidth="344.0" />
+                  <TextField fx:id="mdpText" layoutX="90.0" layoutY="287.0" prefHeight="35.0" prefWidth="344.0" />
+                  <Label layoutX="107.0" layoutY="143.0" prefHeight="25.0" prefWidth="186.0" text="Identifiant">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="107.0" layoutY="256.0" prefHeight="17.0" prefWidth="134.0" text="Mot de passe">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="206.0" layoutY="61.0" prefHeight="35.0" prefWidth="91.0" text="Connexion">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="buttonConnexion" layoutX="331.0" layoutY="388.0" mnemonicParsing="false" onAction="#handleButtonConnexion" prefHeight="42.0" prefWidth="140.0" style="-fx-background-color: #81B781;" text="Connexion" />
+                  <Hyperlink fx:id="mdpLink" layoutX="43.0" layoutY="419.0" prefHeight="23.0" prefWidth="219.0" text="Mot de passe oublé ?" textFill="#0a06f5" underline="true" />
+                  <Label fx:id="labelErrorConnexion" layoutX="29.0" layoutY="343.0" prefHeight="25.0" prefWidth="249.0" text="Merci de rentrer les bons identifiants" textFill="#f21212" />
                </children>
             </Pane>
          </children>
