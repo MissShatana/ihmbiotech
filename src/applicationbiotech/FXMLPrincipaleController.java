@@ -28,6 +28,8 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Alert;
+import javafx.stage.Window;
 import javafx.util.converter.DefaultStringConverter;
 
 /**
@@ -75,6 +77,9 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private Pane paneConnexion;
+    
+    @FXML
+    private Pane paneVerif;
 
     
     //Button
@@ -107,6 +112,9 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private Button btn_valide;
+    
+    @FXML
+    private Button buttonDeco;
      
     @FXML
     private RadioButton radioOui;
@@ -206,6 +214,15 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private Label labelErrorConnexion;
+    
+    @FXML
+    private Label labelPoste;
+    
+    @FXML
+    private Label labelIdentite;
+    
+    @FXML
+    private Label labelNom;
      
     //Spinner
     
@@ -259,6 +276,15 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private TextField mdpText;
+    
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+    Alert alert = new Alert(alertType);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    //alert.initOwner(owner);
+    alert.show();
+    }
     
     
     
@@ -328,12 +354,35 @@ public class FXMLPrincipaleController implements Initializable {
         }
     
     public void handleMenuAttente(ActionEvent event) {
+        
+                System.out.println(labelPoste.getText());
+        
+                if (labelPoste.getText() == "chercheur"){
+        commande.setDisable(false);
+        }
+                if(labelPoste.getText() == "laborantin"){
+        commande.setDisable(true);
+            
+        }
+               paneTableARenouv.setDisable(false);
+           paneTableAttente.setDisable(false);
+          PaneCommande.setDisable(false);
+          paneLabel.setDisable(false);
+          paneTableEnCours.setDisable(false);
+          
+          commande.setDisable(false);
+          btn_attente.setDisable(false);
+          btn_en_cours.setDisable(false);
+          btn_a_renouv.setDisable(false);
+          btn_valide.setDisable(false);
         paneTableAttente.setVisible(true);
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false);
         paneTableEnCours.setVisible(false);
-        commande.setDisable(false);
+        
         paneConnexion.setVisible(false);
+        
+
     }
     
        public void handlebuttoneExp_en_cours (ActionEvent event){
@@ -343,10 +392,17 @@ public class FXMLPrincipaleController implements Initializable {
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false); 
         paneTableARenouv.setVisible(false);
-        commande.setDisable(false);
+        paneTableARenouv.setDisable(false);
+        paneTableAttente.setDisable(false);
+        PaneCommande.setDisable(false);
+        paneLabel.setDisable(false);
+        paneTableEnCours.setDisable(false);
+        
         paneConnexion.setVisible(false);
         
     }
+        
+    
        public void handlebutton_a_renouv (ActionEvent event){
         
         paneTableARenouv.setVisible(true);
@@ -354,35 +410,98 @@ public class FXMLPrincipaleController implements Initializable {
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false);
         paneTableEnCours.setVisible(false);
-        commande.setDisable(false);
         paneConnexion.setVisible(false);
+        paneTableARenouv.setDisable(false);
+        paneTableAttente.setDisable(false);
+        PaneCommande.setDisable(false);
+        paneLabel.setDisable(false);
+        paneTableEnCours.setDisable(false);
+               
+    
         
     }
        
        public void handleButtonConnexion (ActionEvent event ) throws SQLException{
-        
-         String requete = "Select id_personnel  from connexion where identifiant_co =" + identifiantText.getText()+ " and mdp_co = " + mdpText.getText() ;            
-         System.out.println(main);
-         System.out.println(main.getCon());
-         System.out.println("print");
-         Statement st1 = main.getCon().createStatement();
-         ResultSet rs1 = st1.executeQuery(requete);
-         if (!rs1.next()){
-             infoBox("Please enter correct Email and Password", null, "Failed");
-         }else{
-             infoBox("Login Successfull",null,"Success" );
-             String requete2 = "select actif personnel_labo where id_personnel="+rs1.next();
-             System.out.println(main);
-             System.out.println(main.getCon());
-             System.out.println("print");
+           
+        ResultSet resultat = null;
+         String sq1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
+         Statement stmt = main.getCon().createStatement();
+         resultat = stmt.executeQuery(sq1);
+         
+         if (!resultat.next()){
+
+             showAlert(Alert.AlertType.ERROR, "Erreur!", "Entrez un nom");
+         }
+         else{
+             System.out.println("blabla");
+             System.out.println(resultat.getString(1));
+             String requete2 = "select actif from personnel_labo where id_personnel='"+resultat.getString(1)+"'";             
              Statement st2 = main.getCon().createStatement();
-             ResultSet rs2 = st2.executeQuery(requete);
-                int id = rs2.getInt(1);
-                    if (id == 0){
-                        infoBox("votre compte n'est plus actif",null,"Success" );                    
-             }
-                    if (id == 1 ){
-                        String requete3 = "SELECT poste from echnom";
+             ResultSet resultat2 = st2.executeQuery(requete2);
+             if (resultat2.next()){
+                int id = resultat2.getInt(1);
+                    if (id == 1){
+                        showAlert(Alert.AlertType.ERROR, "Erreur!", "Compte non actif");
+                    }
+                    
+                                                        
+                    if (id == 0 ){
+                        resultat2.close();
+                        String requete3 = "SELECT id_chercheur from chercheur where id_personnel= '"+resultat.getString(1)+"'";
+                        String requete4 = "SELECT id_laborantin from laborantin where id_personnel= '"+resultat.getString(1)+"'";
+                        Statement st4 = main.getCon().createStatement();
+                        ResultSet rs4 = st4.executeQuery(requete4);
+                                            
+                        Statement st3 = main.getCon().createStatement();
+                        ResultSet rs3 = st3.executeQuery(requete3);
+                        
+                            if (rs3.next()){
+                                System.out.println("bouh bouh");
+                                paneConnexion.setVisible(false);
+                                commande.setDisable(false);
+                                btn_attente.setDisable(false);
+                                btn_en_cours.setDisable(false);
+                                btn_a_renouv.setDisable(false);
+                                btn_valide.setDisable(false);
+                                buttonDeco.setDisable(false);
+                                
+                                labelPoste.setVisible(true);
+                                labelPoste.setText("chercheur");
+                                
+                                rs3.close();
+                                
+                                String requete5 = "SELECT nom,prenom from chercheur where id_personnel= '"+resultat.getString(1)+"'";
+                                resultat.close();
+                                Statement st5 = main.getCon().createStatement();
+                                ResultSet rs5 = st5.executeQuery(requete5);
+                                    if (rs5.next()){
+                                        labelIdentite.setText(rs5.getString("prenom")+" "+rs5.getString("nom"));
+                                    }
+                            }
+                                
+                              
+                        
+                            if (rs4.next()){
+                                System.out.println("bouh");
+                                paneConnexion.setVisible(false);
+                                btn_attente.setDisable(false);
+                                btn_en_cours.setDisable(false);
+                                btn_a_renouv.setDisable(false);
+                                btn_valide.setDisable(false);                               
+                                labelPoste.setVisible(true);
+                                labelPoste.setText("laborantin");
+                                buttonDeco.setDisable(false);
+                                String requete6 = "SELECT nom,prenom from laborantin where id_personnel= '"+resultat.getString(1)+"'";
+                                resultat.close();
+                                Statement st6 = main.getCon().createStatement();
+                                ResultSet rs6 = st6.executeQuery(requete6);
+                                if (rs6.next()){
+                                labelIdentite.setText(rs6.getString("prenom")+" "+rs6.getString("nom"));
+                                    }
+                                
+                                 
+                            }
+                        
                     }
                     
                     
@@ -391,14 +510,66 @@ public class FXMLPrincipaleController implements Initializable {
          
          }      
            
-         paneConnexion.setVisible(false);
-         commande.setDisable(false);
-         btn_attente.setDisable(false);
-         btn_en_cours.setDisable(false);
-         btn_a_renouv.setDisable(false);
-         btn_valide.setDisable(false);
+       }
+         }
+         
+       
+       public void handleButtonDeco (ActionEvent e){
+           
+           
+           paneTableARenouv.setDisable(true);
+           paneTableAttente.setDisable(true);
+          PaneCommande.setDisable(true);
+          paneLabel.setDisable(true);
+          paneTableEnCours.setDisable(true);
+          paneVerif.setVisible(true);
+          commande.setDisable(true);
+          btn_attente.setDisable(true);
+          btn_en_cours.setDisable(true);
+          btn_a_renouv.setDisable(true);
+          btn_valide.setDisable(true);
+       }
+       
+       public void handleButtonDecoOui (ActionEvent e){
+           
+           paneVerif.setVisible(false);
+           paneConnexion.setVisible(true);
+           commande.setDisable(true);
+           btn_attente.setDisable(true);
+           btn_en_cours.setDisable(true);
+           btn_a_renouv.setDisable(true);
+           btn_valide.setDisable(true);
+           labelIdentite.setText("");
+           paneTableARenouv.setVisible(false);
+           paneTableAttente.setVisible(false);
+          PaneCommande.setVisible(false);
+          paneLabel.setVisible(false);
+          paneTableEnCours.setVisible(false);
+          labelPoste.setVisible(false);
+          identifiantText.setText("");
+          mdpText.setText("");
+          buttonDeco.setDisable(true);
+           
            
        }
+       
+       public void handleButtonDecoNon (ActionEvent e){
+           
+          paneTableARenouv.setDisable(false);
+          paneTableAttente.setDisable(false);
+          PaneCommande.setDisable(false);
+          paneLabel.setDisable(false);
+          paneTableEnCours.setDisable(false);
+          paneVerif.setVisible(false);
+          commande.setDisable(false);
+          btn_attente.setDisable(false);
+          btn_en_cours.setDisable(false);
+          btn_a_renouv.setDisable(false);
+          btn_valide.setDisable(false);
+       
+       }
+       
+       
     
     //La commande :Les informations générales
     
@@ -886,6 +1057,8 @@ public class FXMLPrincipaleController implements Initializable {
         Label_error_sol.setTextFill(Color.web("red"));
         Label_error.setTextFill(Color.web("red"));
         Label_error_sol.setVisible(false);
+        labelErrorConnexion.setVisible(false);
+        labelPoste.setVisible(false);
         Label_error.setVisible(false);
         commande.setDisable(true);
         btn_attente.setDisable(true);
@@ -893,10 +1066,13 @@ public class FXMLPrincipaleController implements Initializable {
         btn_a_renouv.setDisable(true);
         btn_valide.setDisable(true);
         PaneCommande.setVisible(false);
+        buttonDeco.setVisible(true);
         paneTableEnCours.setVisible(false);
         comboAgent.setItems(AgentList);
         Comboexp.setItems(comboList);
         paneConnexion.setVisible(true);
+        buttonDeco.setDisable(true);
+        paneVerif.setVisible(false);
         
         paneTableAttente.setVisible(false);
         frequenceLabel.setVisible(false);
@@ -950,7 +1126,4 @@ public class FXMLPrincipaleController implements Initializable {
      this.main=main;
     }
 
-    private void infoBox(String please_enter_correct_Email_and_Password, Object object, String failed) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

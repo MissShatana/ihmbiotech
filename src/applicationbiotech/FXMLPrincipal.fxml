@@ -27,6 +27,9 @@
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font></Label>
+            <Label fx:id="labelPoste" layoutX="49.0" layoutY="5.0" prefHeight="17.0" prefWidth="85.0" />
+            <Label fx:id="labelIdentite" layoutX="118.0" layoutY="5.0" prefHeight="17.0" prefWidth="249.0" />
+            <Button fx:id="buttonDeco" layoutX="777.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleButtonDeco" prefHeight="25.0" prefWidth="121.0" text="Déconnexion" />
          </children>
       </Pane>
       <Pane id="page_principale" fx:id="PaneCommande" layoutX="140.0" layoutY="56.0" prefHeight="504.0" prefWidth="760.0" style="-fx-background-color: F0F0F0;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
@@ -215,7 +218,7 @@
             </Pane>
          </children>
       </Pane>
-      <Pane fx:id="paneConnexion" layoutX="140.0" layoutY="35.0" prefHeight="525.0" prefWidth="772.0">
+      <Pane fx:id="paneConnexion" layoutX="140.0" layoutY="35.0" prefHeight="525.0" prefWidth="772.0" visible="false">
          <children>
             <Pane layoutX="118.0" layoutY="28.0" prefHeight="470.0" prefWidth="503.0" style="-fx-background-color: #81DAF5;">
                <children>
@@ -241,6 +244,17 @@
                   <Label fx:id="labelErrorConnexion" layoutX="29.0" layoutY="343.0" prefHeight="25.0" prefWidth="249.0" text="Merci de rentrer les bons identifiants" textFill="#f21212" />
                </children>
             </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="paneVerif" layoutX="292.0" layoutY="213.0" prefHeight="190.0" prefWidth="466.0" style="-fx-background-color: #b3ecff;">
+         <children>
+            <Label layoutX="109.0" layoutY="23.0" prefHeight="25.0" prefWidth="287.0" text="Etes-vous sûr de vouloir vous deconnecter ?" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="decoOui" layoutX="109.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleButtonDecoOui" prefHeight="25.0" prefWidth="70.0" text="Oui" />
+            <Button fx:id="decoNon" layoutX="311.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleButtonDecoNon" prefHeight="25.0" prefWidth="61.0" text="Non" />
          </children>
       </Pane>
    </children>
