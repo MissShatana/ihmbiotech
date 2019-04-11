@@ -431,18 +431,13 @@ public class FXMLPrincipaleController implements Initializable {
         if("Laborantin".equals(labelPoste.getText())){
             commande.setDisable(true);
         }
-        
         paneTableAttente.setVisible(true);
         paneLabelAttente.setVisible(true);
-        
     }
     
     public void handlebuttoneExp_en_cours (ActionEvent event){
         allNotVisible();
         paneTableEnCours.setVisible(true);
-        if ("Chercheur".equals(labelPoste.getText())){
-            buttonModif.setText("Détailes");
-        }
         
     }
         
@@ -704,9 +699,6 @@ public class FXMLPrincipaleController implements Initializable {
      */
     
     public void handleButtonValiderComSol (ActionEvent e){
-        
-       
-             
         if (data_table_sol.isEmpty()){
             Label_error_sol.setVisible(true);
             Label_error_vide.setVisible(false);
@@ -745,10 +737,6 @@ public class FXMLPrincipaleController implements Initializable {
             a3RougeLabel.setVisible(false);
             Label_error_sol.setVisible(false);
             Label_error.setVisible(false);
-            
-
-            
-            
         }
 
     }
