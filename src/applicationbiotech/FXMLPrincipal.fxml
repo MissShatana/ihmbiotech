@@ -32,12 +32,12 @@
             <Button fx:id="buttonDeco" layoutX="777.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleButtonDeco" prefHeight="25.0" prefWidth="121.0" text="Déconnexion" />
          </children>
       </Pane>
-      <Pane fx:id="paneLabel" layoutX="139.0" layoutY="33.0" prefHeight="25.0" prefWidth="773.0" style="-fx-background-color: #C8DBDD;" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+      <Pane fx:id="paneLabel" layoutX="139.0" layoutY="34.0" prefHeight="25.0" prefWidth="773.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
          <children>
             <Label fx:id="spinnerAB" accessibleRole="PARENT" layoutX="252.0" layoutY="3.0" prefHeight="17.0" prefWidth="249.0" text="Nouvelle commande: Informations générales" />
          </children>
       </Pane>
-      <Pane id="page_principale" fx:id="PaneCommande" layoutX="139.0" layoutY="56.0" prefHeight="504.0" prefWidth="760.0" style="-fx-background-color: F0F0F0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="56.0">
+      <Pane id="page_principale" fx:id="PaneCommande" layoutX="139.0" layoutY="56.0" prefHeight="504.0" prefWidth="760.0" style="-fx-background-color: F0F0F0;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="56.0">
          <children>
             <Label fx:id="agentLabel" layoutX="52.0" layoutY="14.0" prefHeight="17.0" prefWidth="110.0" text="Agent bioloique*" />
             <ComboBox fx:id="comboAgent" layoutX="172.0" layoutY="10.0" prefHeight="25.0" prefWidth="161.0" />
@@ -102,7 +102,7 @@
             <ComboBox fx:id="comboReact" layoutX="433.0" layoutY="61.0" prefHeight="25.0" prefWidth="161.0" />
          </children>
       </Pane>
-      <VBox layoutY="34.0" prefHeight="506.0" prefWidth="140.0" style="-fx-background-color: #1DA5B6;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <VBox fx:id="vBoxMenu" layoutY="34.0" prefHeight="506.0" prefWidth="140.0" style="-fx-background-color: #1DA5B6;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Button fx:id="commande" mnemonicParsing="false" onAction="#handleButtonCommande" prefHeight="25.0" prefWidth="160.0" text="Nouvelle Commande" />
             <Button disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Mes informations" />
@@ -135,7 +135,12 @@
             </Accordion>
          </children>
       </VBox>
-      <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="42.0" prefHeight="525.0" prefWidth="772.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <Pane fx:id="paneLabelAttente" layoutX="139.0" layoutY="35.0" prefHeight="25.0" prefWidth="772.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="35.0">
+         <children>
+            <Label layoutX="281.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Expériences : en attente" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="56.0" prefHeight="504.0" prefWidth="772.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
          <children>
             <TableView fx:id="tab_attente" layoutX="40.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
               <columns>
@@ -148,14 +153,9 @@
                   <TableColumn fx:id="col_att_assignation" prefWidth="84.0" text="Assignation" />
               </columns>
             </TableView>
-            <Pane layoutX="1.0" layoutY="-5.0" prefHeight="35.0" prefWidth="772.0" style="-fx-background-color: #C8DBDD;">
-               <children>
-                  <Label layoutX="281.0" layoutY="9.0" prefHeight="17.0" prefWidth="186.0" text="Expériences : en attente" />
-               </children>
-            </Pane>
          </children>
       </Pane>
-      <Pane layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="773.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <Pane fx:id="paneLabelSol" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="773.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Label layoutX="282.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Nouvelle commande : Solutions" />
          </children>
@@ -182,7 +182,7 @@
             <Label layoutX="375.0" layoutY="319.0" prefHeight="17.0" prefWidth="121.0" text="Quantité cellule (µL)" />
          </children>
       </Pane>
-      <Pane layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="772.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <Pane fx:id="paneLabelCours" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="772.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Label layoutX="315.0" layoutY="4.0" prefHeight="17.0" prefWidth="151.0" text="Expériences : en cours" />
          </children>
@@ -202,7 +202,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="772.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <Pane fx:id="paneLabelRenouv" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="772.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Label layoutX="309.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Expériences : à renouveler" />
          </children>

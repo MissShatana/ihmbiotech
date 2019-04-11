@@ -29,7 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Alert;
-import javafx.stage.Window;
+import javafx.scene.layout.VBox;
 import javafx.util.converter.DefaultStringConverter;
 
 /**
@@ -42,6 +42,9 @@ public class FXMLPrincipaleController implements Initializable {
     ApplicationBiotech main=null;
     //Attribut
     //Pane
+    @FXML
+    private VBox vBoxMenu;
+    
     @FXML
     private AnchorPane AnchorPane;
 
@@ -80,6 +83,15 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private Pane paneVerif;
+    
+    @FXML 
+    private Pane paneLabelRenouv;
+    
+    @FXML 
+    private Pane paneLabelCours;
+    
+    @FXML 
+    private Pane paneLabelAttente;
 
     
     //Button
@@ -219,6 +231,8 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private Label labelNom;
+    
+
      
     //Spinner
     
@@ -293,51 +307,52 @@ public class FXMLPrincipaleController implements Initializable {
     public void handleButtonAnnuler (ActionEvent e){
        paneSolutionsCommande.setVisible(false);
        PaneCommande.setVisible(false);
+       paneLabel.setVisible(false);
+       
+       //nettoyage des données
        comboAgent.getSelectionModel().clearSelection();
        Comboexp.getSelectionModel().clearSelection();
-        radio384.setSelected(false);
+       radio384.setSelected(false);
        radio96.setSelected(false);
        radioOui.setSelected(false);
        radioNon.setSelected(false);
-       commande.setDisable(false);
-       btn_attente.setDisable(false);
        data_table_sol.removeAll(tab_Solutions.getItems());
+       Label_error_sol.setVisible(false);
+       Label_error.setVisible(false);
+       
+       
+       //réinitialisation du pane
        Label_error_sol.setVisible(false);
        Label_error.setVisible(false);
        frequenceLabel.setVisible(false);
        spinnerFreq.setVisible(false);
        spinnerRa3.setVisible(false);
        a3RougeLabel.setVisible(false);
-       spinnerSlot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerFreq.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerRa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerRa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerRa3.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1,0,0.1));
-       spinnerBa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerBa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerVa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerVa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-       spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-           
+       initializeSpinner();
+       
+       //réglage du menu
+       commande.setDisable(false);
+       btn_attente.setDisable(false);   
     }
     
     //Pour le menu
     public void handleButtonCommande(ActionEvent event) throws SQLException {
-        
-        PaneCommande.setDisable(false);
         paneLabel.setVisible(true);
         PaneCommande.setVisible(true);
+        
+        //bouton de menu non accesible
         commande.setDisable(true);
         btn_attente.setDisable(false);
+        
+        //les autres panes non visible
         paneTableAttente.setVisible(false);
         paneTableEnCours.setVisible(false);
         paneTableARenouv.setVisible(false);
         paneConnexion.setVisible(false);
+        
+        //intialisation des agent_bio et reactifs
         String requete = "select id_agent, nom_agent from agent_bio";
         ObservableList <String> list = FXCollections.observableArrayList();
-
         Statement st = main.getCon().createStatement();
         ResultSet rs = st.executeQuery(requete);
         while (rs.next()){ 
@@ -358,200 +373,151 @@ public class FXMLPrincipaleController implements Initializable {
         }
     
     public void handleMenuAttente(ActionEvent event) {
-        
-                System.out.println(labelPoste.getText());
-        
-       
-                 if(      "chercheur".equals(labelPoste.getText())){
-        commande.setDisable(false);
-            
+        if("chercheur".equals(labelPoste.getText())){
+            commande.setDisable(false);
         }
-    
-       
-        paneTableARenouv.setDisable(false);
-        paneTableAttente.setDisable(false);
-        PaneCommande.setDisable(false);
-        paneLabel.setDisable(false);
-        paneTableEnCours.setDisable(false);
-          
-          
-        btn_attente.setDisable(false);
-        btn_en_cours.setDisable(false);
-        btn_a_renouv.setDisable(false);
-        btn_valide.setDisable(false);
         paneTableAttente.setVisible(true);
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false);
         paneTableEnCours.setVisible(false);
-        
         paneConnexion.setVisible(false);
         
 
     }
     
        public void handlebuttoneExp_en_cours (ActionEvent event){
-        
         paneTableEnCours.setVisible(true);
         paneTableAttente.setVisible(false);
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false); 
         paneTableARenouv.setVisible(false);
-        paneTableARenouv.setDisable(false);
-        paneTableAttente.setDisable(false);
-        PaneCommande.setDisable(false);
-        paneLabel.setDisable(false);
-        paneTableEnCours.setDisable(false);
-        
         paneConnexion.setVisible(false);
         
     }
         
     
        public void handlebutton_a_renouv (ActionEvent event){
-        
         paneTableARenouv.setVisible(true);
         paneTableAttente.setVisible(false);
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false);
         paneTableEnCours.setVisible(false);
-        paneConnexion.setVisible(false);
-        paneTableARenouv.setDisable(false);
-        paneTableAttente.setDisable(false);
-        PaneCommande.setDisable(false);
-        paneLabel.setDisable(false);
-        paneTableEnCours.setDisable(false);
-               
-    
-        
     }
        
        public void handleButtonConnexion (ActionEvent event ) throws SQLException{
-           
-        ResultSet resultat = null;
-         String sq1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
-         Statement stmt = main.getCon().createStatement();
-         resultat = stmt.executeQuery(sq1);
+        String sq1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
+        Statement stmt = main.getCon().createStatement();
+        ResultSet resultat = stmt.executeQuery(sq1);
          
-         if (!resultat.next()){
-
-             showAlert(Alert.AlertType.ERROR, "Erreur!", "Entrez un nom");
-             }
-         else{
-             System.out.println("blabla");
-             System.out.println(resultat.getString(1));
-             String requete2 = "select actif from personnel_labo where id_personnel='"+resultat.getString(1)+"'";             
-             Statement st2 = main.getCon().createStatement();
-             ResultSet resultat2 = st2.executeQuery(requete2);
-             if (resultat2.next()){
+        if (!resultat.next()){
+            showAlert(Alert.AlertType.ERROR, "Erreur!", "Entrez un nom");
+            resultat.close();
+        }else{
+            sq1 = "select actif from personnel_labo where id_personnel='"+resultat.getString(1)+"'";
+            Statement st2 = main.getCon().createStatement();
+            ResultSet resultat2 = st2.executeQuery(sq1);
+            if (resultat2.next()){
                 int id = resultat2.getInt(1);
-                    if (id == 1){
-                        showAlert(Alert.AlertType.ERROR, "Erreur!", "Compte non actif");
-                     }
-                    
-                                                        
-                    if (id == 0 ){
-                        resultat2.close();
-                        String requete3 = "SELECT id_chercheur from chercheur where id_personnel= '"+resultat.getString(1)+"'";
-                        String requete4 = "SELECT id_laborantin from laborantin where id_personnel= '"+resultat.getString(1)+"'";
-                        Statement st4 = main.getCon().createStatement();
-                        ResultSet rs4 = st4.executeQuery(requete4);
+                if (id == 1){
+                    showAlert(Alert.AlertType.ERROR, "Erreur!", "Compte non actif");
+                    resultat2.close();
+                    resultat.close();
+                }
+                else if (id == 0 ){
+                    vBoxMenu.setVisible(true);
+                    resultat2.close();
+                    String requete3 = "SELECT id_chercheur from chercheur where id_personnel= '"+resultat.getString(1)+"'";
+                    String requete4 = "SELECT id_laborantin from laborantin where id_personnel= '"+resultat.getString(1)+"'";
+                    Statement st4 = main.getCon().createStatement();
+                    ResultSet rs4 = st4.executeQuery(requete4);
                                             
-                        Statement st3 = main.getCon().createStatement();
-                        ResultSet rs3 = st3.executeQuery(requete3);
-                        
-                            if (rs3.next()){
-                                System.out.println("bouh bouh");
-                                paneConnexion.setVisible(false);
-                                commande.setDisable(false);
-                                btn_attente.setDisable(false);
-                                btn_en_cours.setDisable(false);
-                                btn_a_renouv.setDisable(false);
-                                btn_valide.setDisable(false);
-                                buttonDeco.setDisable(false);
+                    Statement st3 = main.getCon().createStatement();
+                    ResultSet rs3 = st3.executeQuery(requete3);
+
+                    //chercheur
+                    if (rs3.next()){
+                        paneConnexion.setVisible(false);
+                        commande.setDisable(false);
+                        btn_attente.setDisable(false);
+                        btn_en_cours.setDisable(false);
+                        btn_a_renouv.setDisable(false);
+                        btn_valide.setDisable(false);
+                        buttonDeco.setDisable(false);
+                        labelPoste.setVisible(true);
+                        labelPoste.setText("chercheur");
                                 
-                                labelPoste.setVisible(true);
-                                labelPoste.setText("chercheur");
+                        rs3.close();
                                 
-                                rs3.close();
-                                
-                                String requete5 = "SELECT nom,prenom from chercheur where id_personnel= '"+resultat.getString(1)+"'";
-                                resultat.close();
-                                Statement st5 = main.getCon().createStatement();
-                                ResultSet rs5 = st5.executeQuery(requete5);
-                                    if (rs5.next()){
-                                        labelIdentite.setText(rs5.getString("prenom")+" "+rs5.getString("nom"));
-                                    }
-                            }
+                        sq1 = "SELECT nom,prenom from chercheur where id_personnel= '"+resultat.getString(1)+"'";
+
+                        Statement st5 = main.getCon().createStatement();
+                        ResultSet rs5 = st5.executeQuery(sq1);
+                        if (rs5.next()){
+                            labelIdentite.setText(rs5.getString("prenom")+" "+rs5.getString("nom"));
+                        }
+                    }
                                 
                               
                         
-                            if (rs4.next()){
-                                System.out.println("bouh");
-                                paneConnexion.setVisible(false);
-                                btn_attente.setDisable(false);
-                                btn_en_cours.setDisable(false);
-                                btn_a_renouv.setDisable(false);
-                                btn_valide.setDisable(false);                               
-                                labelPoste.setVisible(true);
-                                labelPoste.setText("laborantin");
-                                buttonDeco.setDisable(false);
-                                String requete6 = "SELECT nom,prenom from laborantin where id_personnel= '"+resultat.getString(1)+"'";
-                                resultat.close();
-                                Statement st6 = main.getCon().createStatement();
-                                ResultSet rs6 = st6.executeQuery(requete6);
-                                if (rs6.next()){
-                                labelIdentite.setText(rs6.getString("prenom")+" "+rs6.getString("nom"));
-                                }
+                    if (rs4.next()){
+                        paneConnexion.setVisible(false);
+                        btn_attente.setDisable(false);
+                        btn_en_cours.setDisable(false);
+                        btn_a_renouv.setDisable(false);
+                        btn_valide.setDisable(false);                               
+                        labelPoste.setVisible(true);
+                        labelPoste.setText("laborantin");
+                        buttonDeco.setDisable(false);
+                        String requete6 = "SELECT nom,prenom from laborantin where id_personnel= '"+resultat.getString(1)+"'";
+                        Statement st6 = main.getCon().createStatement();
+                        ResultSet rs6 = st6.executeQuery(requete6);
+                        if (rs6.next()){
+                            labelIdentite.setText(rs6.getString("prenom")+" "+rs6.getString("nom"));
+                        }
                                 
                                  
-                             }
+                    }
                         
-                     }         
-             }      
+                }         
+            }      
            
-         }
+        }
+        resultat.close();
      }
          
        
        public void handleButtonDeco (ActionEvent e){
-           
-           
-           paneTableARenouv.setDisable(true);
-           paneTableAttente.setDisable(true);
-          PaneCommande.setDisable(true);
-          paneLabel.setDisable(true);
-          paneTableEnCours.setDisable(true);
-          paneVerif.setVisible(true);
-          commande.setDisable(true);
-          btn_attente.setDisable(true);
-          btn_en_cours.setDisable(true);
-          btn_a_renouv.setDisable(true);
-          btn_valide.setDisable(true);
-          paneSolutionsCommande.setDisable(true);
+        paneTableARenouv.setDisable(true);
+        paneTableAttente.setDisable(true);
+        PaneCommande.setDisable(true);
+        paneTableEnCours.setDisable(true);
+        paneVerif.setVisible(true);
+        commande.setDisable(true);
+        btn_attente.setDisable(true);
+        btn_en_cours.setDisable(true);
+        btn_a_renouv.setDisable(true);
+        btn_valide.setDisable(true);
+        paneSolutionsCommande.setDisable(true);
        }
        
        public void handleButtonDecoOui (ActionEvent e){
            
-           paneVerif.setVisible(false);
-           paneConnexion.setVisible(true);
-           commande.setDisable(true);
-           btn_attente.setDisable(true);
-           btn_en_cours.setDisable(true);
-           btn_a_renouv.setDisable(true);
-           btn_valide.setDisable(true);
-           labelIdentite.setText("");
-           paneTableARenouv.setVisible(false);
-           paneTableAttente.setVisible(false);
-          PaneCommande.setVisible(false);
-          paneLabel.setVisible(false);
-          paneTableEnCours.setVisible(false);
-          labelPoste.setVisible(false);
-          identifiantText.setText("");
-          mdpText.setText("");
-          buttonDeco.setDisable(true);
-          paneSolutionsCommande.setVisible(false);
-          paneSolutionsCommande.setVisible(false);
-          paneSolutionsCommande.setDisable(false);
+        paneVerif.setVisible(false);
+        paneConnexion.setVisible(true);
+        vBoxMenu.setVisible(false);
+        labelIdentite.setText("");
+        paneTableARenouv.setVisible(false);
+        paneTableAttente.setVisible(false);
+        PaneCommande.setVisible(false);
+        paneLabel.setVisible(false);
+        paneTableEnCours.setVisible(false);
+        labelPoste.setVisible(false);
+        identifiantText.setText("");
+        mdpText.setText("");
+        buttonDeco.setDisable(true);
+        paneSolutionsCommande.setVisible(false);
+        paneSolutionsCommande.setVisible(false);
+        paneSolutionsCommande.setDisable(false);
           
            
            
@@ -563,7 +529,6 @@ public class FXMLPrincipaleController implements Initializable {
           paneTableARenouv.setDisable(false);
           paneTableAttente.setDisable(false);
           PaneCommande.setDisable(false);
-          paneLabel.setDisable(false);
           paneTableEnCours.setDisable(false);
           paneVerif.setVisible(false);
           commande.setDisable(false);
@@ -1089,77 +1054,60 @@ public class FXMLPrincipaleController implements Initializable {
         loadDataSol();
         initTable_commande_en_cours();
         loadData_commande_en_cours(data_commande_en_cours);
-        Label_error_vide.setVisible(false);
+        allNotVisible();
+        initializeSpinner();
+        vBoxMenu.setVisible(false);
         Label_error_vide.setTextFill(Color.web("red"));
         Label_error_sol.setTextFill(Color.web("red"));
         Label_error.setTextFill(Color.web("red"));
+        Comboexp.setItems(comboList);
+        paneConnexion.setVisible(true);
+        buttonDeco.setDisable(true);  
+    }
+    
+    
+    public void setMain(ApplicationBiotech main){
+     this.main=main;
+    }
+    
+    
+    public void initializeSpinner(){       
+        spinnerSlot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerFreq.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerRa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerRa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerRa3.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1,0,0.1));
+        spinnerBa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerBa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerVa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerVa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+    }
+    
+    public void allNotVisible(){
+        //les panes
+        PaneCommande.setVisible(false);
+        paneTableEnCours.setVisible(false);
+        paneConnexion.setVisible(false);;
+        paneVerif.setVisible(false);
+        paneTableAttente.setVisible(false);
+        
+        //les labels
+        Label_error_vide.setVisible(false);
         Label_error_sol.setVisible(false);
         labelErrorConnexion.setVisible(false);
         labelPoste.setVisible(false);
         Label_error.setVisible(false);
-        commande.setDisable(true);
-        btn_attente.setDisable(true);
-        btn_en_cours.setDisable(true);
-        btn_a_renouv.setDisable(true);
-        btn_valide.setDisable(true);
-        PaneCommande.setVisible(false);
-        buttonDeco.setVisible(true);
-        paneTableEnCours.setVisible(false);
-        Comboexp.setItems(comboList);
-        paneConnexion.setVisible(true);
-        buttonDeco.setDisable(true);
-        paneVerif.setVisible(false);
-        
-        paneTableAttente.setVisible(false);
         frequenceLabel.setVisible(false);
-
         spinnerFreq.setVisible(false);
         spinnerRa3.setVisible(false);
         a3RougeLabel.setVisible(false);
-        
-      
-          SpinnerValueFactory<Integer> valueSlot = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0);         
-          spinnerSlot.setValueFactory(valueSlot);
-          
-          SpinnerValueFactory<Integer> valueFreq = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0); 
-          spinnerFreq.setValueFactory(valueFreq);
-          
-          SpinnerValueFactory<Integer> valueDuree = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0); 
-          spinnerDuree.setValueFactory(valueDuree);
-          
-          SpinnerValueFactory<Integer> valueRa1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0); 
-          spinnerRa1.setValueFactory(valueRa1);
-          
-          SpinnerValueFactory<Integer> valueRa2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0);
-         spinnerRa2.setValueFactory(valueRa2);
-         
-         SpinnerValueFactory<Double> valueRa3 = new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1,0,0.1);
-         spinnerRa3.setValueFactory(valueRa3);
-         
-         SpinnerValueFactory<Integer> valueBa1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0);
-         spinnerBa1.setValueFactory(valueBa1);
-         
-         SpinnerValueFactory<Integer> valueBa2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0);
-         spinnerBa2.setValueFactory(valueBa2);
-         
-         
-         SpinnerValueFactory<Integer> valueVa1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0);
-         spinnerVa1.setValueFactory(valueVa1);
-         
-         SpinnerValueFactory<Integer> valueVa2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0);
-         spinnerVa2.setValueFactory(valueVa2);
-         
-         
-         SpinnerValueFactory<Integer> valueTa1 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0);
-         spinnerTa1.setValueFactory(valueTa1);
-         
-         SpinnerValueFactory<Integer> valueTa2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0);
-         spinnerTa2.setValueFactory(valueTa2 );
-                       
-         
-    }
-    public void setMain(ApplicationBiotech main){
-     this.main=main;
+        paneLabel.setVisible(false);
+        paneLabelRenouv.setVisible(false);
+        paneLabelCours.setVisible(false);
+        paneLabelAttente.setVisible(false);
     }
 
 }
