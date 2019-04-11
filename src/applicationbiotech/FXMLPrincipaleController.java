@@ -143,6 +143,8 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private RadioButton radio96;
+    
+     Button buttonModif = new Button("modifier");
 
     
     //ComboBox
@@ -429,13 +431,18 @@ public class FXMLPrincipaleController implements Initializable {
         if("Laborantin".equals(labelPoste.getText())){
             commande.setDisable(true);
         }
+        
         paneTableAttente.setVisible(true);
         paneLabelAttente.setVisible(true);
+        
     }
     
     public void handlebuttoneExp_en_cours (ActionEvent event){
         allNotVisible();
         paneTableEnCours.setVisible(true);
+        if ("Chercheur".equals(labelPoste.getText())){
+            buttonModif.setText("Détailes");
+        }
         
     }
         
@@ -501,16 +508,16 @@ public class FXMLPrincipaleController implements Initializable {
                     }
                                 
                               
-                        
+                     //Laborantin  
                     if (rs4.next()){
                         paneConnexion.setVisible(false);
                         btn_attente.setDisable(false);
                         btn_en_cours.setDisable(false);
-                        btn_a_renouv.setDisable(false);
-                        btn_valide.setDisable(false);                               
+                        btn_a_renouv.setDisable(false);                              
                         labelPoste.setVisible(true);
-                        labelPoste.setText("laborantin");
+                        labelPoste.setText("Laborantin");
                         buttonDeco.setDisable(false);
+                        commande.setDisable(true);
                         String requete6 = "SELECT nom,prenom from laborantin where id_personnel= '"+resultat.getString(1)+"'";
                         Statement st6 = main.getCon().createStatement();
                         ResultSet rs6 = st6.executeQuery(requete6);
@@ -697,19 +704,30 @@ public class FXMLPrincipaleController implements Initializable {
      */
     
     public void handleButtonValiderComSol (ActionEvent e){
+        
+       
+             
         if (data_table_sol.isEmpty()){
             Label_error_sol.setVisible(true);
             Label_error_vide.setVisible(false);
         }
         else{
             
-            if (radio384.isSelected()) {
-                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),spinnerDuree.getValue()+", "+spinnerFreq.getValue(),new Button("je prends"), data_table_sol, "384", this ));
+        
+            if("chercheur".equals(labelPoste.getText())){
+            
+                if (radio384.isSelected() ) {
+                    data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),spinnerDuree.getValue()+", "+spinnerFreq.getValue(),buttonModif, data_table_sol, "384", this ));
+
                 }
 
-            if (radio96.isSelected()) {
-                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),spinnerDuree.getValue()+", "+spinnerFreq.getValue(),new Button("je prends"), data_table_sol, "96", this ));
+                if (radio96.isSelected()) {
+                    data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),spinnerDuree.getValue()+", "+spinnerFreq.getValue(),buttonModif, data_table_sol, "96", this ));
+                }
             }
+            
+
+            
             paneSolutionsCommande.setVisible(false);
             radioOui.setSelected(false);
             radioNon.setSelected(false);
@@ -727,6 +745,10 @@ public class FXMLPrincipaleController implements Initializable {
             a3RougeLabel.setVisible(false);
             Label_error_sol.setVisible(false);
             Label_error.setVisible(false);
+            
+
+            
+            
         }
 
     }
