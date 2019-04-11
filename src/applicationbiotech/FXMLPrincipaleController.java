@@ -501,7 +501,7 @@ public class FXMLPrincipaleController implements Initializable {
                         }
                         
                         rs5.close();
-                        sq1 = "Select * from commande where id_commande in (SELECT unique(id_commande) from commande join ligne_commande using(id_commande) where id_personnel= '"+resultat.getString(1)+"' and statut = 'en attente')";
+                        sq1 = "Select * from commande where id_commande in (SELECT unique(id_commande) from commande join ligne_commande using(id_commande) where commande.id_personnel= '"+resultat.getString(1)+"' and statut = 'en attente')";
 
                         st5 = main.getCon().createStatement();
                         rs5 = st5.executeQuery(sq1);
