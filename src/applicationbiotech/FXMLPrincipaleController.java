@@ -928,25 +928,25 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     protected void addSolutions(ActionEvent event) {
         dataSol = tab_Solutions.getItems();
-        if (ab_field.getText().isEmpty() | cell_field.getText().isEmpty()){
+        if (spinnerAB.getValue()== 0 | spinnerQsol.getValue()== 0){
             Label_error_vide.setVisible(true);
         }
         else{
             Label_error_vide.setVisible(false);
-            dataSol.add(new Solutions(ab_field.getText(),
-                cell_field.getText(),
+            dataSol.add(new Solutions(String.valueOf(spinnerAB.getValue()),
+                String.valueOf(spinnerQsol.getValue()),
                 "Normales",
                 this
             ));
-            dataSol.add(new Solutions(ab_field.getText(),
-                cell_field.getText(),
+            dataSol.add(new Solutions(String.valueOf(spinnerAB.getValue()),
+                (String.valueOf(spinnerQsol.getValue())),
                 "Cancéreuse",
                 this
             ));
         }
         
-        ab_field.setText("");
-        cell_field.setText("");
+        spinnerAB.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerQsol.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         Label_error_sol.setVisible(false);
     }
     
@@ -1064,7 +1064,9 @@ public class FXMLPrincipaleController implements Initializable {
     }
     
     
-    public void initializeSpinner(){       
+    public void initializeSpinner(){
+        spinnerAB.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerQsol.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerSlot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerFreq.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
