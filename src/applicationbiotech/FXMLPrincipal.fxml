@@ -140,19 +140,49 @@
             <Label layoutX="281.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Expériences : en attente" />
          </children>
       </Pane>
-      <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="56.0" prefHeight="504.0" prefWidth="772.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+      <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="56.0" prefHeight="504.0" prefWidth="772.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
          <children>
-            <TableView fx:id="tab_attente" layoutX="40.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
+            <TableView fx:id="tab_attente" layoutX="35.0" layoutY="7.0" prefHeight="200.0" prefWidth="710.0">
               <columns>
                 <TableColumn fx:id="col_att_num_commande" prefWidth="39.0" text="N°" />
-                <TableColumn fx:id="col_att_ab_commande" prefWidth="109.0" text="Agent biologique" />
-                  <TableColumn fx:id="col_att_type_exp_commande" prefWidth="121.0" text="Type d'expérience" />
-                  <TableColumn fx:id="col_att_nb_slot_commande" prefWidth="109.0" text="Nombre de slots" />
-                  <TableColumn fx:id="col_att_d_f" prefWidth="107.0" text="Durée, fréquence" />
-                  <TableColumn fx:id="col_att_nb_sol" prefWidth="124.0" text="Nombre de solution" />
-                  <TableColumn fx:id="col_att_assignation" prefWidth="84.0" text="Assignation" />
+                  <TableColumn fx:id="col_att_date_commande" prefWidth="121.0" text="Date" />
+                  <TableColumn fx:id="col_att_type_exp" prefWidth="121.0" text="Type d'expérience" />
+                  <TableColumn fx:id="col_att_d" prefWidth="64.0" text="Durée" />
+                  <TableColumn fx:id="col_att_f" prefWidth="91.0" text="Fréquence" />
+                  <TableColumn fx:id="col_att_info" prefWidth="112.0" text="Détails" />
+                  <TableColumn fx:id="col_att_assignation" prefWidth="138.0" text="Assignation" />
               </columns>
             </TableView>
+            <VBox layoutX="35.0" layoutY="278.0" prefHeight="178.0" prefWidth="134.0">
+               <children>
+                  <Label prefHeight="24.0" prefWidth="140.0" text="Agent biologique" />
+                  <Label prefHeight="26.0" prefWidth="162.0" text="Réactif" />
+                  <Label prefHeight="29.0" prefWidth="145.0" text="Nombre de slots" />
+                  <Label prefHeight="30.0" prefWidth="190.0" text="Type de plaque" />
+               </children>
+            </VBox>
+            <Label layoutX="248.0" layoutY="235.0" prefHeight="17.0" prefWidth="238.0" text="Informations générales de l'expérience">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <VBox layoutX="154.0" layoutY="278.0" prefHeight="178.0" prefWidth="134.0">
+               <children>
+                  <Label fx:id="ValInfAB" prefHeight="24.0" prefWidth="140.0" />
+                  <Label fx:id="ValInfR" prefHeight="26.0" prefWidth="162.0" />
+                  <Label fx:id="ValInfNBSlot" prefHeight="29.0" prefWidth="145.0" />
+                  <Label fx:id="ValInfoPlaque" prefHeight="30.0" prefWidth="190.0" />
+               </children>
+            </VBox>
+            <TableView layoutX="367.0" layoutY="325.0" prefHeight="165.0" prefWidth="378.0">
+              <columns>
+                <TableColumn prefWidth="170.0" text="Agent Biologique (µg)" />
+                <TableColumn minWidth="0.0" prefWidth="103.0" text="Cellules (µg)" />
+                  <TableColumn minWidth="0.0" prefWidth="103.0" text="Type Cellules" />
+              </columns>
+            </TableView>
+            <Label layoutX="367.0" layoutY="280.0" prefHeight="24.0" prefWidth="140.0" text="Nombre de solutions" />
+            <Label fx:id="ValInfoNBSol" layoutX="497.0" layoutY="279.0" prefHeight="30.0" prefWidth="133.0" />
          </children>
       </Pane>
       <Pane fx:id="paneLabelSol" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="773.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
