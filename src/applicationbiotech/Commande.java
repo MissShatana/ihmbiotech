@@ -90,6 +90,22 @@ public class Commande {
                 }
             } 
         });
+        bouttonInfo.setOnAction((ActionEvent e) -> {
+            Button btn_clicked = (Button)e.getSource();
+            String buttonText = btn_clicked.getText();
+            if (buttonText == "Infos") { // infos             
+                for (Commande co: con.getData_commande_att()){
+                    if (co.getBouttonInfo()==btn_clicked){
+                        con.setValInfAB(co.getAb());
+                        con.setValInfNBSlot(co.getNb_slot());
+                        con.setValInfR(co.getReactif());
+                        con.setValInfoNBSol(co.getNb_sol());
+                        con.setValInfoPlaque(co.getTy_pla());
+                        break;
+                    }
+                }
+            } 
+        });
         
     }
 
