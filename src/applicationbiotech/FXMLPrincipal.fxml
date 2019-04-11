@@ -34,7 +34,7 @@
       </Pane>
       <Pane fx:id="paneLabel" layoutX="139.0" layoutY="33.0" prefHeight="25.0" prefWidth="773.0" style="-fx-background-color: #C8DBDD;" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
          <children>
-            <Label fx:id="spinnerAB" accessibleRole="PARENT" layoutX="252.0" layoutY="3.0" prefHeight="17.0" prefWidth="249.0" text="Nouvelle commande: Informations générales" />
+            <Label accessibleRole="PARENT" layoutX="252.0" layoutY="3.0" prefHeight="17.0" prefWidth="249.0" text="Nouvelle commande: Informations générales" />
          </children>
       </Pane>
       <Pane id="page_principale" fx:id="PaneCommande" layoutX="139.0" layoutY="56.0" prefHeight="504.0" prefWidth="760.0" style="-fx-background-color: F0F0F0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="56.0">
@@ -86,7 +86,7 @@
                </toggleGroup>
             </RadioButton>
             <RadioButton fx:id="radio96" layoutX="207.0" layoutY="125.0" mnemonicParsing="false" text="96" toggleGroup="$radio2" />
-            <Spinner fx:id="spinnerSlot" layoutX="504.0" layoutY="113.0" prefHeight="25.0" prefWidth="61.0" />
+            <Spinner fx:id="spinnerSlot" editable="true" layoutX="504.0" layoutY="113.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerDuree" layoutX="438.0" layoutY="208.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerFreq" layoutX="603.0" layoutY="209.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerRa1" layoutX="137.0" layoutY="314.0" prefHeight="25.0" prefWidth="61.0" />
@@ -102,7 +102,7 @@
             <ComboBox fx:id="comboReact" layoutX="433.0" layoutY="61.0" prefHeight="25.0" prefWidth="161.0" />
          </children>
       </Pane>
-      <VBox layoutY="34.0" prefHeight="506.0" prefWidth="140.0" style="-fx-background-color: #1DA5B6;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <VBox fx:id="vBoxMenu" layoutY="34.0" prefHeight="506.0" prefWidth="140.0" style="-fx-background-color: #1DA5B6;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Button fx:id="commande" mnemonicParsing="false" onAction="#handleButtonCommande" prefHeight="25.0" prefWidth="160.0" text="Nouvelle Commande" />
             <Button disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Mes informations" />
@@ -155,7 +155,7 @@
             </Pane>
          </children>
       </Pane>
-      <Pane layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="773.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <Pane layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="773.0" style="-fx-background-color: #C8DBDD;" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Label layoutX="282.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Nouvelle commande : Solutions" />
          </children>
@@ -177,7 +177,7 @@
             <Button fx:id="btn_annuler_commande" layoutX="530.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleButtonAnnuler" prefHeight="42.0" prefWidth="194.0" style="-fx-background-color: #FF4A4A;" text="Annuler" />
              <Button layoutX="530.0" layoutY="345.0" onAction="#addSolutions" prefWidth="110" text="Ajouter" />
             <Spinner fx:id="spinnerQsol" layoutX="322.0" layoutY="345.0" prefHeight="25.0" prefWidth="186.0" />
-            <Spinner layoutX="110.0" layoutY="345.0" prefHeight="25.0" prefWidth="194.0" />
+            <Spinner fx:id="spinnerAB" layoutX="110.0" layoutY="345.0" prefHeight="25.0" prefWidth="194.0" />
             <Label layoutX="123.0" layoutY="316.0" prefHeight="23.0" prefWidth="168.0" text="Quantité agent biologique (µL)" />
             <Label layoutX="375.0" layoutY="319.0" prefHeight="17.0" prefWidth="121.0" text="Quantité cellule (µL)" />
          </children>
