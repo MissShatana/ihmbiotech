@@ -143,10 +143,7 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private RadioButton radio96;
-    
-    
 
-    
     
     //ComboBox
     @FXML 
@@ -542,25 +539,18 @@ public class FXMLPrincipaleController implements Initializable {
         btn_attente.setDisable(true);
         btn_en_cours.setDisable(true);
         btn_a_renouv.setDisable(true);
-        btn_valide.setDisable(true);
         paneSolutionsCommande.setDisable(true);
        }
        
        public void handleButtonDecoOui (ActionEvent e){
-        paneVerif.setVisible(false);
+        allNotVisible();
         paneConnexion.setVisible(true);
         vBoxMenu.setVisible(false);
         labelIdentite.setText("");
-        paneTableARenouv.setVisible(false);
-        paneTableAttente.setVisible(false);
-        PaneCommande.setVisible(false);
-        paneLabel.setVisible(false);
-        paneTableEnCours.setVisible(false);
         labelPoste.setVisible(false);
         identifiantText.setText("");
         mdpText.setText("");
         buttonDeco.setDisable(true);
-        paneSolutionsCommande.setVisible(false);
         falseDisable();
         
         }
