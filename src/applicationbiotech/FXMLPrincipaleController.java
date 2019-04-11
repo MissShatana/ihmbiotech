@@ -320,7 +320,7 @@ public class FXMLPrincipaleController implements Initializable {
        comboAgent.getSelectionModel().clearSelection();
        Comboexp.getSelectionModel().clearSelection();
        comboReact.getSelectionModel().clearSelection();
-        radio384.setSelected(false);
+       radio384.setSelected(false);
        radio384.setSelected(false);
        radio96.setSelected(false);
        radioOui.setSelected(false);
