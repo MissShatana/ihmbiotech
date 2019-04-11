@@ -504,6 +504,15 @@ public class FXMLPrincipaleController implements Initializable {
                         if (rs5.next()){
                             labelIdentite.setText(rs5.getString("prenom")+" "+rs5.getString("nom"));
                         }
+                        
+                        rs5.close();
+                        sq1 = "Select * from commande where id_commande in (SELECT unique(id_commande) from commande join ligne_commande using(id_commande) where id_personnel= '"+resultat.getString(1)+"' and statut = 'en attente')";
+
+                        st5 = main.getCon().createStatement();
+                        rs5 = st5.executeQuery(sq1);
+                        while (rs5.next()){
+                            data_commande_att.add(new Commande(rs5.getString("id_commande"), String.valueOf(comboAgent.getValue()), LocalDate.now(), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),new Button("je prends"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), "384",String.valueOf(comboReact.getValue()), this ));
+                        }
                     }
                                 
                               
@@ -712,6 +721,7 @@ public class FXMLPrincipaleController implements Initializable {
             
             if (radio384.isSelected()) {
                 data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), LocalDate.now(), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), data_table_sol, "384",String.valueOf(comboReact.getValue()), this ));
+                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), LocalDate.now(), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),new Button("je prends"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), "384",String.valueOf(comboReact.getValue()), this ));
             }
 
             if (radio96.isSelected()) {
@@ -719,6 +729,8 @@ public class FXMLPrincipaleController implements Initializable {
 
            
             
+                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()),LocalDate.now(), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),new Button("je prends"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), "96", String.valueOf(comboReact.getValue()), this ));
+            }
             paneSolutionsCommande.setVisible(false);
             radioOui.setSelected(false);
             radioNon.setSelected(false);
@@ -750,8 +762,7 @@ public class FXMLPrincipaleController implements Initializable {
             Statement stmt1 = main.getCon().createStatement();
             ResultSet resultat7 = stmt1.executeQuery(sq2);
         }
-
-    }
+        
     }
 
   
@@ -879,6 +890,46 @@ public class FXMLPrincipaleController implements Initializable {
         this.ValInfoPlaque.setText(ValInfoPlaque);
     }
 
+    @FXML
+    private TableView<Solutions> TableInfoSol;
+
+    @FXML
+    private TableColumn<Solutions, String> InfoAB;
+
+    @FXML
+    private TableColumn<Solutions, String> InfoCell;
+
+    @FXML
+    private TableColumn<Solutions, String> InfoTypeCell;
+    
+    private ObservableList<Solutions> dataInfoSol = FXCollections.observableArrayList();;
+    
+    private void initTableInfoSol(){
+        initColumnInfoSol();
+    }
+    
+    private void initColumnInfoSol(){
+        InfoAB.setCellValueFactory(new PropertyValueFactory<>("qt_ab"));
+        InfoCell.setCellValueFactory(new PropertyValueFactory<>("qt_cell"));
+        InfoTypeCell.setCellValueFactory(new PropertyValueFactory<>("ty_cell"));
+    }
+    
+    public void loadInfoData(ObservableList<Solutions> dataInfoSol) {
+        TableInfoSol.setItems(dataInfoSol);
+    }
+
+    public ObservableList<Solutions> getData_InfoSol() {
+        return dataInfoSol;
+    }
+
+    public TableView<Solutions> getTab_InfoSol() {
+        return TableInfoSol;
+    }
+
+    public void setDataInfo (Solutions Data){
+        dataInfoSol.addAll(Data);
+    }
+    
     
     //Attributs: Tableau pour les commandes en attente
     @FXML
@@ -1029,6 +1080,7 @@ public class FXMLPrincipaleController implements Initializable {
 
     }
     
+    
 
      /**
      * loadData permet mettre les données dans le tableview
@@ -1047,6 +1099,8 @@ public class FXMLPrincipaleController implements Initializable {
         data_commande_en_cours.add(com);
     }
        
+    
+
    
     /**
      * initialize: tous les attributs sont initialisés
@@ -1061,6 +1115,8 @@ public class FXMLPrincipaleController implements Initializable {
         loadDataSol();
         initTable_commande_en_cours();
         loadData_commande_en_cours(data_commande_en_cours);
+        initTableInfoSol();
+        loadInfoData(dataInfoSol);
         allNotVisible();
         initializeSpinner();
         vBoxMenu.setVisible(false);

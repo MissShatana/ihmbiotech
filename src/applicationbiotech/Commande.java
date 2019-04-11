@@ -61,7 +61,29 @@ public class Commande {
                         co.setBouttonAss(new Button ("scan plaque"));
                         con.getData_commande_att().remove(co);
                         con.addData_commande_en_cours(co);
-                       
+                        break;
+                    }
+                }
+            } 
+        });
+        bouttonInfo.setOnAction((ActionEvent e) -> {
+            Button btn_clicked = (Button)e.getSource();
+            String buttonText = btn_clicked.getText();
+            if (buttonText == "Infos") { // infos             
+                for (Commande co: con.getData_commande_att()){
+                    if (co.getBouttonInfo()==btn_clicked){
+                        con.setValInfAB(co.getAb());
+                        con.setValInfNBSlot(co.getNb_slot());
+                        con.setValInfR(co.getReactif());
+                        con.setValInfoNBSol(co.getNb_sol());
+                        con.setValInfoPlaque(co.getTy_pla());
+                        if (ligne_commande.isEmpty()){
+                            System.out.println("aaaa");
+                        }
+                        for (Solutions sol: ligne_commande){
+                            System.out.println(sol);
+                            con.setDataInfo(sol);
+                        }
                         
                         break;
                     }
@@ -117,6 +139,10 @@ public class Commande {
 
     public String getTy_pla() {
         return ty_pla;
+    }
+
+    public ObservableList<Solutions> getLigne_commande() {
+        return ligne_commande;
     }
     
     
