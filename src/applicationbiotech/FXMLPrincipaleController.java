@@ -135,16 +135,12 @@ public class FXMLPrincipaleController implements Initializable {
     //ComboBox
     @FXML 
     private ComboBox comboAgent;
+    @FXML 
+    private ComboBox comboReact;
     
     @FXML 
     private ComboBox Comboexp;
     
-    private ObservableList <String> AgentList = 
-            FXCollections.observableArrayList(
-            "fraise",
-            "citron",
-            "orange"
-            );
         
     
      private ObservableList <String> comboList = 
@@ -339,17 +335,24 @@ public class FXMLPrincipaleController implements Initializable {
         paneTableARenouv.setVisible(false);
         paneConnexion.setVisible(false);
         String requete = "select id_agent, nom_agent from agent_bio";
-        ObservableList <String> list_ab = FXCollections.observableArrayList();
-        System.out.println(main);
-        System.out.println(main.getCon());
-        System.out.println("print");
+        ObservableList <String> list = FXCollections.observableArrayList();
+
         Statement st = main.getCon().createStatement();
         ResultSet rs = st.executeQuery(requete);
         while (rs.next()){ 
-            list_ab.add(rs.getString("id_agent")+rs.getString("nom_agent"));
+            list.add(rs.getString("id_agent")+rs.getString("nom_agent"));
         }
 
-        comboAgent.setItems(list_ab);
+        comboAgent.setItems(list);
+        rs.close();
+        list = FXCollections.observableArrayList();
+        requete = "select id_reactif , nom_reactif from reactif ";
+        rs = st.executeQuery(requete);
+        while (rs.next()){ 
+            list.add(rs.getString("id_reactif")+rs.getString("nom_reactif"));
+        }
+
+        comboReact.setItems(list);
 
         }
     
@@ -1068,7 +1071,6 @@ public class FXMLPrincipaleController implements Initializable {
         PaneCommande.setVisible(false);
         buttonDeco.setVisible(true);
         paneTableEnCours.setVisible(false);
-        comboAgent.setItems(AgentList);
         Comboexp.setItems(comboList);
         paneConnexion.setVisible(true);
         buttonDeco.setDisable(true);
