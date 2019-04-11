@@ -326,6 +326,7 @@ public class FXMLPrincipaleController implements Initializable {
     //Pour le menu
     public void handleButtonCommande(ActionEvent event) throws SQLException {
         
+        PaneCommande.setDisable(false);
         paneLabel.setVisible(true);
         PaneCommande.setVisible(true);
         commande.setDisable(true);
@@ -360,24 +361,24 @@ public class FXMLPrincipaleController implements Initializable {
         
                 System.out.println(labelPoste.getText());
         
-                if (labelPoste.getText() == "chercheur"){
+       
+                 if(      "chercheur".equals(labelPoste.getText())){
         commande.setDisable(false);
-        }
-                if(labelPoste.getText() == "laborantin"){
-        commande.setDisable(true);
             
         }
-               paneTableARenouv.setDisable(false);
-           paneTableAttente.setDisable(false);
-          PaneCommande.setDisable(false);
-          paneLabel.setDisable(false);
-          paneTableEnCours.setDisable(false);
+    
+       
+        paneTableARenouv.setDisable(false);
+        paneTableAttente.setDisable(false);
+        PaneCommande.setDisable(false);
+        paneLabel.setDisable(false);
+        paneTableEnCours.setDisable(false);
           
-          commande.setDisable(false);
-          btn_attente.setDisable(false);
-          btn_en_cours.setDisable(false);
-          btn_a_renouv.setDisable(false);
-          btn_valide.setDisable(false);
+          
+        btn_attente.setDisable(false);
+        btn_en_cours.setDisable(false);
+        btn_a_renouv.setDisable(false);
+        btn_valide.setDisable(false);
         paneTableAttente.setVisible(true);
         PaneCommande.setVisible(false);
         paneLabel.setVisible(false);
@@ -434,7 +435,7 @@ public class FXMLPrincipaleController implements Initializable {
          if (!resultat.next()){
 
              showAlert(Alert.AlertType.ERROR, "Erreur!", "Entrez un nom");
-         }
+             }
          else{
              System.out.println("blabla");
              System.out.println(resultat.getString(1));
@@ -445,7 +446,7 @@ public class FXMLPrincipaleController implements Initializable {
                 int id = resultat2.getInt(1);
                     if (id == 1){
                         showAlert(Alert.AlertType.ERROR, "Erreur!", "Compte non actif");
-                    }
+                     }
                     
                                                         
                     if (id == 0 ){
@@ -500,21 +501,16 @@ public class FXMLPrincipaleController implements Initializable {
                                 ResultSet rs6 = st6.executeQuery(requete6);
                                 if (rs6.next()){
                                 labelIdentite.setText(rs6.getString("prenom")+" "+rs6.getString("nom"));
-                                    }
+                                }
                                 
                                  
-                            }
+                             }
                         
-                    }
-                    
-                    
-             
-            
-         
-         }      
+                     }         
+             }      
            
-       }
          }
+     }
          
        
        public void handleButtonDeco (ActionEvent e){
@@ -531,6 +527,7 @@ public class FXMLPrincipaleController implements Initializable {
           btn_en_cours.setDisable(true);
           btn_a_renouv.setDisable(true);
           btn_valide.setDisable(true);
+          paneSolutionsCommande.setDisable(true);
        }
        
        public void handleButtonDecoOui (ActionEvent e){
@@ -552,12 +549,17 @@ public class FXMLPrincipaleController implements Initializable {
           identifiantText.setText("");
           mdpText.setText("");
           buttonDeco.setDisable(true);
+          paneSolutionsCommande.setVisible(false);
+          paneSolutionsCommande.setVisible(false);
+          paneSolutionsCommande.setDisable(false);
+          
            
            
        }
        
        public void handleButtonDecoNon (ActionEvent e){
-           
+          
+           //Réinitialisation de des champs de la connexion
           paneTableARenouv.setDisable(false);
           paneTableAttente.setDisable(false);
           PaneCommande.setDisable(false);
@@ -569,6 +571,38 @@ public class FXMLPrincipaleController implements Initializable {
           btn_en_cours.setDisable(false);
           btn_a_renouv.setDisable(false);
           btn_valide.setDisable(false);
+          paneSolutionsCommande.setDisable(false);
+          
+          //Réinitialisation des champs de la commande 
+          
+             
+       comboAgent.getSelectionModel().clearSelection();
+       Comboexp.getSelectionModel().clearSelection();
+       radio384.setSelected(false);
+       radio96.setSelected(false);
+       radioOui.setSelected(false);
+       radioNon.setSelected(false);
+       commande.setDisable(false);
+       btn_attente.setDisable(false);
+       data_table_sol.removeAll(tab_Solutions.getItems());
+       Label_error_sol.setVisible(false);
+       Label_error.setVisible(false);
+       frequenceLabel.setVisible(false);
+       spinnerFreq.setVisible(false);
+       spinnerRa3.setVisible(false);
+       a3RougeLabel.setVisible(false);
+       spinnerSlot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerFreq.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerRa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerRa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerRa3.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1,0,0.1));
+       spinnerBa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerBa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerVa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerVa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+       spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
        
        }
        
