@@ -92,6 +92,10 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML 
     private Pane paneLabelAttente;
+    
+    @FXML 
+    private Pane paneLabelSol;
+    
 
     
     //Button
@@ -312,6 +316,7 @@ public class FXMLPrincipaleController implements Initializable {
      * @param e 
      */
     public void handleButtonAnnuler (ActionEvent e){
+       allNotVisible();
        paneSolutionsCommande.setVisible(false);
        PaneCommande.setVisible(false);
        paneLabel.setVisible(false);
@@ -340,25 +345,60 @@ public class FXMLPrincipaleController implements Initializable {
        initializeSpinner();
        
        //réglage du menu
-       commande.setDisable(false);
-       btn_attente.setDisable(false);   
+       falseDisable();  
     }
+    
+    public void falseDisable(){
+        //bouton de menu non accesible
+        commande.setDisable(false);
+        btn_attente.setDisable(false);
+        btn_en_cours.setDisable(false);
+        btn_a_renouv.setDisable(false);
+        //btn_valide.setDisable(false);
+        
+        paneTableARenouv.setDisable(false);
+        paneTableAttente.setDisable(false);
+        PaneCommande.setDisable(false);
+        paneTableEnCours.setDisable(false);
+        paneVerif.setVisible(false);
+        paneSolutionsCommande.setDisable(false);
+    }
+    
+    public void allNotVisible(){
+        //les panes
+        PaneCommande.setVisible(false);
+        paneTableEnCours.setVisible(false);
+        paneConnexion.setVisible(false);
+        paneVerif.setVisible(false);
+        paneTableAttente.setVisible(false);
+        paneTableARenouv.setVisible(false);
+        paneSolutionsCommande.setVisible(false);
+        paneLabelAttente.setVisible(false);
+        paneLabel.setVisible(false);
+        paneLabelRenouv.setVisible(false);
+        paneLabelCours.setVisible(false);
+        paneLabelSol.setVisible(false);
+        
+        //les labels
+        Label_error_vide.setVisible(false);
+        Label_error_sol.setVisible(false);
+        labelErrorConnexion.setVisible(false);
+        Label_error.setVisible(false);
+        frequenceLabel.setVisible(false);
+        spinnerFreq.setVisible(false);
+        spinnerRa3.setVisible(false);
+        a3RougeLabel.setVisible(false);
+    }
+    
     
     //Pour le menu
     public void handleButtonCommande(ActionEvent event) throws SQLException {
+        allNotVisible();
+        falseDisable();
+        commande.setDisable(true);
         paneLabel.setVisible(true);
         PaneCommande.setVisible(true);
-        
-        //bouton de menu non accesible
-        commande.setDisable(true);
-        btn_attente.setDisable(false);
-        
-        //les autres panes non visible
-        paneTableAttente.setVisible(false);
-        paneTableEnCours.setVisible(false);
-        paneTableARenouv.setVisible(false);
-        paneConnexion.setVisible(false);
-        
+
         //intialisation des agent_bio et reactifs
         String requete = "select id_agent, nom_agent from agent_bio";
         ObservableList <String> list = FXCollections.observableArrayList();
@@ -378,42 +418,37 @@ public class FXMLPrincipaleController implements Initializable {
         }
 
         comboReact.setItems(list);
-
         }
+    
+    
+    
     
     public void handleMenuAttente(ActionEvent event) {
-        if("chercheur".equals(labelPoste.getText())){
-            commande.setDisable(false);
+        allNotVisible();
+        falseDisable();
+        if("Laborantin".equals(labelPoste.getText())){
+            commande.setDisable(true);
         }
         paneTableAttente.setVisible(true);
-        PaneCommande.setVisible(false);
-        paneLabel.setVisible(false);
-        paneTableEnCours.setVisible(false);
-        paneConnexion.setVisible(false);
-        
-
+        paneLabelAttente.setVisible(true);
     }
     
-       public void handlebuttoneExp_en_cours (ActionEvent event){
+    public void handlebuttoneExp_en_cours (ActionEvent event){
+        allNotVisible();
         paneTableEnCours.setVisible(true);
-        paneTableAttente.setVisible(false);
-        PaneCommande.setVisible(false);
-        paneLabel.setVisible(false); 
-        paneTableARenouv.setVisible(false);
-        paneConnexion.setVisible(false);
         
     }
         
     
-       public void handlebutton_a_renouv (ActionEvent event){
+    public void handlebutton_a_renouv (ActionEvent event){
+        allNotVisible();
         paneTableARenouv.setVisible(true);
-        paneTableAttente.setVisible(false);
-        PaneCommande.setVisible(false);
-        paneLabel.setVisible(false);
-        paneTableEnCours.setVisible(false);
     }
        
-       public void handleButtonConnexion (ActionEvent event ) throws SQLException{
+
+    
+    //connexion
+    public void handleButtonConnexion (ActionEvent event ) throws SQLException{
         String sq1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
         Statement stmt = main.getCon().createStatement();
         ResultSet resultat = stmt.executeQuery(sq1);
@@ -450,7 +485,6 @@ public class FXMLPrincipaleController implements Initializable {
                         btn_attente.setDisable(false);
                         btn_en_cours.setDisable(false);
                         btn_a_renouv.setDisable(false);
-                        btn_valide.setDisable(false);
                         buttonDeco.setDisable(false);
                         labelPoste.setVisible(true);
                         labelPoste.setText("chercheur");
@@ -492,10 +526,10 @@ public class FXMLPrincipaleController implements Initializable {
            
         }
         resultat.close();
-     }
+    }
          
        
-       public void handleButtonDeco (ActionEvent e){
+    public void handleButtonDeco (ActionEvent e){
         paneTableARenouv.setDisable(true);
         paneTableAttente.setDisable(true);
         PaneCommande.setDisable(true);
@@ -524,24 +558,14 @@ public class FXMLPrincipaleController implements Initializable {
         mdpText.setText("");
         buttonDeco.setDisable(true);
         paneSolutionsCommande.setVisible(false);
-        paneSolutionsCommande.setVisible(false);
-        paneSolutionsCommande.setDisable(false);
+        falseDisable();
+        
         }
        
-       public void handleButtonDecoNon (ActionEvent e){
+    public void handleButtonDecoNon (ActionEvent e){
           
-           //Réinitialisation de des champs de la connexion
-          paneTableARenouv.setDisable(false);
-          paneTableAttente.setDisable(false);
-          PaneCommande.setDisable(false);
-          paneTableEnCours.setDisable(false);
-          paneVerif.setVisible(false);
-          commande.setDisable(false);
-          btn_attente.setDisable(false);
-          btn_en_cours.setDisable(false);
-          btn_a_renouv.setDisable(false);
-          btn_valide.setDisable(false);
-          paneSolutionsCommande.setDisable(false);
+        //Réinitialisation de des champs de la connexion
+        falseDisable();
           
           //Réinitialisation des champs de la commande 
           
@@ -594,6 +618,8 @@ public class FXMLPrincipaleController implements Initializable {
         if ((comboAgent.getValue() != null) && (spinnerSlot.getValue() != 0 )&&(Comboexp.getValue() != null) | (radio384.isSelected() == true ) | (radio96.isSelected() == true ) && (spinnerRa1.getValue() !=0) && (spinnerRa1.getValue() != 0) && (spinnerBa1.getValue() != 0 ) && (spinnerBa2.getValue() != 0) && (spinnerVa1.getValue() != 0 ) && (spinnerVa2.getValue() != 0) && (spinnerTa1.getValue() != 0) && (spinnerTa2.getValue() != 0 ) && (spinnerDuree.getValue() != 0) && (spinnerSlot.getValue() != 0) &&((radioOui.isSelected() == true && spinnerRa3.getValue() != 0 && spinnerFreq.getValue() != 0 )|(radioNon.isSelected() == true)) ) {
             paneSolutionsCommande.setVisible(true);
             PaneCommande.setVisible(false);
+            paneLabelSol.setVisible(true);
+            paneLabel.setVisible(false);
             agentLabel.setTextFill(Color.web("black"));
             typeExpLabel.setTextFill(Color.web("black"));
             slotLabel.setTextFill(Color.web("black"));
@@ -1095,24 +1121,6 @@ public class FXMLPrincipaleController implements Initializable {
         spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
     }
     
-    public void allNotVisible(){
-        //les panes
-        PaneCommande.setVisible(false);
-        paneTableEnCours.setVisible(false);
-        paneConnexion.setVisible(false);;
-        paneVerif.setVisible(false);
-        paneTableAttente.setVisible(false);
-        
-        //les labels
-        Label_error_vide.setVisible(false);
-        Label_error_sol.setVisible(false);
-        labelErrorConnexion.setVisible(false);
-        labelPoste.setVisible(false);
-        Label_error.setVisible(false);
-        frequenceLabel.setVisible(false);
-        spinnerFreq.setVisible(false);
-        spinnerRa3.setVisible(false);
-        a3RougeLabel.setVisible(false);
-    }
+    
 
 }
