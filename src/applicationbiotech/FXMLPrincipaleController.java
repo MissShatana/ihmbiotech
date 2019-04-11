@@ -745,75 +745,34 @@ public class FXMLPrincipaleController implements Initializable {
             
             if (radio384.isSelected()) {
             data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),spinnerDuree.getValue()+", "+spinnerFreq.getValue(),new Button("je prends"), data_table_sol, "384", this ));
-            paneSolutionsCommande.setVisible(false);
-            radioOui.setSelected(false);
-            radioNon.setSelected(false);
-            comboAgent.getSelectionModel().clearSelection();
-            Comboexp.getSelectionModel().clearSelection();
-            radio384.setSelected(false);
-            radio96.setSelected(false);
-            spinnerSlot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerFreq.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerRa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerRa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerRa3.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1,0,0.1));
-            spinnerBa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerBa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerVa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerVa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            data_table_sol.removeAll(tab_Solutions.getItems());
-            commande.setDisable(false);
-            btn_attente.setDisable(false);
-            frequenceLabel.setVisible(false);
-            spinnerFreq.setVisible(false);
-            spinnerRa3.setVisible(false);
-            a3RougeLabel.setVisible(false);
-            Label_error_sol.setVisible(false);
-            Label_error.setVisible(false);
-            spinnerSlot.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
             }
             
         if (radio96.isSelected()) {
             data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),spinnerDuree.getValue()+", "+spinnerFreq.getValue(),new Button("je prends"), data_table_sol, "96", this ));
-            paneSolutionsCommande.setVisible(false);
-            radioOui.setSelected(false);
-            radioNon.setSelected(false);
-            comboAgent.getSelectionModel().clearSelection();
-            Comboexp.getSelectionModel().clearSelection();
-            radio384.setSelected(false);
-            radio96.setSelected(false);
-            spinnerSlot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerFreq.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerRa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerRa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerRa3.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1,0,0.1));
-            spinnerBa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerBa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerVa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerVa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-            data_table_sol.removeAll(tab_Solutions.getItems());
-            commande.setDisable(false);
-            btn_attente.setDisable(false);
-            frequenceLabel.setVisible(false);
-            spinnerFreq.setVisible(false);
-            spinnerRa3.setVisible(false);
-            a3RougeLabel.setVisible(false);
-            Label_error_sol.setVisible(false);
-            Label_error.setVisible(false);
-            spinnerSlot.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
             }
+        paneSolutionsCommande.setVisible(false);
+        radioOui.setSelected(false);
+        radioNon.setSelected(false);
+        comboAgent.getSelectionModel().clearSelection();
+        Comboexp.getSelectionModel().clearSelection();
+        radio384.setSelected(false);
+        radio96.setSelected(false);
+        initializeSpinner();
+        data_table_sol.removeAll(tab_Solutions.getItems());
+        commande.setDisable(false);
+        btn_attente.setDisable(false);
+        frequenceLabel.setVisible(false);
+        spinnerFreq.setVisible(false);
+        spinnerRa3.setVisible(false);
+        a3RougeLabel.setVisible(false);
+        Label_error_sol.setVisible(false);
+        Label_error.setVisible(false);
+        spinnerSlot.setValueFactory( new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         }
 
     }
 
-    
-    
+  
     /**
      * Cette classe permet de faire apparaître les champs a3 et fréquence 
      * quand l'expérience est suivi dans le temps
@@ -840,8 +799,7 @@ public class FXMLPrincipaleController implements Initializable {
             a3RougeLabel.setVisible(false);
 
         }
-    }
-//    
+    }    
     
  
     
@@ -1120,7 +1078,5 @@ public class FXMLPrincipaleController implements Initializable {
         spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
     }
-    
-    
 
 }
