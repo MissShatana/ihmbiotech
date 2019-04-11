@@ -539,7 +539,6 @@ public class FXMLPrincipaleController implements Initializable {
         btn_attente.setDisable(true);
         btn_en_cours.setDisable(true);
         btn_a_renouv.setDisable(true);
-        btn_valide.setDisable(true);
         paneSolutionsCommande.setDisable(true);
        }
        
