@@ -32,6 +32,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.DefaultStringConverter;
+import java.util.regex.*;
 
 /**
  * FXMLPrincipaleController  est la classe avec les différents écouteurs 
@@ -408,7 +409,8 @@ public class FXMLPrincipaleController implements Initializable {
         Statement st = main.getCon().createStatement();
         ResultSet rs = st.executeQuery(requete);
         while (rs.next()){ 
-            list.add(rs.getString("id_agent")+rs.getString("nom_agent"));
+            list.add(rs.getString("id_agent")+"-"+rs.getString("nom_agent"));
+ 
         }
 
         comboAgent.setItems(list);
@@ -417,7 +419,7 @@ public class FXMLPrincipaleController implements Initializable {
         requete = "select id_reactif , nom_reactif from reactif ";
         rs = st.executeQuery(requete);
         while (rs.next()){ 
-            list.add(rs.getString("id_reactif")+rs.getString("nom_reactif"));
+            list.add(rs.getString("id_reactif")+"-"+rs.getString("nom_reactif"));
         }
 
         comboReact.setItems(list);
@@ -726,11 +728,44 @@ public class FXMLPrincipaleController implements Initializable {
             
             if (radio384.isSelected()) {
                 data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), "384",String.valueOf(comboReact.getValue()), this ));
-            }
+                Pattern p = Pattern.compile("-");
+                String[] items = p.split(String.valueOf(comboAgent.getValue()));           
+                String id_agent1 = items[0];
+                System.out.println(id_agent1);
+                
+                Pattern p1 = Pattern.compile("-");
+                String[] items1 = p1.split(String.valueOf(comboReact.getValue()));           
+                String id_react1 = items1[0];
+                System.out.println(id_react1);
+                
+                if (radioNon.isSelected()){
+                    int  suivi =1; int frequence; int a3;
+                }else{
+                    int suivi =0;
+                    String frequence = String.valueOf(spinnerFreq.getValue());
+                    String a3 = String.valueOf(spinnerRa3.getValue());             
+                }
+                
+                String requete2 = "insert into Commande values (1,'"+id_agent1+"',)";                     
+                Statement stmt1 = main.getCon().createStatement();
+                ResultSet resultat7 = stmt1.executeQuery(requete2);
+            
+                }
 
-            if (radio96.isSelected()) {
+            if (radio96.isSelected()) {           
                 data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()),String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), "96", String.valueOf(comboReact.getValue()), this ));
-            }
+                Pattern p = Pattern.compile("-");
+                String[] items = p.split(String.valueOf(comboAgent.getValue()));           
+                String id_agent2 = items[0];
+                System.out.println(id_agent2);
+                
+                Pattern p1 = Pattern.compile("-");
+                String[] items1 = p1.split(String.valueOf(comboReact.getValue()));           
+                String id_react2 = items1[0];
+                System.out.println(id_react2);
+            
+             }
+
             paneSolutionsCommande.setVisible(false);
             radioOui.setSelected(false);
             radioNon.setSelected(false);
@@ -749,18 +784,14 @@ public class FXMLPrincipaleController implements Initializable {
             Label_error_sol.setVisible(false);
             Label_error.setVisible(false);
             
-            if (radioNon.isSelected()){
-              int  suivi =1;
-              int frequence;
-              int a3;
-            }else{
-              int suivi =0;
-              String frequence = String.valueOf(spinnerFreq.getValue());
-              String a3 = String.valueOf(spinnerRa3.getValue());             
-            }
-            String sq2 = "insert into Commande values (1,null,null,null,null,)";                     
-            Statement stmt1 = main.getCon().createStatement();
-            ResultSet resultat7 = stmt1.executeQuery(sq2);
+            
+ 
+            
+
+           
+
+            
+            
         }
         
     }
