@@ -162,8 +162,8 @@ public class FXMLPrincipaleController implements Initializable {
     
      private ObservableList <String> comboList = 
             FXCollections.observableArrayList(
-            "colorimétrique",
-            "opacimétrique"
+            "colorimetrique",
+            "opacimetrique"
             );
 
     //Label
@@ -746,23 +746,36 @@ public class FXMLPrincipaleController implements Initializable {
                     int suivi =0;
                     String frequence = String.valueOf(spinnerFreq.getValue());
                     String a3 = String.valueOf(spinnerRa3.getValue());             
-                
+                }
                 String requete1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
                 Statement stmt1 = main.getCon().createStatement();
-                ResultSet personnel = stmt1.executeQuery(requete1);               
-                
-                if (personnel.next()){
-                String requete2 = "select id_chercheur from chercheur where id_personnel ='"+personnel.getString(1)+"'";
-                Statement stmt2 = main.getCon().createStatement();
-                ResultSet chercheur = stmt2.executeQuery(requete1); 
-                        
-                        
-                String requete3 = "insert into Commande values (1,'"+id_agent1+"','"+personnel.getString(1)+"','"+chercheur.getString(1)+"','"+id_react1+"','"+suivi+"','"+String.valueOf(LocalDate.now())+"','"+String.valueOf(spinnerSlot.getValue())+"','"+String.valueOf(spinnerDuree.getValue())+"','"+String.valueOf(spinnerFreq.getValue())+"','"+String.valueOf(Comboexp.getValue())+"',384,'"++"'";                     
-                Statement stmt3 = main.getCon().createStatement();
-                ResultSet resultat7 = stmt2.executeQuery(requete3);
+                ResultSet personnel = stmt1.executeQuery(requete1);                          
+                if (!personnel.next()){
+                    System.out.println("pas id_personnel");
+                    
+                }else{System.out.println("bouh2");
+                      System.out.println(personnel.getString(1));
+                    String requete2 = "select id_chercheur from chercheur where id_personnel ='"+personnel.getString(1)+"'";
+                    Statement stmt2 = main.getCon().createStatement();
+                    ResultSet chercheur = stmt2.executeQuery(requete2);
+                    
+                    if (!chercheur.next()){
+                        System.out.println("pas id_chercheur");
+  
+                    }else {System.out.println("bouh1");
+                           System.out.println(chercheur.getString(1));
+                        try{
+                            String requete3 = "INSERT INTO Commande VALUES (1,"+id_agent1+","+personnel.getString(1)+","+chercheur.getString(1)+","+id_react1+","+1+","+null+","+spinnerSlot.getValue()+","+spinnerDuree.getValue()+","+null+",'"+Comboexp.getValue()+"',384,"+null+","+spinnerVa2.getValue()+","+spinnerVa1.getValue()+","+spinnerBa2.getValue()+","+spinnerBa1.getValue()+","+spinnerTa1.getValue()+","+spinnerTa2.getValue()+","+spinnerRa1.getValue()+","+spinnerRa2.getValue()+")";                     
+                            System.out.println("bouh");
+                            Statement stmt3 = main.getCon().createStatement();
+                            ResultSet resultat2 = stmt3.executeQuery(requete3);
+                        }catch(SQLException o){
+                            System.out.println(o.getMessage());
+                        }
+
             
                 }
-                }
+            }
             }
 
             if (radio96.isSelected()) {           
