@@ -517,7 +517,7 @@ public class FXMLPrincipaleController implements Initializable {
                             while(rs2.next()){
                                 data_table_sol.add(new Solutions(rs2.getInt("id_ligne_commande"),rs2.getString("quantite_agent_biologique"),rs2.getString("quantite_cellules"),rs2.getString("type_cellule"),this));
                             }
-                            data_commande_att.add(new Commande(rs3.getString("id_commande"), rs3.getString("id_agent"), rs3.getString("date_co"), rs3.getString("type_experience"), rs3.getString("nombre_slots"),rs3.getString("duree"),rs3.getString("frequence"),new Button("Modifier"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), rs3.getString("type_de_plaque"),rs3.getString("id_reactif"), this ));
+                            data_commande_att.add(new Commande(rs3.getString("id_commande"), rs3.getString("nom_agent"), rs3.getString("date_co"), rs3.getString("type_experience"), rs3.getString("nombre_slots"),rs3.getString("duree"),rs3.getString("frequence"),new Button("Modifier"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), rs3.getString("type_de_plaque"),rs3.getString("nom_reactif"), this ));
                         }
                         data_table_sol=FXCollections.observableArrayList();
                     }
@@ -739,7 +739,9 @@ public class FXMLPrincipaleController implements Initializable {
                 System.out.println(id_react1);
                 
                 if (radioNon.isSelected()){
-                    int  suivi =1; int frequence; int a3;
+                    int  suivi =1; 
+                    String frequence; 
+                    String a3;
                 }else{
                     int suivi =0;
                     String frequence = String.valueOf(spinnerFreq.getValue());
@@ -957,7 +959,8 @@ public class FXMLPrincipaleController implements Initializable {
         return TableInfoSol;
     }
 
-    public void setDataInfo (Solutions Data){
+    public void setDataInfo (ObservableList<Solutions> Data){
+        dataInfoSol.clear();
         dataInfoSol.addAll(Data);
     }
     
