@@ -13,7 +13,8 @@ import javafx.scene.control.ComboBox;
  *Classe qui crée les différentes solutions que veut le chercheur
  */
 public class Solutions {
-    private String qt_ab, qt_cell, ty_cell;
+    private String  qt_ab, qt_cell, ty_cell;
+    private int id;
     FXMLPrincipaleController con;
     
     /**
@@ -23,11 +24,12 @@ public class Solutions {
      * @param ty_cell type de cellules
      * @param con main
      */
-    public Solutions(String qt_ab, String qt_cell, String ty_cell, FXMLPrincipaleController con){
+    public Solutions(int id,String qt_ab, String qt_cell, String ty_cell, FXMLPrincipaleController con){
         this.qt_ab=qt_ab;
         this.qt_cell=qt_cell;
         this.ty_cell=ty_cell;
         this.con=con;
+        this.id=id;
     }
 
     /**

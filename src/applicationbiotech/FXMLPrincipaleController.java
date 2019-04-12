@@ -464,25 +464,25 @@ public class FXMLPrincipaleController implements Initializable {
             resultat.close();
         }else{
             sq1 = "select actif from personnel_labo where id_personnel='"+resultat.getString(1)+"'";
-            Statement st2 = main.getCon().createStatement();
-            ResultSet resultat2 = st2.executeQuery(sq1);
-            if (resultat2.next()){
-                int id = resultat2.getInt(1);
+            stmt = main.getCon().createStatement();
+            ResultSet rs2 = stmt.executeQuery(sq1);
+            if (rs2.next()){
+                int id = rs2.getInt(1);
                 if (id == 1){
                     showAlert(Alert.AlertType.ERROR, "Erreur!", "Compte non actif");
-                    resultat2.close();
+                    rs2.close();
                     resultat.close();
                 }
                 else if (id == 0 ){
                     vBoxMenu.setVisible(true);
-                    resultat2.close();
+                    rs2.close();
                     String requete3 = "SELECT id_chercheur from chercheur where id_personnel= '"+resultat.getString(1)+"'";
                     String requete4 = "SELECT id_laborantin from laborantin where id_personnel= '"+resultat.getString(1)+"'";
-                    Statement st4 = main.getCon().createStatement();
-                    ResultSet rs4 = st4.executeQuery(requete4);
+                    stmt = main.getCon().createStatement();
+                    rs2 = stmt.executeQuery(requete4);
                                             
-                    Statement st3 = main.getCon().createStatement();
-                    ResultSet rs3 = st3.executeQuery(requete3);
+                    stmt = main.getCon().createStatement();
+                    ResultSet rs3 = stmt.executeQuery(requete3);
 
                     //chercheur
                     if (rs3.next()){
@@ -494,30 +494,35 @@ public class FXMLPrincipaleController implements Initializable {
                         buttonDeco.setDisable(false);
                         labelPoste.setVisible(true);
                         labelPoste.setText("chercheur");
-                                
                         rs3.close();
                                 
                         sq1 = "SELECT nom,prenom from chercheur where id_personnel= '"+resultat.getString(1)+"'";
-
                         Statement st5 = main.getCon().createStatement();
-                        ResultSet rs5 = st5.executeQuery(sq1);
-                        if (rs5.next()){
-                            labelIdentite.setText(rs5.getString("prenom")+" "+rs5.getString("nom"));
+                        rs3 = st5.executeQuery(sq1);
+                        if (rs3.next()){
+                            labelIdentite.setText(rs3.getString("prenom")+" "+rs3.getString("nom"));
                         }
-                        
-                        rs5.close();
-                        sq1 = "Select * from commande where id_commande in (SELECT unique(id_commande) from commande join ligne_commande using(id_commande) where commande.id_personnel= '"+resultat.getString(1)+"' and statut = 'en attente')";
-
+                        rs3.close();
+                        sq1 = "Select * from commande join reactif using(id_reactif) join agent_bio using(id_agent) where id_commande in (SELECT unique(id_commande) from commande join ligne_commande using(id_commande) where commande.id_personnel= '"+resultat.getString(1)+"' and statut = 'en attente')";
                         st5 = main.getCon().createStatement();
-                        rs5 = st5.executeQuery(sq1);
-                        while (rs5.next()){
-                            data_commande_att.add(new Commande(rs5.getString("id_commande"), String.valueOf(comboAgent.getValue()), LocalDate.now(), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),new Button("je prends"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), "384",String.valueOf(comboReact.getValue()), this ));
+                        rs3 = st5.executeQuery(sq1);
+                        while (rs3.next()){
+                            //chargement des lignes de commande
+                            sq1="Select * from ligne_commande join cellule using(id_cellule) where id_commande='"+rs3.getString("id_commande")+"'";
+                            st5 = main.getCon().createStatement();
+                            rs2=st5.executeQuery(sq1);
+                            data_table_sol=FXCollections.observableArrayList();
+                            while(rs2.next()){
+                                data_table_sol.add(new Solutions(rs2.getInt("id_ligne_commande"),rs2.getString("quantite_agent_biologique"),rs2.getString("quantite_cellules"),rs2.getString("type_cellule"),this));
+                            }
+                            data_commande_att.add(new Commande(rs3.getString("id_commande"), rs3.getString("id_agent"), rs3.getString("date_co"), rs3.getString("type_experience"), rs3.getString("nombre_slots"),rs3.getString("duree"),rs3.getString("frequence"),new Button("Modifier"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), rs3.getString("type_de_plaque"),rs3.getString("id_reactif"), this ));
                         }
+                        data_table_sol=FXCollections.observableArrayList();
                     }
                                 
                               
                      //Laborantin  
-                    if (rs4.next()){
+                    if (rs2.next()){
                         paneConnexion.setVisible(false);
                         btn_attente.setDisable(false);
                         btn_en_cours.setDisable(false);
@@ -712,7 +717,7 @@ public class FXMLPrincipaleController implements Initializable {
      */
     
     public void handleButtonValiderComSol (ActionEvent e) throws SQLException{
-        if (data_table_sol.isEmpty()){
+        if (dataSol.isEmpty()){
             Label_error_sol.setVisible(true);
             Label_error_vide.setVisible(false);
         }
@@ -720,16 +725,11 @@ public class FXMLPrincipaleController implements Initializable {
             
             
             if (radio384.isSelected()) {
-                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), LocalDate.now(), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), data_table_sol, "384",String.valueOf(comboReact.getValue()), this ));
-                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), LocalDate.now(), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),new Button("je prends"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), "384",String.valueOf(comboReact.getValue()), this ));
+                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), "384",String.valueOf(comboReact.getValue()), this ));
             }
 
             if (radio96.isSelected()) {
-                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()),LocalDate.now(), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), data_table_sol, "96", String.valueOf(comboReact.getValue()), this ));
-
-           
-            
-                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()),LocalDate.now(), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),new Button("je prends"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), "96", String.valueOf(comboReact.getValue()), this ));
+                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()),String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), "96", String.valueOf(comboReact.getValue()), this ));
             }
             paneSolutionsCommande.setVisible(false);
             radioOui.setSelected(false);
@@ -995,12 +995,12 @@ public class FXMLPrincipaleController implements Initializable {
         }
         else{
             Label_error_vide.setVisible(false);
-            dataSol.add(new Solutions(String.valueOf(spinnerAB.getValue()),
+            dataSol.add(new Solutions(1,String.valueOf(spinnerAB.getValue()),
                 String.valueOf(spinnerQsol.getValue()),
                 "Normales",
                 this
             ));
-            dataSol.add(new Solutions(String.valueOf(spinnerAB.getValue()),
+            dataSol.add(new Solutions(1,String.valueOf(spinnerAB.getValue()),
                 (String.valueOf(spinnerQsol.getValue())),
                 "Cancéreuse",
                 this

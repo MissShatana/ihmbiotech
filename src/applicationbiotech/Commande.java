@@ -1,11 +1,10 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package applicationbiotech;
 
-import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,8 +14,7 @@ import javafx.scene.control.Button;
  *Classe qui stockent les différents paramétres (informations générales) de la commande
  */
 public class Commande {
-    String num, ab, type_exp, nb_slot, d,f, nb_sol, ty_pla, reactif;
-    LocalDate date;
+    String num, ab, type_exp, nb_slot, d,f, nb_sol, ty_pla, reactif, date;
     Button bouttonAss;
     Button bouttonInfo;
     Button btn_en_cours ; 
@@ -36,7 +34,7 @@ public class Commande {
      * @param type_plaque
      * @param con main
      */
-    public Commande(String num, String ab, LocalDate date, String type_exp, String nb_slot, String d, String f, Button bouttonAss,Button bouttonInfo, ObservableList<Solutions> ligne_commande, String type_plaque, String reactif, FXMLPrincipaleController con){
+    public Commande(String num, String ab, String date, String type_exp, String nb_slot, String d, String f, Button bouttonAss,Button bouttonInfo, ObservableList<Solutions> ligne_commande, String type_plaque, String reactif, FXMLPrincipaleController con){
         this.num = num;
         this.ab=ab;
         this.date=date;
@@ -79,11 +77,15 @@ public class Commande {
                         con.setValInfoPlaque(co.getTy_pla());
                         if (ligne_commande.isEmpty()){
                             System.out.println("aaaa");
-                        }
-                        for (Solutions sol: ligne_commande){
+                        }else{
+                            System.out.println("pas vide");
+                            for (Solutions sol: ligne_commande){
+                                System.out.println("affic");
                             System.out.println(sol);
                             con.setDataInfo(sol);
                         }
+                        }
+                        
                         
                         break;
                     }
@@ -190,7 +192,7 @@ public class Commande {
         this.bouttonInfo = boutton;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
