@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
@@ -140,7 +141,7 @@
             <Label layoutX="281.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Expériences : en attente" />
          </children>
       </Pane>
-      <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="56.0" prefHeight="504.0" prefWidth="772.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+      <Pane fx:id="paneTableAttente" layoutX="150.0" layoutY="56.0" prefHeight="504.0" prefWidth="772.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
          <children>
             <TableView fx:id="tab_attente" layoutX="35.0" layoutY="7.0" prefHeight="200.0" prefWidth="710.0">
               <columns>
@@ -217,21 +218,6 @@
             <Label layoutX="315.0" layoutY="4.0" prefHeight="17.0" prefWidth="151.0" text="Expériences : en cours" />
          </children>
       </Pane>
-      <Pane fx:id="paneTableEnCours" layoutX="160.0" layoutY="56.0" prefHeight="504.0" prefWidth="772.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
-         <children>
-            <TableView fx:id="tab_attente1" layoutX="40.0" layoutY="128.0" prefHeight="200.0" prefWidth="695.0">
-               <columns>
-                  <TableColumn fx:id="col_att_num_commande1" prefWidth="39.0" text="N°" />
-                  <TableColumn fx:id="col_att_ab_commande1" prefWidth="109.0" text="Agent biologique" />
-                  <TableColumn fx:id="col_att_type_exp_commande1" prefWidth="121.0" text="Type d'expérience" />
-                  <TableColumn fx:id="col_att_nb_slot_commande1" prefWidth="109.0" text="Nombre de slots" />
-                  <TableColumn fx:id="col_att_d_f1" prefWidth="107.0" text="Durée, fréquence" />
-                  <TableColumn fx:id="col_att_nb_sol1" prefWidth="124.0" text="Nombre de solution" />
-                  <TableColumn fx:id="col_att_assignation1" prefWidth="84.0" text="resultat" />
-               </columns>
-            </TableView>
-         </children>
-      </Pane>
       <Pane fx:id="paneLabelRenouv" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="772.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Label layoutX="309.0" layoutY="4.0" prefHeight="17.0" prefWidth="186.0" text="Expériences : à renouveler" />
@@ -289,6 +275,54 @@
             </Label>
             <Button fx:id="decoOui" layoutX="109.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleButtonDecoOui" prefHeight="25.0" prefWidth="70.0" text="Oui" />
             <Button fx:id="decoNon" layoutX="311.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleButtonDecoNon" prefHeight="25.0" prefWidth="61.0" text="Non" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneTableEnCours" layoutX="140.0" layoutY="66.0" prefHeight="504.0" prefWidth="792.0">
+         <children>
+            <TableView fx:id="tab_en_cours" layoutX="50.0" layoutY="12.0" prefHeight="200.0" prefWidth="695.0">
+               <columns>
+                  <TableColumn fx:id="col_att_num_commande1" prefWidth="39.0" text="N°" />
+                  <TableColumn fx:id="col_att_date_commande1" prefWidth="109.0" text="Date" />
+                  <TableColumn fx:id="col_att_type_exp_commande1" prefWidth="121.0" text="Type d'expérience" />
+                  <TableColumn fx:id="col_att_d1" prefWidth="109.0" text="Durée" />
+                  <TableColumn fx:id="col_att_f1" prefWidth="107.0" text="Fréquence" />
+                  <TableColumn fx:id="col_att_info1" prefWidth="101.0" text="Détails" />
+                  <TableColumn fx:id="col_att_assignation1" prefWidth="107.0" text="resultat" />
+               </columns>
+            </TableView>
+            <VBox layoutX="78.0" layoutY="256.0" prefHeight="129.0" prefWidth="134.0">
+               <children>
+                  <Label prefHeight="24.0" prefWidth="140.0" text="Agent biologique" />
+                  <Label prefHeight="26.0" prefWidth="162.0" text="Réactif" />
+                  <Label prefHeight="29.0" prefWidth="145.0" text="Nombre de slots" />
+                  <Label prefHeight="30.0" prefWidth="190.0" text="Type de plaque" />
+                  <Label prefHeight="24.0" prefWidth="140.0" text="Nombre de solutions" />
+               </children>
+            </VBox>
+            <Label layoutX="277.0" layoutY="235.0" prefHeight="17.0" prefWidth="238.0" text="Informations générales de l'expérience">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <VBox layoutX="249.0" layoutY="256.0" prefHeight="129.0" prefWidth="134.0">
+               <children>
+                  <Label fx:id="ValInfAB1" prefHeight="24.0" prefWidth="140.0" />
+                  <Label fx:id="ValInfR1" prefHeight="26.0" prefWidth="162.0" />
+                  <Label fx:id="ValInfNBSlot1" prefHeight="29.0" prefWidth="145.0" />
+                  <Label fx:id="ValInfoPlaque1" prefHeight="30.0" prefWidth="190.0" />
+                  <Label fx:id="ValInfoNBSol1" prefHeight="30.0" prefWidth="133.0" />
+               </children>
+            </VBox>
+            <TableView fx:id="TableInfoSol1" layoutX="50.0" layoutY="393.0" prefHeight="99.0" prefWidth="447.0">
+               <columns>
+                  <TableColumn fx:id="InfoAB1" prefWidth="170.0" text="Agent Biologique (µL)" />
+                  <TableColumn fx:id="InfoCell1" minWidth="0.0" prefWidth="103.0" text="Cellules (µL)" />
+                  <TableColumn fx:id="InfoTypeCell1" minWidth="0.0" prefWidth="103.0" text="Type Cellules" />
+                  <TableColumn fx:id="boutonpos" minWidth="0.0" prefWidth="71.0" text="Position" />
+               </columns>
+            </TableView>
+            <ListView fx:id="listpos" layoutX="545.0" layoutY="278.0" prefHeight="211.0" prefWidth="200.0" />
+            <Label layoutX="617.0" layoutY="256.0" prefHeight="17.0" prefWidth="61.0" text="Positions" />
          </children>
       </Pane>
    </children>

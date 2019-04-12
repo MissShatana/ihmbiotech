@@ -33,6 +33,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.DefaultStringConverter;
 import java.util.regex.*;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.util.Callback;
 
 /**
  * FXMLPrincipaleController  est la classe avec les différents écouteurs 
@@ -44,6 +48,9 @@ public class FXMLPrincipaleController implements Initializable {
     ApplicationBiotech main=null;
     //Attribut
     private String id_connexion;
+    
+    @FXML
+    ListView<String> listpos ;
     //Pane
     @FXML
     private VBox vBoxMenu;
@@ -519,9 +526,19 @@ public class FXMLPrincipaleController implements Initializable {
                             st5 = main.getCon().createStatement();
                             rs2=st5.executeQuery(sq1);
                             data_table_sol=FXCollections.observableArrayList();
-                            while(rs2.next()){
-                                data_table_sol.add(new Solutions(rs2.getInt("id_ligne_commande"),rs2.getString("quantite_agent_biologique"),rs2.getString("quantite_cellules"),rs2.getString("type_cellule"),this));
-                            }
+                            System.out.println("resultat rs2 ch");
+                            System.out.println(rs2.next());
+//                            while(rs2.next()){
+////
+//                                ObservableList<String> listPos =FXCollections.observableArrayList();
+////                                sq1="Select * from slot where id_ligne_commande='"+rs2.getString("id_ligne_commande")+"'";
+////                                st5 = main.getCon().createStatement();
+////                                ResultSet rs4=st5.executeQuery(sq1);
+////                                while(rs4.next()){
+////                                    listPos.add(rs4.getString("id_slot")+" x: "+rs4.getString("posX")+" y: "+rs4.getString("posY"));
+////                                }
+//                                data_table_sol.add(new Solutions(rs2.getInt("id_ligne_commande"),rs2.getString("quantite_agent_biologique"),rs2.getString("quantite_cellules"),rs2.getString("type_cellule"),new Button("Voir"),FXCollections.observableArrayList(listPos),this));
+//                            }
                             data_commande_att.add(new Commande(rs3.getString("id_commande"), rs3.getString("nom_agent"), rs3.getString("date_co"), rs3.getString("type_experience"), rs3.getString("nombre_slots"),rs3.getString("duree"),rs3.getString("frequence"),new Button("Modifier"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), rs3.getString("type_de_plaque"),rs3.getString("nom_reactif"), this ));
                         }
                         data_table_sol=FXCollections.observableArrayList();
@@ -551,25 +568,23 @@ public class FXMLPrincipaleController implements Initializable {
                         stmt = main.getCon().createStatement();
                         rs2 = stmt.executeQuery(sq1);
                         while (rs2.next()){
-                            System.out.println(rs2.getString("id_commande"));
                             //chargement des lignes de commande
                             sq1="Select * from ligne_commande join cellule using(id_cellule) where id_commande='"+rs2.getString("id_commande")+"'";
                             stmt = main.getCon().createStatement();
                             rs3=stmt.executeQuery(sq1);
                             data_table_sol=FXCollections.observableArrayList();
                             while(rs3.next()){
-                                System.out.println(rs3.getString("id_ligne_commande"));
-                                data_table_sol.add(new Solutions(rs3.getInt("id_ligne_commande"),rs3.getString("quantite_agent_biologique"),rs3.getString("quantite_cellules"),rs3.getString("type_cellule"),this));
+                                
+                                ObservableList<String> listPos =FXCollections.observableArrayList();
+                                sq1="Select * from slot where id_ligne_commande="+rs3.getString("id_ligne_commande")+"";
+                                stmt = main.getCon().createStatement();
+                                ResultSet rs4=stmt.executeQuery(sq1);
+                                while(rs4.next()){
+                                    listPos.add(rs4.getString("id_slot")+" x: "+rs4.getString("posX")+" y: "+rs4.getString("posY"));
+                                }
+                                rs4.close();
+                                data_table_sol.add(new Solutions(rs3.getInt("id_ligne_commande"),rs3.getString("quantite_agent_biologique"),rs3.getString("quantite_cellules"),rs3.getString("type_cellule"),new Button("Voir"),FXCollections.observableArrayList(listPos),this));
                             }
-                            System.out.println(rs2.getString("nom_agent"));
-                            System.out.println(rs2.getString("date_co"));
-                            System.out.println(rs2.getString("type_experience"));
-                            System.out.println(rs2.getString("nombre_slots"));
-                            System.out.println(rs2.getString("duree"));
-                            System.out.println(rs2.getString("frequence"));
-                            System.out.println(rs2.getString("type_de_plaque"));
-                            System.out.println(rs2.getString("nom_reactif"));
-                            System.out.println(rs2.getString("id_commande"));
                             
                             data_commande_att.add(new Commande(rs2.getString("id_commande"), rs2.getString("nom_agent"), rs2.getString("date_co"), rs2.getString("type_experience"), rs2.getString("nombre_slots"),rs2.getString("duree"),rs2.getString("frequence"),new Button("Je prends"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), rs2.getString("type_de_plaque"),rs2.getString("nom_reactif"), this ));
                         }
@@ -901,6 +916,21 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML
     private Label ValInfoNBSol;
     
+    @FXML
+    private Label ValInfAB1;
+
+    @FXML
+    private Label ValInfR1;
+
+    @FXML
+    private Label ValInfNBSlot1;
+
+    @FXML
+    private Label ValInfoPlaque1;
+
+    @FXML
+    private Label ValInfoNBSol1;
+    
     
     //Tableau pour les commandes en attente
     /**
@@ -1065,12 +1095,12 @@ public class FXMLPrincipaleController implements Initializable {
             Label_error_vide.setVisible(false);
             dataSol.add(new Solutions(1,String.valueOf(spinnerAB.getValue()),
                 String.valueOf(spinnerQsol.getValue()),
-                "Normales",
+                "Normales",null,null,
                 this
             ));
             dataSol.add(new Solutions(1,String.valueOf(spinnerAB.getValue()),
                 (String.valueOf(spinnerQsol.getValue())),
-                "Cancéreuse",
+                "Cancéreuse",null,null,
                 this
             ));
         }
@@ -1102,25 +1132,25 @@ public class FXMLPrincipaleController implements Initializable {
     /**tableau en cours*/
     
     @FXML
-    private TableView<Commande> tab_attente1;
+    private TableView<Commande> tab_en_cours;
 
     @FXML
     private TableColumn<Commande, String> col_att_num_commande1;
 
     @FXML
-    private TableColumn<Commande, String> col_att_ab_commande1;
+    private TableColumn<Commande, String> col_att_date_commande1;
 
     @FXML
     private TableColumn<Commande, String> col_att_type_exp_commande1;
 
     @FXML
-    private TableColumn<Commande, String> col_att_nb_slot_commande1;
+    private TableColumn<Commande, String> col_att_d1;
 
     @FXML
-    private TableColumn<Commande, String> col_att_d_f1;
+    private TableColumn<Commande, String> col_att_f1;
 
     @FXML
-    private TableColumn<Commande, String> col_att_nb_sol1;
+    private TableColumn<Commande, String> col_att_info1;
 
     @FXML
     private TableColumn<Commande, String> col_att_assignation1;
@@ -1138,38 +1168,114 @@ public class FXMLPrincipaleController implements Initializable {
     
     private void initColumn_commande_en_cours(){
         col_att_num_commande1.setCellValueFactory(new PropertyValueFactory<>("num"));
-        col_att_ab_commande1.setCellValueFactory(new PropertyValueFactory<>("ab"));
+        col_att_date_commande1.setCellValueFactory(new PropertyValueFactory<>("date"));
         col_att_type_exp_commande1.setCellValueFactory(new PropertyValueFactory<>("type_exp"));
-        col_att_nb_slot_commande1.setCellValueFactory(new PropertyValueFactory<>("nb_slot"));
-        col_att_d_f1.setCellValueFactory(new PropertyValueFactory<>("d_f"));
-        col_att_nb_sol1.setCellValueFactory(new PropertyValueFactory<>("nb_sol"));
-        col_att_assignation1.setCellValueFactory(new PropertyValueFactory<>("boutton"));
+        col_att_d1.setCellValueFactory(new PropertyValueFactory<>("d"));
+        col_att_f1.setCellValueFactory(new PropertyValueFactory<>("f"));
+        col_att_info1.setCellValueFactory(new PropertyValueFactory<>("bouttonInfo"));
+        col_att_assignation1.setCellValueFactory(new PropertyValueFactory<>("bouttonAss"));
     
 
     }
-    
-    
 
      /**
      * loadData permet mettre les données dans le tableview
      */
-    
-    
+
     private void loadData_commande_en_cours(ObservableList<Commande> data_commande_en_cours) {
-        tab_attente1.setItems(data_commande_en_cours);
+        tab_en_cours.setItems(data_commande_en_cours);
     }
     
-       public ObservableList<Commande> getData_commande_en_cours() {
+    public ObservableList<Commande> getData_commande_en_cours() {
         return data_commande_en_cours;
     }
        
     public void addData_commande_en_cours(Commande com) {
         data_commande_en_cours.add(com);
     }
-       
+    
+    //solution dans en cours
+    @FXML
+    private TableView<Solutions> TableInfoSol1;
+
+    @FXML
+    private TableColumn<Solutions, String> InfoAB1;
+
+    @FXML
+    private TableColumn<Solutions, String> InfoCell1;
+
+    @FXML
+    private TableColumn<Solutions, String> InfoTypeCell1;
+    
+    @FXML
+    private TableColumn<Solutions, String> boutonpos;
+    
+    
+    private ObservableList<Solutions> dataInfoSolc = FXCollections.observableArrayList();;
+    
+    private void initTableInfoSolc(){
+        initColumnInfoSolc();
+    }
+    
+    private void initColumnInfoSolc(){
+        InfoAB1.setCellValueFactory(new PropertyValueFactory<>("qt_ab"));
+        InfoCell1.setCellValueFactory(new PropertyValueFactory<>("qt_cell"));
+        InfoTypeCell1.setCellValueFactory(new PropertyValueFactory<>("ty_cell"));
+        boutonpos.setCellValueFactory(new PropertyValueFactory<>("boutonpos"));
+    }
+    
+    public void loadInfoDatac(ObservableList<Solutions> dataInfoSolc) {
+        TableInfoSol1.setItems(dataInfoSolc);
+    }
+
+    public ObservableList<Solutions> getData_InfoSolc() {
+        return dataInfoSolc;
+    }
+
+    public TableView<Solutions> getTab_InfoSolc() {
+        return TableInfoSol1;
+    }
+
+    public void setDataInfoc (ObservableList<Solutions> Data){
+        dataInfoSolc.clear();
+        dataInfoSolc.addAll(Data);
+    }
+
+    public void setValInfAB1(String ValInfAB1) {
+        this.ValInfAB1.setText(ValInfAB1);
+    }
+
+    public void setValInfR1(String ValInfR1) {
+        this.ValInfR1.setText(ValInfR1);
+    }
+
+    public void setValInfNBSlot1(String ValInfNBSlot1) {
+        this.ValInfNBSlot1.setText(ValInfNBSlot1);
+    }
+
+    public void setValInfoPlaque1(String ValInfoPlaque1) {
+        this.ValInfoPlaque1.setText(ValInfoPlaque1);
+    }
+
+    public void setValInfoNBSol1(String ValInfoNBSol1) {
+        this.ValInfoNBSol1.setText(ValInfoNBSol1);
+    }
+    
+    
+    
+    //les positions
+    ObservableList<String> data = FXCollections.observableArrayList();
     
 
-   
+    private void populateData(ObservableList<String> data) {
+    listpos.setItems(data);
+  }
+
+    public void addPos(ObservableList<String> pos){
+        data.clear();
+        data.addAll(pos);
+    }
+
     /**
      * initialize: tous les attributs sont initialisés
      * @param url
@@ -1185,8 +1291,11 @@ public class FXMLPrincipaleController implements Initializable {
         loadData_commande_en_cours(data_commande_en_cours);
         initTableInfoSol();
         loadInfoData(dataInfoSol);
+        initTableInfoSolc();
+        loadInfoDatac(dataInfoSolc);
         allNotVisible();
         initializeSpinner();
+        populateData(data);
         vBoxMenu.setVisible(false);
         Label_error_vide.setTextFill(Color.web("red"));
         Label_error_sol.setTextFill(Color.web("red"));
@@ -1199,6 +1308,10 @@ public class FXMLPrincipaleController implements Initializable {
     
     public void setMain(ApplicationBiotech main){
      this.main=main;
+    }
+
+    public ApplicationBiotech getMain() {
+        return main;
     }
     
     

@@ -5,6 +5,12 @@
  */
 package applicationbiotech;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -61,9 +67,20 @@ public class Commande {
                     if (co.getBouttonAss()==btn_clicked){
                         co.setBouttonAss(new Button ("scan plaque"));
                         con.getData_commande_att().remove(co);
+                        System.out.println(co);
                         con.addData_commande_en_cours(co);
+                        System.out.println(con.getData_commande_en_cours().size());
                         for (Solutions sol: ligne_commande){
-                            String sq1 = "update table ligne_commande set id_laborantin="++"";
+                            Pattern p =Pattern.compile("-");
+                            String[] id =p.split(con.getId_connexion());
+                            System.out.println(id[0]);
+                            String sq1 = "update ligne_commande set id_laborantin="+id[0]+" where id_ligne_commande="+sol.getId()+"";
+                            try {
+                                Statement stmt = con.getMain().getCon().createStatement();
+                                ResultSet rs = stmt.executeQuery(sq1);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Commande.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                         
                         break;
@@ -85,7 +102,24 @@ public class Commande {
                         if (ligne_commande.isEmpty()){
                             System.out.println("aaaa");
                         }else{
-                                con.setDataInfo(ligne_commande);
+                            con.setDataInfo(ligne_commande);
+                        }
+                        break;
+                    }
+                }
+                for (Commande co: con.getData_commande_en_cours()){
+                    if (co.getBouttonInfo()==btn_clicked){
+                        con.setValInfAB1(co.getAb());
+                        con.setValInfNBSlot1(co.getNb_slot());
+                        con.setValInfR1(co.getReactif());
+                        con.setValInfoNBSol1(co.getNb_sol());
+                        con.setValInfoPlaque1(co.getTy_pla());
+                        if (ligne_commande.isEmpty()){
+                            System.out.println("aaaa");
+                        }else{
+                            
+                            System.out.println("chargement");
+                            con.setDataInfoc(ligne_commande);
                         }
                         break;
                     }
