@@ -419,10 +419,10 @@ public class FXMLPrincipaleController implements Initializable {
         comboAgent.setItems(list);
         rs.close();
         list = FXCollections.observableArrayList();
-        requete = "select id_reactif , nom_reactif from reactif ";
+        requete = "select id_reactif , nom_reactif, type_reactif from reactif ";
         rs = st.executeQuery(requete);
         while (rs.next()){ 
-            list.add(rs.getString("id_reactif")+"-"+rs.getString("nom_reactif"));
+            list.add(rs.getString("id_reactif")+"-"+rs.getString("type_reactif")+"-"+rs.getString("nom_reactif"));
         }
 
         comboReact.setItems(list);
@@ -759,9 +759,24 @@ public class FXMLPrincipaleController implements Initializable {
         }
         else{
             
+            String plaque="0";
+            int suivi=0;
+            String a3="0";
+            String frequence ="0";
             
             if (radio384.isSelected()) {
-                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), "384",String.valueOf(comboReact.getValue()), this ));
+                plaque="384";
+                if (radioNon.isSelected()){
+                     suivi =1; 
+                }else{
+                    suivi =0;
+                    frequence = String.valueOf(spinnerFreq.getValue());
+                    a3 = String.valueOf(spinnerRa3.getValue());             
+                }
+            }
+            if (radio96.isSelected()) {  
+                plaque="96";
+             }
                 Pattern p = Pattern.compile("-");
                 String[] items = p.split(String.valueOf(comboAgent.getValue()));           
                 String id_agent1 = items[0];
@@ -771,16 +786,7 @@ public class FXMLPrincipaleController implements Initializable {
                 String[] items1 = p1.split(String.valueOf(comboReact.getValue()));           
                 String id_react1 = items1[0];
                 System.out.println(id_react1);
-                
-                if (radioNon.isSelected()){
-                    int  suivi =1; 
-                    String frequence; 
-                    String a3;
-                }else{
-                    int suivi =0;
-                    String frequence = String.valueOf(spinnerFreq.getValue());
-                    String a3 = String.valueOf(spinnerRa3.getValue());             
-                }
+                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), plaque,String.valueOf(comboReact.getValue()), this ));
                 String requete1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
                 Statement stmt1 = main.getCon().createStatement();
                 ResultSet personnel = stmt1.executeQuery(requete1);                          
@@ -810,21 +816,6 @@ public class FXMLPrincipaleController implements Initializable {
             
                 }
             }
-            }
-
-            if (radio96.isSelected()) {           
-                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()),String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), "96", String.valueOf(comboReact.getValue()), this ));
-                Pattern p = Pattern.compile("-");
-                String[] items = p.split(String.valueOf(comboAgent.getValue()));           
-                String id_agent2 = items[0];
-                System.out.println(id_agent2);
-                
-                Pattern p1 = Pattern.compile("-");
-                String[] items1 = p1.split(String.valueOf(comboReact.getValue()));           
-                String id_react2 = items1[0];
-                System.out.println(id_react2);
-            
-             }
 
             paneSolutionsCommande.setVisible(false);
             initializeCommande();
