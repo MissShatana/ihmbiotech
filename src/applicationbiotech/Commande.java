@@ -28,8 +28,13 @@ public class Commande {
      * @param date
      * @param type_exp le type d'expérience faite
      * @param nb_slot le nombre de slot
+     * @param d
+     * @param f
+     * @param bouttonAss
+     * @param bouttonInfo
      * @param d_f la durée et la fréquence
      * @param boutton boutton pour prendre la commande
+     * @param reactif
      * @param ligne_commande
      * @param type_plaque
      * @param con main
@@ -53,7 +58,7 @@ public class Commande {
         bouttonAss.setOnAction((ActionEvent e) -> {
             Button btn_clicked = (Button)e.getSource();
             String buttonText = btn_clicked.getText();
-            if (buttonText == "je prends") { // je prends assignation              
+            if (buttonText == "Je prends") { // je prends assignation              
                 for (Commande co: con.getData_commande_att()){
                     if (co.getBouttonAss()==btn_clicked){
                         co.setBouttonAss(new Button ("scan plaque"));

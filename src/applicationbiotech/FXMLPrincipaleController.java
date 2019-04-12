@@ -327,7 +327,7 @@ public class FXMLPrincipaleController implements Initializable {
        Label_error_sol.setVisible(false);
        Label_error.setVisible(false);
        
-       
+       dataSol.clear();
        //réinitialisation du pane
        Label_error_sol.setVisible(false);
        Label_error.setVisible(false);
@@ -400,6 +400,9 @@ public class FXMLPrincipaleController implements Initializable {
         allNotVisible();
         falseDisable();
         commande.setDisable(true);
+        btn_attente.setDisable(true);
+        btn_en_cours.setDisable(true);
+        btn_a_renouv.setDisable(true);
         paneLabel.setVisible(true);
         PaneCommande.setVisible(true);
 
@@ -533,13 +536,41 @@ public class FXMLPrincipaleController implements Initializable {
                         labelPoste.setText("Laborantin");
                         buttonDeco.setDisable(false);
                         commande.setDisable(true);
-                        String requete6 = "SELECT nom,prenom from laborantin where id_personnel= '"+resultat.getString(1)+"'";
-                        Statement st6 = main.getCon().createStatement();
-                        ResultSet rs6 = st6.executeQuery(requete6);
-                        if (rs6.next()){
-                            labelIdentite.setText(rs6.getString("prenom")+" "+rs6.getString("nom"));
+                        rs2.close();
+                        sq1 = "SELECT nom,prenom from laborantin where id_personnel= '"+resultat.getString(1)+"'";
+                        stmt = main.getCon().createStatement();
+                        rs2 = stmt.executeQuery(sq1);
+                        if (rs2.next()){
+                            labelIdentite.setText(rs2.getString("prenom")+" "+rs2.getString("nom"));
                         }
-                                
+                        rs2.close();
+                        sq1 = "Select * from commande join reactif using(id_reactif) join agent_bio using(id_agent) where id_commande in (SELECT unique(id_commande) from commande join ligne_commande using(id_commande) where statut = 'en attente')";
+                        stmt = main.getCon().createStatement();
+                        rs2 = stmt.executeQuery(sq1);
+                        while (rs2.next()){
+                            System.out.println(rs2.getString("id_commande"));
+                            //chargement des lignes de commande
+                            sq1="Select * from ligne_commande join cellule using(id_cellule) where id_commande='"+rs2.getString("id_commande")+"'";
+                            stmt = main.getCon().createStatement();
+                            rs3=stmt.executeQuery(sq1);
+                            data_table_sol=FXCollections.observableArrayList();
+                            while(rs3.next()){
+                                System.out.println(rs3.getString("id_ligne_commande"));
+                                data_table_sol.add(new Solutions(rs3.getInt("id_ligne_commande"),rs3.getString("quantite_agent_biologique"),rs3.getString("quantite_cellules"),rs3.getString("type_cellule"),this));
+                            }
+                            System.out.println(rs2.getString("nom_agent"));
+                            System.out.println(rs2.getString("date_co"));
+                            System.out.println(rs2.getString("type_experience"));
+                            System.out.println(rs2.getString("nombre_slots"));
+                            System.out.println(rs2.getString("duree"));
+                            System.out.println(rs2.getString("frequence"));
+                            System.out.println(rs2.getString("type_de_plaque"));
+                            System.out.println(rs2.getString("nom_reactif"));
+                            System.out.println(rs2.getString("id_commande"));
+                            
+                            data_commande_att.add(new Commande(rs2.getString("id_commande"), rs2.getString("nom_agent"), rs2.getString("date_co"), rs2.getString("type_experience"), rs2.getString("nombre_slots"),rs2.getString("duree"),rs2.getString("frequence"),new Button("Je prends"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), rs2.getString("type_de_plaque"),rs2.getString("nom_reactif"), this ));
+                        }
+                        data_table_sol=FXCollections.observableArrayList();        
                                  
                     }
                         
@@ -573,6 +604,9 @@ public class FXMLPrincipaleController implements Initializable {
         identifiantText.setText("");
         mdpText.setText("");
         buttonDeco.setDisable(true);
+        data_commande_att.clear();
+        dataInfoSol.clear();
+        initializeCommande();
         falseDisable();
         
         }
@@ -755,11 +789,11 @@ public class FXMLPrincipaleController implements Initializable {
                 String requete2 = "select id_chercheur from chercheur where id_personnel ='"+personnel.getString(1)+"'";
                 Statement stmt2 = main.getCon().createStatement();
                 ResultSet chercheur = stmt2.executeQuery(requete1); 
-                        
-                        
-                String requete3 = "insert into Commande values (1,'"+id_agent1+"','"+personnel.getString(1)+"','"+chercheur.getString(1)+"','"+id_react1+"','"+suivi+"','"+String.valueOf(LocalDate.now())+"','"+String.valueOf(spinnerSlot.getValue())+"','"+String.valueOf(spinnerDuree.getValue())+"','"+String.valueOf(spinnerFreq.getValue())+"','"+String.valueOf(Comboexp.getValue())+"',384,'"++"'";                     
-                Statement stmt3 = main.getCon().createStatement();
-                ResultSet resultat7 = stmt2.executeQuery(requete3);
+//                        
+//                        
+//                String requete3 = "insert into Commande values (1,'"+id_agent1+"','"+personnel.getString(1)+"','"+chercheur.getString(1)+"','"+id_react1+"','"+suivi+"','"+String.valueOf(LocalDate.now())+"','"+String.valueOf(spinnerSlot.getValue())+"','"+String.valueOf(spinnerDuree.getValue())+"','"+String.valueOf(spinnerFreq.getValue())+"','"+String.valueOf(Comboexp.getValue())+"',384,'"++"'";                     
+//                Statement stmt3 = main.getCon().createStatement();
+//                ResultSet resultat7 = stmt2.executeQuery(requete3);
             
                 }
                 }
@@ -780,31 +814,11 @@ public class FXMLPrincipaleController implements Initializable {
              }
 
             paneSolutionsCommande.setVisible(false);
-            radioOui.setSelected(false);
-            radioNon.setSelected(false);
-            comboAgent.getSelectionModel().clearSelection();
-            Comboexp.getSelectionModel().clearSelection();
-            radio384.setSelected(false);
-            radio96.setSelected(false);
-            initializeSpinner();
+            initializeCommande();
             data_table_sol.removeAll(tab_Solutions.getItems());
             commande.setDisable(false);
-            btn_attente.setDisable(false);
-            frequenceLabel.setVisible(false);
-            spinnerFreq.setVisible(false);
-            spinnerRa3.setVisible(false);
-            a3RougeLabel.setVisible(false);
-            Label_error_sol.setVisible(false);
-            Label_error.setVisible(false);
-            
-            
- 
-            
-
-           
-
-            
-            
+            btn_attente.setDisable(false);   
+            dataSol.clear();
         }
         
     }
@@ -934,6 +948,8 @@ public class FXMLPrincipaleController implements Initializable {
         this.ValInfoPlaque.setText(ValInfoPlaque);
     }
 
+    
+    //solution dans attente
     @FXML
     private TableView<Solutions> TableInfoSol;
 
@@ -976,7 +992,7 @@ public class FXMLPrincipaleController implements Initializable {
     }
     
     
-    //Attributs: Tableau pour les commandes en attente
+    //Attributs: Tableau pour les solutions
     @FXML
     private TableView<Solutions> tab_Solutions;
        
@@ -997,9 +1013,9 @@ public class FXMLPrincipaleController implements Initializable {
             "Cancéreuse"
             );
 
-    //Tableau pour les commandes en attente
+    //Tableau pour les solutions
     /**
-     * Construction du tableau d'attente
+     * Construction du tableau solutions
      */
     private void initTableSol(){
         initColumnSol();
@@ -1061,12 +1077,12 @@ public class FXMLPrincipaleController implements Initializable {
      * loadDataSol permet de mettre les données dans le tableview
      */
     private void loadDataSol() {
-        data_table_sol = FXCollections.observableArrayList();
-        tab_Solutions.setItems(data_table_sol);
+        dataSol = FXCollections.observableArrayList();
+        tab_Solutions.setItems(dataSol);
     }
 
     public ObservableList<Solutions> getData_table_sol() {
-        return data_table_sol;
+        return dataSol;
     }
 
     public TableView<Solutions> getTab_Solutions() {
