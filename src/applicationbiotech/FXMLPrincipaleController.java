@@ -744,13 +744,24 @@ public class FXMLPrincipaleController implements Initializable {
                     int suivi =0;
                     String frequence = String.valueOf(spinnerFreq.getValue());
                     String a3 = String.valueOf(spinnerRa3.getValue());             
-                }
                 
-                String requete2 = "insert into Commande values (1,'"+id_agent1+"',)";                     
+                String requete1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
                 Statement stmt1 = main.getCon().createStatement();
-                ResultSet resultat7 = stmt1.executeQuery(requete2);
+                ResultSet personnel = stmt1.executeQuery(requete1);               
+                
+                if (personnel.next()){
+                String requete2 = "select id_chercheur from chercheur where id_personnel ='"+personnel.getString(1)+"'";
+                Statement stmt2 = main.getCon().createStatement();
+                ResultSet chercheur = stmt2.executeQuery(requete1); 
+                        
+                        
+                String requete3 = "insert into Commande values (1,'"+id_agent1+"','"+personnel.getString(1)+"','"+chercheur.getString(1)+"','"+id_react1+"','"+suivi+"','"+String.valueOf(LocalDate.now())+"','"+String.valueOf(spinnerSlot.getValue())+"','"+String.valueOf(spinnerDuree.getValue())+"','"+String.valueOf(spinnerFreq.getValue())+"','"+String.valueOf(Comboexp.getValue())+"',384,'"++"'";                     
+                Statement stmt3 = main.getCon().createStatement();
+                ResultSet resultat7 = stmt2.executeQuery(requete3);
             
                 }
+                }
+            }
 
             if (radio96.isSelected()) {           
                 data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()),String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), "96", String.valueOf(comboReact.getValue()), this ));
