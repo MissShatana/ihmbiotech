@@ -70,6 +70,7 @@ public class Commande {
             if (buttonText == "Infos") { // infos             
                 for (Commande co: con.getData_commande_att()){
                     if (co.getBouttonInfo()==btn_clicked){
+                        System.out.println("ligne_co taille");
                         con.setValInfAB(co.getAb());
                         con.setValInfNBSlot(co.getNb_slot());
                         con.setValInfR(co.getReactif());
@@ -78,31 +79,10 @@ public class Commande {
                         if (ligne_commande.isEmpty()){
                             System.out.println("aaaa");
                         }else{
-                            System.out.println("pas vide");
-                            for (Solutions sol: ligne_commande){
-                                System.out.println("affic");
-                            System.out.println(sol);
-                            con.setDataInfo(sol);
+
+                                con.setDataInfo(ligne_commande);
+
                         }
-                        }
-                        
-                        
-                        break;
-                    }
-                }
-            } 
-        });
-        bouttonInfo.setOnAction((ActionEvent e) -> {
-            Button btn_clicked = (Button)e.getSource();
-            String buttonText = btn_clicked.getText();
-            if (buttonText == "Infos") { // infos             
-                for (Commande co: con.getData_commande_att()){
-                    if (co.getBouttonInfo()==btn_clicked){
-                        con.setValInfAB(co.getAb());
-                        con.setValInfNBSlot(co.getNb_slot());
-                        con.setValInfR(co.getReactif());
-                        con.setValInfoNBSol(co.getNb_sol());
-                        con.setValInfoPlaque(co.getTy_pla());
                         break;
                     }
                 }
