@@ -43,6 +43,7 @@ import java.util.regex.*;
 public class FXMLPrincipaleController implements Initializable {
     ApplicationBiotech main=null;
     //Attribut
+    private String id_connexion;
     //Pane
     @FXML
     private VBox vBoxMenu;
@@ -481,8 +482,8 @@ public class FXMLPrincipaleController implements Initializable {
                 else if (id == 0 ){
                     vBoxMenu.setVisible(true);
                     rs2.close();
-                    String requete3 = "SELECT id_chercheur from chercheur where id_personnel= '"+resultat.getString(1)+"'";
-                    String requete4 = "SELECT id_laborantin from laborantin where id_personnel= '"+resultat.getString(1)+"'";
+                    String requete3 = "SELECT id_chercheur, id_personnel from chercheur where id_personnel= '"+resultat.getString(1)+"'";
+                    String requete4 = "SELECT id_laborantin, id_personnel from laborantin where id_personnel= '"+resultat.getString(1)+"'";
                     stmt = main.getCon().createStatement();
                     rs2 = stmt.executeQuery(requete4);
                                             
@@ -491,6 +492,7 @@ public class FXMLPrincipaleController implements Initializable {
 
                     //chercheur
                     if (rs3.next()){
+                        id_connexion = rs3.getString("id_chercheur")+"-"+rs3.getString("id_personnel");
                         paneConnexion.setVisible(false);
                         commande.setDisable(false);
                         btn_attente.setDisable(false);
@@ -528,6 +530,7 @@ public class FXMLPrincipaleController implements Initializable {
                               
                      //Laborantin  
                     if (rs2.next()){
+                        id_connexion = rs2.getString("id_laborantin")+"-"+rs2.getString("id_personnel");
                         paneConnexion.setVisible(false);
                         btn_attente.setDisable(false);
                         btn_en_cours.setDisable(false);
@@ -1223,6 +1226,10 @@ public class FXMLPrincipaleController implements Initializable {
         spinnerVa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+    }
+
+    public String getId_connexion() {
+        return id_connexion;
     }
 
 }

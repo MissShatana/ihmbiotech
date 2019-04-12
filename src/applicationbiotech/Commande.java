@@ -32,8 +32,6 @@ public class Commande {
      * @param f
      * @param bouttonAss
      * @param bouttonInfo
-     * @param d_f la durée et la fréquence
-     * @param boutton boutton pour prendre la commande
      * @param reactif
      * @param ligne_commande
      * @param type_plaque
@@ -64,6 +62,10 @@ public class Commande {
                         co.setBouttonAss(new Button ("scan plaque"));
                         con.getData_commande_att().remove(co);
                         con.addData_commande_en_cours(co);
+                        for (Solutions sol: ligne_commande){
+                            String sq1 = "update table ligne_commande set id_laborantin="++"";
+                        }
+                        
                         break;
                     }
                 }
@@ -75,7 +77,6 @@ public class Commande {
             if (buttonText == "Infos") { // infos             
                 for (Commande co: con.getData_commande_att()){
                     if (co.getBouttonInfo()==btn_clicked){
-                        System.out.println("ligne_co taille");
                         con.setValInfAB(co.getAb());
                         con.setValInfNBSlot(co.getNb_slot());
                         con.setValInfR(co.getReactif());
@@ -84,9 +85,7 @@ public class Commande {
                         if (ligne_commande.isEmpty()){
                             System.out.println("aaaa");
                         }else{
-
                                 con.setDataInfo(ligne_commande);
-
                         }
                         break;
                     }
