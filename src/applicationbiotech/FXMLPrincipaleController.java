@@ -841,7 +841,7 @@ public class FXMLPrincipaleController implements Initializable {
                                         ResultSet iDCell = stmt4.executeQuery(requete3);
                                 if (iDCell.next() & maxIDCommande.next()){
                                     
-                                    String requete4 = "INSERT INTO Ligne_commande values(1,"+iDCell.getString(1)+",null,null,null,"+maxIDCommande.getString(1)+","+spinnerQsol.getValue()+","+spinnerAB.getValue()+",'créée',null,null)";
+                                    String requete4 = "INSERT INTO Ligne_commande values(1,"+iDCell.getString(1)+",null,null,null,"+maxIDCommande.getString(1)+","+String.valueOf(spinnerQsol.getValue())+","+String.valueOf(spinnerAB.getValue())+",'créée',null,null)";
                                     Statement stmt5 = main.getCon().createStatement();
                                     ResultSet insertLC = stmt4.executeQuery(requete4);
                                     requete3 = "select max(id_ligne_commande) from ligne_commande";
