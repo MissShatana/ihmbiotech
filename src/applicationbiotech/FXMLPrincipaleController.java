@@ -160,7 +160,9 @@ public class FXMLPrincipaleController implements Initializable {
     @FXML 
     private ComboBox comboAgent;
     @FXML 
-    private ComboBox comboReact;
+    private ComboBox comboReactC;
+    @FXML 
+    private ComboBox comboReactO;
     
     @FXML 
     private ComboBox Comboexp;
@@ -182,7 +184,8 @@ public class FXMLPrincipaleController implements Initializable {
        
     @FXML
     private Label a3RougeLabel;
-     
+    @FXML
+    private Label reactField;
     
     @FXML
     private Label typePlaqueLabel;
@@ -324,7 +327,8 @@ public class FXMLPrincipaleController implements Initializable {
         //nettoyage des données
        comboAgent.getSelectionModel().clearSelection();
        Comboexp.getSelectionModel().clearSelection();
-       comboReact.getSelectionModel().clearSelection();
+       comboReactO.getSelectionModel().clearSelection();
+       comboReactC.getSelectionModel().clearSelection();
        radio384.setSelected(false);
        radio384.setSelected(false);
        radio96.setSelected(false);
@@ -351,9 +355,28 @@ public class FXMLPrincipaleController implements Initializable {
      */
     public void handleButtonAnnuler (ActionEvent e){
        allNotVisible();
+        agentLabel.setTextFill(Color.web("black"));
+        reactField.setTextFill(Color.web("black"));
+        typeExpLabel.setTextFill(Color.web("black"));
+        slotLabel.setTextFill(Color.web("black"));
+        typePlaqueLabel.setTextFill(Color.web("black"));
+        suiviLabel.setTextFill(Color.web("black"));
+        a3RougeLabel.setTextFill(Color.web("black"));
+        a2RougeLabel.setTextFill(Color.web("black"));
+        a1RougeLabel.setTextFill(Color.web("black"));
+        a2VertLabel.setTextFill(Color.web("black"));
+        a1VertLabel.setTextFill(Color.web("black"));
+        a1TransparenceLabel.setTextFill(Color.web("black"));
+        a2TransparenceLabel.setTextFill(Color.web("black"));
+        a2BleuLabel.setTextFill(Color.web("black"));
+        a1BleuLabel.setTextFill(Color.web("black"));
+        dureeLabel.setTextFill(Color.web("black"));
+        Label_error.setVisible(false);
        paneSolutionsCommande.setVisible(false);
        PaneCommande.setVisible(false);
        paneLabel.setVisible(false);
+       comboReactC.setDisable(true);
+       comboReactO.setDisable(true);
        initializeCommande();
        //réglage du menu
        falseDisable();  
@@ -423,14 +446,22 @@ public class FXMLPrincipaleController implements Initializable {
 
         comboAgent.setItems(list);
         rs.close();
-        list = FXCollections.observableArrayList();
+        ObservableList <String> listC = FXCollections.observableArrayList();
+        ObservableList <String> listO = FXCollections.observableArrayList();
         requete = "select id_reactif , nom_reactif, type_reactif from reactif ";
         rs = st.executeQuery(requete);
-        while (rs.next()){ 
-            list.add(rs.getString("id_reactif")+"-"+rs.getString("type_reactif")+"-"+rs.getString("nom_reactif"));
+        while (rs.next()){
+            System.out.println(rs.getString("type_reactif"));
+            if ("colorimetrique".equals(rs.getString("type_reactif"))){
+                listC.add(rs.getString("id_reactif")+"-"+rs.getString("nom_reactif"));
+            }
+            else{
+                listO.add(rs.getString("id_reactif")+"-"+rs.getString("nom_reactif"));
+            }
         }
 
-        comboReact.setItems(list);
+        comboReactO.setItems(listO);
+        comboReactC.setItems(listC);
         clearInfoSolAttente();
         clearInfoSolCours();
         }
@@ -524,17 +555,18 @@ public class FXMLPrincipaleController implements Initializable {
                             st5 = main.getCon().createStatement();
                             rs2=st5.executeQuery(sq1);
                             data_table_sol=FXCollections.observableArrayList();
-//                            while(rs2.next()){
-////
-//                                ObservableList<String> listPos =FXCollections.observableArrayList();
-////                                sq1="Select * from slot where id_ligne_commande='"+rs2.getString("id_ligne_commande")+"'";
-////                                st5 = main.getCon().createStatement();
-////                                ResultSet rs4=st5.executeQuery(sq1);
-////                                while(rs4.next()){
-////                                    listPos.add(rs4.getString("id_slot")+" x: "+rs4.getString("posX")+" y: "+rs4.getString("posY"));
-////                                }
-//                                data_table_sol.add(new Solutions(rs2.getInt("id_ligne_commande"),rs2.getString("quantite_agent_biologique"),rs2.getString("quantite_cellules"),rs2.getString("type_cellule"),new Button("Voir"),FXCollections.observableArrayList(listPos),this));
-//                            }
+                            while(rs2.next()){
+
+                                ObservableList<String> listPos =FXCollections.observableArrayList();
+                                sq1="Select * from slot where id_ligne_commande='"+rs2.getString("id_ligne_commande")+"'";
+                                st5 = main.getCon().createStatement();
+                                ResultSet rs4=st5.executeQuery(sq1);
+                                while(rs4.next()){
+                                    listPos.add(rs4.getString("id_slot")+" x: "+rs4.getString("posX")+" y: "+rs4.getString("posY"));
+                                }
+                                rs4.close();
+                                data_table_sol.add(new Solutions(rs2.getInt("id_ligne_commande"),rs2.getString("quantite_agent_biologique"),rs2.getString("quantite_cellules"),rs2.getString("type_cellule"),new Button("Voir"),FXCollections.observableArrayList(listPos),this));
+                            }
                             data_commande_att.add(new Commande(rs3.getString("id_commande"), rs3.getString("nom_agent"), rs3.getString("date_co"), rs3.getString("type_experience"), rs3.getString("nombre_slots"),rs3.getString("duree"),rs3.getString("frequence"),new Button("Modifier"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), rs3.getString("type_de_plaque"),rs3.getString("nom_reactif"), this ));
                         }
                         data_table_sol=FXCollections.observableArrayList();
@@ -626,6 +658,9 @@ public class FXMLPrincipaleController implements Initializable {
         initializeCommande();
         falseDisable();
         
+       comboReactC.setDisable(true);
+       comboReactO.setDisable(true);
+        
         }
        
     public void handleButtonDecoNon (ActionEvent e){
@@ -653,12 +688,13 @@ public class FXMLPrincipaleController implements Initializable {
      * @param e 
      */
     public void handleButtonValider (ActionEvent e){
-        if ((comboAgent.getValue() != null) && (spinnerSlot.getValue() != 0 )&&(Comboexp.getValue() != null) | (radio384.isSelected() == true ) | (radio96.isSelected() == true ) && (spinnerRa1.getValue() !=0) && (spinnerRa1.getValue() != 0) && (spinnerBa1.getValue() != 0 ) && (spinnerBa2.getValue() != 0) && (spinnerVa1.getValue() != 0 ) && (spinnerVa2.getValue() != 0) && (spinnerTa1.getValue() != 0) && (spinnerTa2.getValue() != 0 ) && (spinnerDuree.getValue() != 0) && (spinnerSlot.getValue() != 0) &&((radioOui.isSelected() == true && spinnerRa3.getValue() != 0 && spinnerFreq.getValue() != 0 )|(radioNon.isSelected() == true)) ) {           
+        if ((comboAgent.getValue() != null) && (spinnerSlot.getValue() != 0 )&&(Comboexp.getValue() != null) | (radio384.isSelected() == true ) | (radio96.isSelected() == true ) && (spinnerRa1.getValue() !=0) && (spinnerRa2.getValue() != 0) && (spinnerBa1.getValue() != 0 ) && (spinnerBa2.getValue() != 0) && (spinnerVa1.getValue() != 0 ) && (spinnerVa2.getValue() != 0) && (spinnerTa1.getValue() != 0) && (spinnerTa2.getValue() != 0 ) && (spinnerDuree.getValue() != 0) && (spinnerSlot.getValue() != 0) &&((radioOui.isSelected() == true && spinnerRa3.getValue() != 0 && spinnerFreq.getValue() != 0 )|(radioNon.isSelected() == true)) ) {           
             paneSolutionsCommande.setVisible(true);
             PaneCommande.setVisible(false);
             paneLabelSol.setVisible(true);
             paneLabel.setVisible(false);
             agentLabel.setTextFill(Color.web("black"));
+            reactField.setTextFill(Color.web("black"));
             typeExpLabel.setTextFill(Color.web("black"));
             slotLabel.setTextFill(Color.web("black"));
             typePlaqueLabel.setTextFill(Color.web("black"));
@@ -676,6 +712,7 @@ public class FXMLPrincipaleController implements Initializable {
             Label_error.setVisible(false);
         }
         else{
+            reactField.setTextFill(Color.web("black"));
             agentLabel.setTextFill(Color.web("black"));
             typeExpLabel.setTextFill(Color.web("black"));
             slotLabel.setTextFill(Color.web("black"));
@@ -699,6 +736,15 @@ public class FXMLPrincipaleController implements Initializable {
              }
              if (Comboexp.getValue() == null ){
                     typeExpLabel.setTextFill(Color.web("red")); 
+                    reactField.setTextFill(Color.web("red"));
+             } else{
+                 if (Comboexp.getValue()=="opacimetrique" & comboReactO.getValue() == null){
+                         reactField.setTextFill(Color.web("red"));
+                     }
+                 else if (Comboexp.getValue()=="colorimetrique" & comboReactC.getValue() == null){
+                         reactField.setTextFill(Color.web("red"));
+                }
+                 
              }
              if (spinnerSlot.getValue()== 0){
                    slotLabel.setTextFill(Color.web("red")); 
@@ -749,6 +795,19 @@ public class FXMLPrincipaleController implements Initializable {
              }
         }
     }
+    
+    public void handleComboExp (ActionEvent e){
+        comboReactC.setDisable(false);
+        comboReactO.setDisable(false);
+        if (Comboexp.getValue()=="opacimetrique"){
+            comboReactO.setVisible(true);
+            comboReactC.setVisible(false);
+        }
+        else if (Comboexp.getValue()=="colorimetrique"){
+            comboReactC.setVisible(true);
+            comboReactO.setVisible(false);
+        }
+    }
              
     //La commande : Pour la solution 
     /**
@@ -782,55 +841,70 @@ public class FXMLPrincipaleController implements Initializable {
             
             if (radio384.isSelected()) {
                 plaque="384";
-                if (radioNon.isSelected()){
-                     suivi =1; 
-                }else{
-                    suivi =0;
-                    frequence = String.valueOf(spinnerFreq.getValue());
-                    a3 = String.valueOf(spinnerRa3.getValue());             
-                }
-            }
-            if (radio96.isSelected()) {  
+
+            }else if (radio96.isSelected()) {  
                 plaque="96";
              }
-                Pattern p = Pattern.compile("-");
-                String[] items = p.split(String.valueOf(comboAgent.getValue()));           
-                String id_agent1 = items[0];
-                System.out.println(id_agent1);
-                
-                Pattern p1 = Pattern.compile("-");
-                String[] items1 = p1.split(String.valueOf(comboReact.getValue()));           
-                String id_react1 = items1[0];
-                String requete1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
-                Statement stmt1 = main.getCon().createStatement();
-                ResultSet personnel = stmt1.executeQuery(requete1);                          
-                if (!personnel.next()){
-                    System.out.println("pas id_personnel");
-                    
-                }else{System.out.println("bouh2");
-                      System.out.println(personnel.getString(1));
-                    String requete2 = "select id_chercheur from chercheur where id_personnel ='"+personnel.getString(1)+"'";
-                    Statement stmt2 = main.getCon().createStatement();
-                    ResultSet chercheur = stmt2.executeQuery(requete2);
-                    
-                    if (!chercheur.next()){
-                        System.out.println("pas id_chercheur");
-  
-                    }else {System.out.println("bouh1");
-                           System.out.println(chercheur.getString(1));
-                        try{
-                            String requete3 = "INSERT INTO Commande VALUES (1,"+id_agent1+","+personnel.getString(1)+","+chercheur.getString(1)+","+id_react1+","+suivi+","+null+","+spinnerSlot.getValue()+","+spinnerDuree.getValue()+","+frequence+",'"+Comboexp.getValue()+"',"+plaque+","+a3+","+spinnerVa2.getValue()+","+spinnerVa1.getValue()+","+spinnerBa2.getValue()+","+spinnerBa1.getValue()+","+spinnerTa1.getValue()+","+spinnerTa2.getValue()+","+spinnerRa1.getValue()+","+spinnerRa2.getValue()+")";                     
-                            System.out.println("bouh");
-                            Statement stmt3 = main.getCon().createStatement();
-                            ResultSet resultat2 = stmt3.executeQuery(requete3);
+            if (radioNon.isSelected()){
+                suivi =1; 
+            }else{
+                suivi =0;
+                frequence = String.valueOf(spinnerFreq.getValue());
+                a3 = String.valueOf(spinnerRa3.getValue());             
+            }
+            
+            Pattern p = Pattern.compile("-");
+            String[] items = p.split(String.valueOf(comboAgent.getValue()));           
+            String id_agent1 = items[0];
+            String id_react1="erreur";
+            if (Comboexp.getValue()=="colorimetrique"){
+                String[] items1 = p.split(String.valueOf(comboReactC.getValue()));           
+                id_react1 = items1[0];
+            }
+            else if (Comboexp.getValue()=="opacimetrique"){
+                String[] items1 = p.split(String.valueOf(comboReactO.getValue()));           
+                id_react1 = items1[0];
+            }
+
+            String requete1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
+            Statement stmt1 = main.getCon().createStatement();
+            ResultSet personnel = stmt1.executeQuery(requete1);                          
+            if (!personnel.next()){
+                System.out.println("pas id_personnel");
+
+            }else{System.out.println("bouh2");
+                  System.out.println(personnel.getString(1));
+                String requete2 = "select id_chercheur from chercheur where id_personnel ='"+personnel.getString(1)+"'";
+                Statement stmt2 = main.getCon().createStatement();
+                ResultSet chercheur = stmt2.executeQuery(requete2);
+
+                if (!chercheur.next()){
+                    System.out.println("pas id_chercheur");
+
+                }else {System.out.println("bouh1");
+                       System.out.println(chercheur.getString(1));
+                    try{
+                        String requete3 = "INSERT INTO Commande VALUES (1,"+id_agent1+","+personnel.getString(1)+","+chercheur.getString(1)+","+id_react1+","+suivi+","+null+","+spinnerSlot.getValue()+","+spinnerDuree.getValue()+","+frequence+",'"+Comboexp.getValue()+"',"+plaque+","+a3+","+spinnerVa2.getValue()+","+spinnerVa1.getValue()+","+spinnerBa2.getValue()+","+spinnerBa1.getValue()+","+spinnerTa1.getValue()+","+spinnerTa2.getValue()+","+spinnerRa1.getValue()+","+spinnerRa2.getValue()+")";                     
+                        System.out.println("bouh");
+                        Statement stmt3 = main.getCon().createStatement();
+                        ResultSet resultat2 = stmt3.executeQuery(requete3);
+                        requete3 = "select max(id_commande) from Commande";
+                        stmt3 = main.getCon().createStatement();
+                        ResultSet maxIDCommande1 = stmt3.executeQuery(requete3);
+                        if (maxIDCommande1.next()){
+                           data_commande_att.add(new Commande(maxIDCommande1.getString(1), String.valueOf(comboAgent.getValue()), String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), plaque,id_react1, this ));
+
+                        }
+
+
+                        for (Solutions sol: dataSol){
                             requete3 = "select max(id_commande) from Commande";
                             stmt3 = main.getCon().createStatement();
-                            ResultSet maxIDCommande1 = stmt3.executeQuery(requete3);
-                            if (maxIDCommande1.next()){
-                               data_commande_att.add(new Commande(maxIDCommande1.getString(1), String.valueOf(comboAgent.getValue()), String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), plaque,String.valueOf(comboReact.getValue()), this ));
-            
-                            }
-                            
+                            ResultSet maxIDCommande = stmt3.executeQuery(requete3);
+                                requete3 = "select max(id_cellule) from cellule where type_cellule='"+sol.getTy_cell()+"'";
+                                Statement stmt4 = main.getCon().createStatement();
+                                ResultSet iDCell = stmt4.executeQuery(requete3);
+                            if (iDCell.next() & maxIDCommande.next()){
 
                                 for (Solutions sol: dataSol){
                                     requete3 = "select max(id_commande) from Commande";
@@ -855,6 +929,17 @@ public class FXMLPrincipaleController implements Initializable {
                                             insertSlot.close();
                                         }
                                     
+                                String requete4 = "INSERT INTO Ligne_commande values(1,"+iDCell.getString(1)+",null,null,null,"+maxIDCommande.getString(1)+","+sol.getQt_ab()+","+sol.getQt_ab()+",'créée',null,null)";
+                                Statement stmt5 = main.getCon().createStatement();
+                                ResultSet insertLC = stmt4.executeQuery(requete4);
+                                requete3 = "select max(id_ligne_commande) from ligne_commande";
+                                Statement stmt6 = main.getCon().createStatement();
+                                ResultSet maxIDLC = stmt3.executeQuery(requete3);
+                                if (maxIDLC.next()){
+                                    for(int i = 0; i < spinnerSlot.getValue(); i++){
+                                        String requete5 = "insert into slot values (1,2,3,"+maxIDLC.getString(1)+",null)";
+                                        stmt3 = main.getCon().createStatement();
+                                        ResultSet insertSlot = stmt3.executeQuery(requete5);
                                     }
                                    insertLC.close();
                                    maxIDLC.close();
@@ -873,18 +958,24 @@ public class FXMLPrincipaleController implements Initializable {
                         }
                         
 
-            
+                            }
+                        }
+                    }catch(SQLException o){
+                        System.out.println(o.getMessage());
+                    }
                 }
             }
             allNotVisible();   
             initializeCommande();
             data_table_sol.removeAll(tab_Solutions.getItems());
             commande.setDisable(false);
-            btn_attente.setDisable(false);   
+            btn_attente.setDisable(false);
+            btn_en_cours.setDisable(false);
             paneTableAttente.setVisible(true);
+            paneLabelAttente.setVisible(true);
             dataSol.clear();
-            
-             
+            comboReactC.setDisable(true);
+            comboReactO.setDisable(true);
         }
         
     }
@@ -1369,6 +1460,9 @@ public class FXMLPrincipaleController implements Initializable {
         buttonDeco.setDisable(true);
         btn_a_renouv.setDisable(true);
         btn_valide.setDisable(true);
+        comboReactC.setDisable(true);
+        comboReactC.setVisible(true);
+        comboReactO.setVisible(false);
     }
     
     

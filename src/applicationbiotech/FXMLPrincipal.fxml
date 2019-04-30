@@ -44,7 +44,7 @@
             <ComboBox fx:id="comboAgent" layoutX="172.0" layoutY="10.0" prefHeight="25.0" prefWidth="161.0" />
             <Label fx:id="typePlaqueLabel" layoutX="51.0" layoutY="125.0" prefHeight="17.0" prefWidth="110.0" text="Type de plaque*" />
             <Label fx:id="typeExpLabel" layoutX="52.0" layoutY="66.0" prefHeight="17.0" prefWidth="110.0" text="Type d'expérience*" />
-            <ComboBox fx:id="Comboexp" layoutX="172.0" layoutY="63.0" prefHeight="25.0" prefWidth="161.0" />
+            <ComboBox fx:id="Comboexp" layoutX="172.0" layoutY="63.0" prefHeight="25.0" prefWidth="161.0" onAction="#handleComboExp" />
             <Label fx:id="slotLabel" layoutX="379.0" layoutY="117.0" prefHeight="17.0" prefWidth="110.0" text="Nombre de slots*" />
             
                         <Label fx:id="suiviLabel" layoutX="51.0" layoutY="213.0" prefHeight="17.0" prefWidth="121.0" text="Suivi dans le temps ?*" />
@@ -100,7 +100,8 @@
             <Spinner fx:id="spinnerTa1" layoutX="646.0" layoutY="314.0" prefHeight="25.0" prefWidth="61.0" />
             <Spinner fx:id="spinnerTa2" layoutX="646.0" layoutY="350.0" prefHeight="25.0" prefWidth="61.0" />
             <Label fx:id="reactField" layoutX="374.0" layoutY="65.0" prefHeight="17.0" prefWidth="51.0" text="Réactif*" />
-            <ComboBox fx:id="comboReact" layoutX="433.0" layoutY="61.0" prefHeight="25.0" prefWidth="161.0" />
+            <ComboBox fx:id="comboReactC" layoutX="433.0" layoutY="61.0" prefHeight="25.0" prefWidth="161.0" />
+            <ComboBox fx:id="comboReactO" layoutX="433.0" layoutY="61.0" prefHeight="25.0" prefWidth="161.0" />
          </children>
       </Pane>
       <VBox fx:id="vBoxMenu" layoutY="34.0" prefHeight="506.0" prefWidth="140.0" style="-fx-background-color: #1DA5B6;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="35.0">
@@ -151,7 +152,7 @@
                   <TableColumn fx:id="col_att_d" prefWidth="64.0" text="Durée" />
                   <TableColumn fx:id="col_att_f" prefWidth="91.0" text="Fréquence" />
                   <TableColumn fx:id="col_att_info" prefWidth="112.0" text="Détails" />
-                  <TableColumn fx:id="col_att_assignation" prefWidth="138.0" text="Assignation" />
+                  <TableColumn fx:id="col_att_assignation" prefWidth="138.0" text="Action" />
               </columns>
             </TableView>
             <VBox layoutX="35.0" layoutY="278.0" prefHeight="178.0" prefWidth="134.0">
