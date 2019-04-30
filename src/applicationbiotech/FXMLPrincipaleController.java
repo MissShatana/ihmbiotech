@@ -819,7 +819,7 @@ public class FXMLPrincipaleController implements Initializable {
                     }else {System.out.println("bouh1");
                            System.out.println(chercheur.getString(1));
                         try{
-                            String requete3 = "INSERT INTO Commande VALUES (1,"+id_agent1+","+personnel.getString(1)+","+chercheur.getString(1)+","+id_react1+","+1+","+null+","+spinnerSlot.getValue()+","+spinnerDuree.getValue()+","+null+",'"+Comboexp.getValue()+"',384,"+null+","+spinnerVa2.getValue()+","+spinnerVa1.getValue()+","+spinnerBa2.getValue()+","+spinnerBa1.getValue()+","+spinnerTa1.getValue()+","+spinnerTa2.getValue()+","+spinnerRa1.getValue()+","+spinnerRa2.getValue()+")";                     
+                            String requete3 = "INSERT INTO Commande VALUES (1,"+id_agent1+","+personnel.getString(1)+","+chercheur.getString(1)+","+id_react1+","+suivi+","+null+","+spinnerSlot.getValue()+","+spinnerDuree.getValue()+","+frequence+",'"+Comboexp.getValue()+"',"+plaque+","+a3+","+spinnerVa2.getValue()+","+spinnerVa1.getValue()+","+spinnerBa2.getValue()+","+spinnerBa1.getValue()+","+spinnerTa1.getValue()+","+spinnerTa2.getValue()+","+spinnerRa1.getValue()+","+spinnerRa2.getValue()+")";                     
                             System.out.println("bouh");
                             Statement stmt3 = main.getCon().createStatement();
                             ResultSet resultat2 = stmt3.executeQuery(requete3);
@@ -868,12 +868,12 @@ public class FXMLPrincipaleController implements Initializable {
             
                 }
             }
-
-            paneSolutionsCommande.setVisible(false);
+            allNotVisible();   
             initializeCommande();
             data_table_sol.removeAll(tab_Solutions.getItems());
             commande.setDisable(false);
             btn_attente.setDisable(false);   
+            paneTableAttente.setVisible(true);
             dataSol.clear();
         }
         
@@ -1026,6 +1026,7 @@ public class FXMLPrincipaleController implements Initializable {
         setValInfoPlaque("");
         setValInfoNBSol("");
         dataInfoSol.clear();
+        
     }
 
     
@@ -1311,6 +1312,7 @@ public class FXMLPrincipaleController implements Initializable {
         setValInfoPlaque1("");
         setValInfoNBSol1("");
         dataInfoSolc.clear();
+        data.clear();
     }
     
     
