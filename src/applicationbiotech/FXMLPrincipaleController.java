@@ -852,18 +852,26 @@ public class FXMLPrincipaleController implements Initializable {
                                             String requete5 = "insert into slot values (1,2,3,"+maxIDLC.getString(1)+",null)";
                                             stmt3 = main.getCon().createStatement();
                                             ResultSet insertSlot = stmt3.executeQuery(requete5);
+                                            insertSlot.close();
                                         }
                                     
                                     }
-
+                                   insertLC.close();
+                                   maxIDLC.close();
                                 }
+                                iDCell.close();
+                                maxIDCommande.close();
+                                
                                 }
+                               
                             
                             
-                            
+                        resultat2.close();
+                        
                         }catch(SQLException o){
                             System.out.println(o.getMessage());
                         }
+                        
 
             
                 }
@@ -875,6 +883,8 @@ public class FXMLPrincipaleController implements Initializable {
             btn_attente.setDisable(false);   
             paneTableAttente.setVisible(true);
             dataSol.clear();
+            
+             
         }
         
     }

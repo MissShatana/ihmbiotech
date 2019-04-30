@@ -238,45 +238,6 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="paneConnexion" layoutX="140.0" layoutY="35.0" prefHeight="525.0" prefWidth="772.0" visible="false">
-         <children>
-            <Pane layoutX="118.0" layoutY="28.0" prefHeight="470.0" prefWidth="503.0" style="-fx-background-color: #81DAF5;">
-               <children>
-                  <TextField fx:id="identifiantText" layoutX="90.0" layoutY="186.0" prefHeight="35.0" prefWidth="344.0" />
-                  <TextField fx:id="mdpText" layoutX="90.0" layoutY="287.0" prefHeight="35.0" prefWidth="344.0" />
-                  <Label layoutX="107.0" layoutY="143.0" prefHeight="25.0" prefWidth="186.0" text="Identifiant">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="107.0" layoutY="256.0" prefHeight="17.0" prefWidth="134.0" text="Mot de passe">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="206.0" layoutY="61.0" prefHeight="35.0" prefWidth="91.0" text="Connexion">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="buttonConnexion" layoutX="331.0" layoutY="388.0" mnemonicParsing="false" onAction="#handleButtonConnexion" prefHeight="42.0" prefWidth="140.0" style="-fx-background-color: #81B781;" text="Connexion" />
-                  <Hyperlink fx:id="mdpLink" layoutX="43.0" layoutY="419.0" prefHeight="23.0" prefWidth="219.0" text="Mot de passe oublé ?" textFill="#0a06f5" underline="true" />
-                  <Label fx:id="labelErrorConnexion" layoutX="29.0" layoutY="343.0" prefHeight="25.0" prefWidth="249.0" text="Merci de rentrer les bons identifiants" textFill="#f21212" />
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-      <Pane fx:id="paneVerif" layoutX="292.0" layoutY="213.0" prefHeight="190.0" prefWidth="466.0" style="-fx-background-color: #b3ecff;" visible="false">
-         <children>
-            <Label layoutX="109.0" layoutY="23.0" prefHeight="25.0" prefWidth="287.0" text="Etes-vous sûr de vouloir vous deconnecter ?" textAlignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Button fx:id="decoOui" layoutX="109.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleButtonDecoOui" prefHeight="25.0" prefWidth="70.0" text="Oui" />
-            <Button fx:id="decoNon" layoutX="311.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleButtonDecoNon" prefHeight="25.0" prefWidth="61.0" text="Non" />
-         </children>
-      </Pane>
       <Pane fx:id="paneTableEnCours" layoutX="140.0" layoutY="66.0" prefHeight="504.0" prefWidth="792.0">
          <children>
             <TableView fx:id="tab_en_cours" layoutX="50.0" layoutY="12.0" prefHeight="200.0" prefWidth="695.0">
@@ -323,6 +284,45 @@
             </TableView>
             <ListView fx:id="listpos" layoutX="545.0" layoutY="278.0" prefHeight="211.0" prefWidth="200.0" />
             <Label layoutX="617.0" layoutY="256.0" prefHeight="17.0" prefWidth="61.0" text="Positions" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneConnexion" layoutX="140.0" layoutY="35.0" prefHeight="525.0" prefWidth="772.0" visible="false">
+         <children>
+            <Pane layoutX="118.0" layoutY="28.0" prefHeight="470.0" prefWidth="503.0" style="-fx-background-color: #81DAF5;">
+               <children>
+                  <TextField fx:id="identifiantText" layoutX="90.0" layoutY="186.0" prefHeight="35.0" prefWidth="344.0" />
+                  <TextField fx:id="mdpText" layoutX="90.0" layoutY="287.0" prefHeight="35.0" prefWidth="344.0" />
+                  <Label layoutX="107.0" layoutY="143.0" prefHeight="25.0" prefWidth="186.0" text="Identifiant">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="107.0" layoutY="256.0" prefHeight="17.0" prefWidth="134.0" text="Mot de passe">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="206.0" layoutY="61.0" prefHeight="35.0" prefWidth="91.0" text="Connexion">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="buttonConnexion" layoutX="331.0" layoutY="388.0" mnemonicParsing="false" onAction="#handleButtonConnexion" prefHeight="42.0" prefWidth="140.0" style="-fx-background-color: #81B781;" text="Connexion" />
+                  <Hyperlink fx:id="mdpLink" layoutX="43.0" layoutY="419.0" prefHeight="23.0" prefWidth="219.0" text="Mot de passe oublé ?" textFill="#0a06f5" underline="true" />
+                  <Label fx:id="labelErrorConnexion" layoutX="29.0" layoutY="343.0" prefHeight="25.0" prefWidth="249.0" text="Merci de rentrer les bons identifiants" textFill="#f21212" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="paneVerif" layoutX="292.0" layoutY="213.0" prefHeight="190.0" prefWidth="466.0" style="-fx-background-color: #b3ecff;" visible="false">
+         <children>
+            <Label layoutX="109.0" layoutY="23.0" prefHeight="25.0" prefWidth="287.0" text="Etes-vous sûr de vouloir vous deconnecter ?" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="decoOui" layoutX="109.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleButtonDecoOui" prefHeight="25.0" prefWidth="70.0" text="Oui" />
+            <Button fx:id="decoNon" layoutX="311.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleButtonDecoNon" prefHeight="25.0" prefWidth="61.0" text="Non" />
          </children>
       </Pane>
    </children>
