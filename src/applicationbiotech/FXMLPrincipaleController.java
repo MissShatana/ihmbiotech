@@ -134,9 +134,6 @@ public class FXMLPrincipaleController implements Initializable {
     private Button btn_en_cours;
     
     @FXML
-    private Button btn_a_renouv;
-    
-    @FXML
     private Button btn_valide;
     
     @FXML
@@ -365,7 +362,6 @@ public class FXMLPrincipaleController implements Initializable {
         commande.setDisable(false);
         btn_attente.setDisable(false);
         btn_en_cours.setDisable(false);
-        btn_a_renouv.setDisable(false);
         //btn_valide.setDisable(false);
         
         paneTableARenouv.setDisable(false);
@@ -410,7 +406,6 @@ public class FXMLPrincipaleController implements Initializable {
         commande.setDisable(true);
         btn_attente.setDisable(true);
         btn_en_cours.setDisable(true);
-        btn_a_renouv.setDisable(true);
         paneLabel.setVisible(true);
         PaneCommande.setVisible(true);
 
@@ -434,11 +429,10 @@ public class FXMLPrincipaleController implements Initializable {
         }
 
         comboReact.setItems(list);
+        clearInfoSolAttente();
+        clearInfoSolCours();
         }
-    
-    
-    
-    
+
     public void handleMenuAttente(ActionEvent event) {
         allNotVisible();
         falseDisable();
@@ -447,6 +441,8 @@ public class FXMLPrincipaleController implements Initializable {
         }
         paneTableAttente.setVisible(true);
         paneLabelAttente.setVisible(true);
+        clearInfoSolAttente();
+        clearInfoSolCours();
     }
     
     public void handlebuttoneExp_en_cours (ActionEvent event){
@@ -455,7 +451,8 @@ public class FXMLPrincipaleController implements Initializable {
             if("chercheur".equals(labelPoste.getText())){
                 col_att_assignation1.setVisible(false);
         }
-        
+        clearInfoSolAttente();
+        clearInfoSolCours();  
     }
         
     
@@ -473,7 +470,7 @@ public class FXMLPrincipaleController implements Initializable {
         ResultSet resultat = stmt.executeQuery(sq1);
          
         if (!resultat.next()){
-            showAlert(Alert.AlertType.ERROR, "Erreur!", "Entrez un nom");
+            showAlert(Alert.AlertType.ERROR, "Erreur!", "Mauvais mot de passe et/ou identifiant");
             resultat.close();
         }else{
             sq1 = "select actif from personnel_labo where id_personnel='"+resultat.getString(1)+"'";
@@ -504,7 +501,6 @@ public class FXMLPrincipaleController implements Initializable {
                         commande.setDisable(false);
                         btn_attente.setDisable(false);
                         btn_en_cours.setDisable(false);
-                        btn_a_renouv.setDisable(false);
                         buttonDeco.setDisable(false);
                         labelPoste.setVisible(true);
                         labelPoste.setText("chercheur");
@@ -550,8 +546,7 @@ public class FXMLPrincipaleController implements Initializable {
                         id_connexion = rs2.getString("id_laborantin")+"-"+rs2.getString("id_personnel");
                         paneConnexion.setVisible(false);
                         btn_attente.setDisable(false);
-                        btn_en_cours.setDisable(false);
-                        btn_a_renouv.setDisable(false);                              
+                        btn_en_cours.setDisable(false);                             
                         labelPoste.setVisible(true);
                         labelPoste.setText("Laborantin");
                         buttonDeco.setDisable(false);
@@ -609,8 +604,9 @@ public class FXMLPrincipaleController implements Initializable {
         commande.setDisable(true);
         btn_attente.setDisable(true);
         btn_en_cours.setDisable(true);
-        btn_a_renouv.setDisable(true);
         paneSolutionsCommande.setDisable(true);
+        clearInfoSolAttente();
+        clearInfoSolCours();
        }
        
        public void handleButtonDecoOui (ActionEvent e){
@@ -618,7 +614,7 @@ public class FXMLPrincipaleController implements Initializable {
         paneConnexion.setVisible(true);
         vBoxMenu.setVisible(false);
         labelIdentite.setText("");
-        labelPoste.setVisible(false);
+        labelPoste.setText("");
         identifiantText.setText("");
         mdpText.setText("");
         buttonDeco.setDisable(true);
@@ -701,11 +697,7 @@ public class FXMLPrincipaleController implements Initializable {
              if (spinnerSlot.getValue()== 0){
                    slotLabel.setTextFill(Color.web("red")); 
              }
-             if (radio384.isSelected() == false  ){
-                    typePlaqueLabel.setTextFill(Color.web("red"));
-             }
-             
-             if (radio96.isSelected() == false  ){
+             if (radio384.isSelected() == false && radio96.isSelected()==false ){
                     typePlaqueLabel.setTextFill(Color.web("red"));
              }
                          
@@ -984,6 +976,15 @@ public class FXMLPrincipaleController implements Initializable {
     public void setValInfoPlaque(String ValInfoPlaque) {
         this.ValInfoPlaque.setText(ValInfoPlaque);
     }
+    
+    public void clearInfoSolAttente(){
+        setValInfAB("");
+        setValInfR("");
+        setValInfNBSlot("");
+        setValInfoPlaque("");
+        setValInfoNBSol("");
+        dataInfoSol.clear();
+    }
 
     
     //solution dans attente
@@ -1105,8 +1106,8 @@ public class FXMLPrincipaleController implements Initializable {
             ));
         }
         
-        spinnerAB.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-        spinnerQsol.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerAB.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10000,0));
+        spinnerQsol.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10000,0));
         Label_error_sol.setVisible(false);
     }
     
@@ -1261,6 +1262,15 @@ public class FXMLPrincipaleController implements Initializable {
         this.ValInfoNBSol1.setText(ValInfoNBSol1);
     }
     
+    public void clearInfoSolCours(){
+        setValInfAB1("");
+        setValInfR1("");
+        setValInfNBSlot1("");
+        setValInfoPlaque1("");
+        setValInfoNBSol1("");
+        dataInfoSolc.clear();
+    }
+    
     
     
     //les positions
@@ -1316,20 +1326,22 @@ public class FXMLPrincipaleController implements Initializable {
     
     
     public void initializeSpinner(){
-        spinnerAB.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-        spinnerQsol.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerAB.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10000,0));
+        spinnerAB.setEditable(true);
+        spinnerQsol.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10000,0));
+        spinnerQsol.setEditable(true);
         spinnerSlot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerFreq.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-        spinnerRa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-        spinnerRa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerRa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerRa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
         spinnerRa3.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1,0,0.1));
-        spinnerBa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-        spinnerBa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-        spinnerVa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-        spinnerVa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-        spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
-        spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerBa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerBa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerVa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerVa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
     }
 
     public String getId_connexion() {

@@ -213,7 +213,7 @@
             <Label layoutX="375.0" layoutY="319.0" prefHeight="17.0" prefWidth="121.0" text="Quantité cellule (µL)" />
          </children>
       </Pane>
-      <Pane fx:id="paneLabelCours" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="772.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <Pane fx:id="paneLabelCours" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="773.0" style="-fx-background-color: #C8DBDD;" visible="false" AnchorPane.leftAnchor="139.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <Label layoutX="315.0" layoutY="4.0" prefHeight="17.0" prefWidth="151.0" text="Expériences : en cours" />
          </children>
