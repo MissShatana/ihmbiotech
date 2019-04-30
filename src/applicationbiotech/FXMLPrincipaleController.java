@@ -905,17 +905,8 @@ public class FXMLPrincipaleController implements Initializable {
                                 Statement stmt4 = main.getCon().createStatement();
                                 ResultSet iDCell = stmt4.executeQuery(requete3);
                             if (iDCell.next() & maxIDCommande.next()){
-
-                                for (Solutions sol: dataSol){
-                                    requete3 = "select max(id_commande) from Commande";
-                                    stmt3 = main.getCon().createStatement();
-                                    ResultSet maxIDCommande = stmt3.executeQuery(requete3);
-                                        requete3 = "select max(id_cellule) from cellule where type_cellule='"+sol.getTy_cell()+"'";
-                                        Statement stmt4 = main.getCon().createStatement();
-                                        ResultSet iDCell = stmt4.executeQuery(requete3);
-                                if (iDCell.next() & maxIDCommande.next()){
                                     
-                                    String requete4 = "INSERT INTO Ligne_commande values(1,"+iDCell.getString(1)+",null,null,null,"+maxIDCommande.getString(1)+","+String.valueOf(spinnerQsol.getValue())+","+String.valueOf(spinnerAB.getValue())+",'créée',null,null)";
+                                    String requete4 = "INSERT INTO Ligne_commande values(1,"+iDCell.getString(1)+",null,null,null,"+maxIDCommande.getString(1)+","+sol.getQt_ab()+","+sol.getQt_cell()+",'créée',null,null)";
                                     Statement stmt5 = main.getCon().createStatement();
                                     ResultSet insertLC = stmt4.executeQuery(requete4);
                                     requete3 = "select max(id_ligne_commande) from ligne_commande";
@@ -928,18 +919,6 @@ public class FXMLPrincipaleController implements Initializable {
                                             ResultSet insertSlot = stmt3.executeQuery(requete5);
                                             insertSlot.close();
                                         }
-                                    
-                                String requete4 = "INSERT INTO Ligne_commande values(1,"+iDCell.getString(1)+",null,null,null,"+maxIDCommande.getString(1)+","+sol.getQt_ab()+","+sol.getQt_ab()+",'créée',null,null)";
-                                Statement stmt5 = main.getCon().createStatement();
-                                ResultSet insertLC = stmt4.executeQuery(requete4);
-                                requete3 = "select max(id_ligne_commande) from ligne_commande";
-                                Statement stmt6 = main.getCon().createStatement();
-                                ResultSet maxIDLC = stmt3.executeQuery(requete3);
-                                if (maxIDLC.next()){
-                                    for(int i = 0; i < spinnerSlot.getValue(); i++){
-                                        String requete5 = "insert into slot values (1,2,3,"+maxIDLC.getString(1)+",null)";
-                                        stmt3 = main.getCon().createStatement();
-                                        ResultSet insertSlot = stmt3.executeQuery(requete5);
                                     }
                                    insertLC.close();
                                    maxIDLC.close();
@@ -958,13 +937,9 @@ public class FXMLPrincipaleController implements Initializable {
                         }
                         
 
-                            }
-                        }
-                    }catch(SQLException o){
-                        System.out.println(o.getMessage());
                     }
                 }
-            }
+
             allNotVisible();   
             initializeCommande();
             data_table_sol.removeAll(tab_Solutions.getItems());
