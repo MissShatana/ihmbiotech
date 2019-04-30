@@ -533,7 +533,6 @@ public class FXMLPrincipaleController implements Initializable {
 ////                                }
 //                                data_table_sol.add(new Solutions(rs2.getInt("id_ligne_commande"),rs2.getString("quantite_agent_biologique"),rs2.getString("quantite_cellules"),rs2.getString("type_cellule"),new Button("Voir"),FXCollections.observableArrayList(listPos),this));
 //                            }
-                            System.out.println(rs3.getString("id_commande"));
                             data_commande_att.add(new Commande(rs3.getString("id_commande"), rs3.getString("nom_agent"), rs3.getString("date_co"), rs3.getString("type_experience"), rs3.getString("nombre_slots"),rs3.getString("duree"),rs3.getString("frequence"),new Button("Modifier"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), rs3.getString("type_de_plaque"),rs3.getString("nom_reactif"), this ));
                         }
                         data_table_sol=FXCollections.observableArrayList();
