@@ -522,8 +522,6 @@ public class FXMLPrincipaleController implements Initializable {
                             st5 = main.getCon().createStatement();
                             rs2=st5.executeQuery(sq1);
                             data_table_sol=FXCollections.observableArrayList();
-                            System.out.println("resultat rs2 ch");
-                            System.out.println(rs2.next());
 //                            while(rs2.next()){
 ////
 //                                ObservableList<String> listPos =FXCollections.observableArrayList();
@@ -535,6 +533,7 @@ public class FXMLPrincipaleController implements Initializable {
 ////                                }
 //                                data_table_sol.add(new Solutions(rs2.getInt("id_ligne_commande"),rs2.getString("quantite_agent_biologique"),rs2.getString("quantite_cellules"),rs2.getString("type_cellule"),new Button("Voir"),FXCollections.observableArrayList(listPos),this));
 //                            }
+                            System.out.println(rs3.getString("id_commande"));
                             data_commande_att.add(new Commande(rs3.getString("id_commande"), rs3.getString("nom_agent"), rs3.getString("date_co"), rs3.getString("type_experience"), rs3.getString("nombre_slots"),rs3.getString("duree"),rs3.getString("frequence"),new Button("Modifier"),new Button("Infos"), FXCollections.observableArrayList(data_table_sol), rs3.getString("type_de_plaque"),rs3.getString("nom_reactif"), this ));
                         }
                         data_table_sol=FXCollections.observableArrayList();
@@ -795,8 +794,6 @@ public class FXMLPrincipaleController implements Initializable {
                 Pattern p1 = Pattern.compile("-");
                 String[] items1 = p1.split(String.valueOf(comboReact.getValue()));           
                 String id_react1 = items1[0];
-                System.out.println(id_react1);
-                data_commande_att.add(new Commande(String.valueOf(1), String.valueOf(comboAgent.getValue()), String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), plaque,String.valueOf(comboReact.getValue()), this ));
                 String requete1 = "Select id_personnel from connexion where identifiant_co = '"+identifiantText.getText()+"'and mdp_co = '" + mdpText.getText()+"'" ;                     
                 Statement stmt1 = main.getCon().createStatement();
                 ResultSet personnel = stmt1.executeQuery(requete1);                          
@@ -819,6 +816,44 @@ public class FXMLPrincipaleController implements Initializable {
                             System.out.println("bouh");
                             Statement stmt3 = main.getCon().createStatement();
                             ResultSet resultat2 = stmt3.executeQuery(requete3);
+                            requete3 = "select max(id_commande) from Commande";
+                            stmt3 = main.getCon().createStatement();
+                            ResultSet maxIDCommande1 = stmt3.executeQuery(requete3);
+                            if (maxIDCommande1.next()){
+                               data_commande_att.add(new Commande(maxIDCommande1.getString(1), String.valueOf(comboAgent.getValue()), String.valueOf(LocalDate.now()), String.valueOf(Comboexp.getValue()), String.valueOf(spinnerSlot.getValue()),String.valueOf(spinnerDuree.getValue()),String.valueOf(spinnerFreq.getValue()),buttonModif,new Button("Infos"), FXCollections.observableArrayList(dataSol), plaque,String.valueOf(comboReact.getValue()), this ));
+            
+                            }
+                            
+
+                                for (Solutions sol: dataSol){
+                                    requete3 = "select max(id_commande) from Commande";
+                                    stmt3 = main.getCon().createStatement();
+                                    ResultSet maxIDCommande = stmt3.executeQuery(requete3);
+                                        requete3 = "select max(id_cellule) from cellule where type_cellule='"+sol.getTy_cell()+"'";
+                                        Statement stmt4 = main.getCon().createStatement();
+                                        ResultSet iDCell = stmt4.executeQuery(requete3);
+                                if (iDCell.next() & maxIDCommande.next()){
+                                    
+                                    String requete4 = "INSERT INTO Ligne_commande values(1,"+iDCell.getString(1)+",null,null,null,"+maxIDCommande.getString(1)+","+spinnerQsol.getValue()+","+spinnerAB.getValue()+",'créée',null,null)";
+                                    Statement stmt5 = main.getCon().createStatement();
+                                    ResultSet insertLC = stmt4.executeQuery(requete4);
+                                    requete3 = "select max(id_ligne_commande) from ligne_commande";
+                                    Statement stmt6 = main.getCon().createStatement();
+                                    ResultSet maxIDLC = stmt3.executeQuery(requete3);
+                                    if (maxIDLC.next()){
+                                        for(int i = 0; i < spinnerSlot.getValue(); i++){
+                                            String requete5 = "insert into slot values (1,2,3,"+maxIDLC.getString(1)+",null)";
+                                            stmt3 = main.getCon().createStatement();
+                                            ResultSet insertSlot = stmt3.executeQuery(requete5);
+                                        }
+                                    
+                                    }
+
+                                }
+                                }
+                            
+                            
+                            
                         }catch(SQLException o){
                             System.out.println(o.getMessage());
                         }
@@ -1096,12 +1131,12 @@ public class FXMLPrincipaleController implements Initializable {
             Label_error_vide.setVisible(false);
             dataSol.add(new Solutions(1,String.valueOf(spinnerAB.getValue()),
                 String.valueOf(spinnerQsol.getValue()),
-                "Normales",null,null,
+                "normal",new Button("Voir"),null,
                 this
             ));
             dataSol.add(new Solutions(1,String.valueOf(spinnerAB.getValue()),
                 (String.valueOf(spinnerQsol.getValue())),
-                "Cancéreuse",null,null,
+                "cancéreuse",new Button("Voir"),null,
                 this
             ));
         }
@@ -1331,17 +1366,29 @@ public class FXMLPrincipaleController implements Initializable {
         spinnerQsol.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10000,0));
         spinnerQsol.setEditable(true);
         spinnerSlot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerSlot.setEditable(false);
         spinnerFreq.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerFreq.setEditable(false);
         spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerDuree.setEditable(false);
         spinnerRa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerRa1.setEditable(false);
         spinnerRa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerRa2.setEditable(false);
         spinnerRa3.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1,0,0.1));
+        spinnerRa3.setEditable(false);
         spinnerBa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerBa1.setEditable(false);
         spinnerBa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerBa2.setEditable(false);
         spinnerVa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerVa1.setEditable(false);
         spinnerVa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerVa2.setEditable(false);
         spinnerTa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerTa1.setEditable(false);
         spinnerTa2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
+        spinnerTa2.setEditable(false);
     }
 
     public String getId_connexion() {
