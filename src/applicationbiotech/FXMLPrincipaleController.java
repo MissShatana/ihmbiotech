@@ -33,10 +33,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.DefaultStringConverter;
 import java.util.regex.*;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.util.Callback;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 
 /**
  * FXMLPrincipaleController  est la classe avec les différents écouteurs 
@@ -110,6 +109,12 @@ public class FXMLPrincipaleController implements Initializable {
     
     //Button
     @FXML
+    private Button btn_a_renouv;
+    
+    @FXML
+    private Button btn_valide;
+    
+    @FXML
     private Button btn_to_sol;
 
     @FXML
@@ -132,9 +137,6 @@ public class FXMLPrincipaleController implements Initializable {
     
     @FXML
     private Button btn_en_cours;
-    
-    @FXML
-    private Button btn_valide;
     
     @FXML
     private Button buttonDeco;
@@ -452,7 +454,8 @@ public class FXMLPrincipaleController implements Initializable {
                 col_att_assignation1.setVisible(false);
         }
         clearInfoSolAttente();
-        clearInfoSolCours();  
+        clearInfoSolCours();
+        paneLabelCours.setVisible(true);
     }
         
     
@@ -487,15 +490,14 @@ public class FXMLPrincipaleController implements Initializable {
                     vBoxMenu.setVisible(true);
                     rs2.close();
                     String requete3 = "SELECT id_chercheur, id_personnel from chercheur where id_personnel= '"+resultat.getString(1)+"'";
-                    String requete4 = "SELECT id_laborantin, id_personnel from laborantin where id_personnel= '"+resultat.getString(1)+"'";
-                    stmt = main.getCon().createStatement();
-                    rs2 = stmt.executeQuery(requete4);
-                                            
+                          
                     stmt = main.getCon().createStatement();
                     ResultSet rs3 = stmt.executeQuery(requete3);
 
+
                     //chercheur
                     if (rs3.next()){
+                        System.out.println("chercheur");
                         id_connexion = rs3.getString("id_chercheur")+"-"+rs3.getString("id_personnel");
                         paneConnexion.setVisible(false);
                         commande.setDisable(false);
@@ -503,7 +505,7 @@ public class FXMLPrincipaleController implements Initializable {
                         btn_en_cours.setDisable(false);
                         buttonDeco.setDisable(false);
                         labelPoste.setVisible(true);
-                        labelPoste.setText("chercheur");
+                        labelPoste.setText("Chercheur");
                         rs3.close();
                                 
                         sq1 = "SELECT nom,prenom from chercheur where id_personnel= '"+resultat.getString(1)+"'";
@@ -540,9 +542,12 @@ public class FXMLPrincipaleController implements Initializable {
                         data_table_sol=FXCollections.observableArrayList();
                     }
                                 
-                              
+                    String requete4 = "SELECT id_laborantin, id_personnel from laborantin where id_personnel= '"+resultat.getString(1)+"'";
+                    stmt = main.getCon().createStatement();
+                    rs2 = stmt.executeQuery(requete4);          
                      //Laborantin  
                     if (rs2.next()){
+                        System.out.println("laborantin");
                         id_connexion = rs2.getString("id_laborantin")+"-"+rs2.getString("id_personnel");
                         paneConnexion.setVisible(false);
                         btn_attente.setDisable(false);
@@ -632,10 +637,13 @@ public class FXMLPrincipaleController implements Initializable {
           
         //Réinitialisation des champs de la commande 
         initializeCommande();
-       
-
-       }
-       
+        if (labelPoste.getText() == "Chercheur") {
+            commande.setDisable(false);
+        }
+        else if (labelPoste.getText() == "Laborantin"){
+            commande.setDisable(true);
+        }
+    }
 
     
     //La commande :Les informations générales
@@ -1096,12 +1104,12 @@ public class FXMLPrincipaleController implements Initializable {
             Label_error_vide.setVisible(false);
             dataSol.add(new Solutions(1,String.valueOf(spinnerAB.getValue()),
                 String.valueOf(spinnerQsol.getValue()),
-                "Normales",null,null,
+                "Normales",new Button("Voir"),null,
                 this
             ));
             dataSol.add(new Solutions(1,String.valueOf(spinnerAB.getValue()),
                 (String.valueOf(spinnerQsol.getValue())),
-                "Cancéreuse",null,null,
+                "Cancéreuse",new Button("Voir"),null,
                 this
             ));
         }
@@ -1312,7 +1320,9 @@ public class FXMLPrincipaleController implements Initializable {
         Label_error.setTextFill(Color.web("red"));
         Comboexp.setItems(comboList);
         paneConnexion.setVisible(true);
-        buttonDeco.setDisable(true);  
+        buttonDeco.setDisable(true);
+        btn_a_renouv.setDisable(true);
+        btn_valide.setDisable(true);
     }
     
     
@@ -1331,6 +1341,7 @@ public class FXMLPrincipaleController implements Initializable {
         spinnerQsol.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10000,0));
         spinnerQsol.setEditable(true);
         spinnerSlot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
+        spinnerSlot.setEditable(false);
         spinnerFreq.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerDuree.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100,0));
         spinnerRa1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,255,0));
