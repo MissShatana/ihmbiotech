@@ -23,6 +23,10 @@ public class ApplicationBiotech extends Application {
     Connection connexion;
     Statement stm;
     
+    /**
+     * Classe qui crée la connection à la BDD
+     * @return la connexion
+     */
     public Connection connect_to_BDD(){
         String url = "jdbc:oracle:thin:@192.168.254.3:1521:PFPBS";
         String user = "GROUPE_24";
@@ -38,6 +42,11 @@ public class ApplicationBiotech extends Application {
         }
     }
     
+    /**
+     * Classe pour créer la scène
+     * @param stage
+     * @throws Exception 
+     */
     @Override
     public void start(Stage stage) throws Exception {
         connexion =connect_to_BDD();
@@ -82,6 +91,10 @@ public class ApplicationBiotech extends Application {
         launch(args);
     }
     
+    /**
+     * Classe pour récupérer la connection
+     * @return la connection
+     */
     public Connection getCon(){
         return connexion;
     }  

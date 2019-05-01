@@ -17,7 +17,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 /**
- *Classe qui stockent les différents paramétres (informations générales) de la commande
+ * Classe qui stockent les différents paramétres (informations générales) de la commande
+ * @author Natasha
  */
 public class Commande {
     String num, ab, type_exp, nb_slot, d,f, nb_sol, ty_pla, reactif, date;
@@ -28,7 +29,7 @@ public class Commande {
     FXMLPrincipaleController con;
     
     /**
-     * Constructeur avec
+     * Constructeur de la commande et controlleur des différents boutons
      * @param num le numéro de la commande
      * @param ab l'agent biologique utilisé
      * @param date
